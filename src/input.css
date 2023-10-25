@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+nav ul .active {
+    @apply text-secondary;
+}
+
+nav ul .active::after {
+    @apply inline-block;
+}
+
+#menu-nav ul .active {
+    @apply text-secondary;
+}
+
+#menu-nav ul .active::after {
+    @apply inline-block;
+}
