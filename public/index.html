@@ -4,27 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/style.css">
-    <title>Shoe Store</title>
+    <title>Shoe Store | Home</title>
 </head>
 <body class="overflow-x-hidden">
-    <div class="w-full shadow py-2 xs:py-3 sm:py-4">
+    <div class="fixed w-full border-b bg-white py-2 xs:py-3 sm:py-4 z-10">
         <nav class="container flex items-center justify-between">
-            <h2 class="hidden sm:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>
-            <ul class="basis-2/5 hidden sm:flex justify-evenly items-center text-base">
-                <li class="relative font-bold text-gray-500 active after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inlit-sectext-secondary hover:texet-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Home</a>
-                </li>
-                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Men</a>
-                </li>
-                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Women</a>
-                </li>
-                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Kids</a>
-                </li>
-            </ul>
-            <div class="flex items-center space-x-5 xs:space-x-7 sm:space-x-9">
+            <div class="hamburger-wrapper sm:hidden text-right">
+                <button id="hamburger-menu" class="relative inline-bolck  w-12 h-9 rounded-md p-2">
+                    <span class="inline-block absolute top-2 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                    <span class="inline-block absolute top-4 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                    <span class="inline-block absolute top-6 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                </button>
+            </div>
+
+            <div class="flex items-center space-x-5 xs:space-x-7">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
@@ -34,22 +27,37 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-110 transition-transform duration-150  stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-            </div>
-
-            <div class="hamburger-wrapper sm:hidden text-right">
-                <button id="hamburger-menu" class="relative inline-bolck  w-12 h-9 rounded-md p-2">
-                    <span class="inline-block absolute top-2 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
-                    <span class="inline-block absolute top-4 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
-                    <span class="inline-block absolute top-6 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                <button id="darkmode" class="hidden sm:inline-block rounded-full group">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer group-hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
                 </button>
-                    
             </div>
-                
+            
+            <ul class="basis-2/5 hidden sm:flex sm:basis-1/2 md:basis-2/5 justify-evenly items-center text-base">
+                <li class="relative font-bold text-gray-500 active after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inlit-block hover:text-secondary transition-colors duration-200 hover:texet-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                    <a href="#">Home</a>
+                </li>
+                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                    <a href="#">Men</a>
+                </li>
+                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                    <a href="#">Women</a>
+                </li>
+                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                    <a href="#">Kids</a>
+                </li>
+                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                    <a href="#">Collections</a>
+                </li>
+            </ul>
+            
+            <h2 class="hidden md:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>    
         </nav>
     </div>
 
-    <div class="sm:hidden bg-black/0 fixed top-0 right-0 botton-0 -z-0 w-full h-full transition-colors duration-500 invisible">
-        <section id="menu" class="ml-auto w-3/4 h-full bg-white p-4  transition-all duration-200 space-y-7 translate-x-full">
+    <div class="sm:hidden bg-black/0 fixed top-0 right-0 botton-0 z-0 w-full h-full transition-colors duration-500 invisible">
+        <section id="menu" class="w-3/4 h-full bg-white p-4  transition-all duration-200 space-y-7 -translate-x-full">
             <div class="w-full flex justify-between items-center">
                 <button id="closeModalBtn" class="p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary w-7 h-7">
@@ -67,25 +75,124 @@
             <h2 class="text-center w-full block font-bold text-2xl xs:text-3xl sm:text-4xl pt-7">Shoe<span class="text-primary">Trends</span></h2>
 
             <nav id="menu-nav" class="pt-9">
-                <ul class="space-y-7 flex flex-col items-end">
-                    <li class="active font-semibold w-fit text-gray-500 text-lg relative after:absolute after:left-0 after:-bottom-2 after:w-full after:h-[2px] after:bg-secondary after:hidden">
+                <ul class="space-y-7 flex flex-col items-start">
+                    <li class="active font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:w-0 after:origin-left after:inline-block  after:-bottom-2 after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
                         <a href="#">Home</a>
                     </li>
-                    <li class="font-semibold w-fit text-gray-500 text-lg relative after:absolute after:left-0 after:-bottom-2 after:w-full after:h-[2px] after:bg-secondary after:hidden">
+                    <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
                         <a href="#">Men</a>
                     </li>
-                    <li class="font-semibold w-fit text-gray-500 text-lg relative after:absolute after:left-0 after:-bottom-2 after:w-full after:h-[2px] after:bg-secondary after:hidden">
+                    <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
                         <a href="#">Women</a>
                     </li>
-                    <li class="font-semibold w-fit text-gray-500 text-lg relative after:absolute after:left-0 after:-bottom-2 after:w-full after:h-[2px] after:bg-secondary after:hidden">
+                    <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
                         <a href="#">Kids</a>
+                    </li>
+                    <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
+                        <a href="#">Collections</a>
                     </li>
                 </ul>
             </nav>
         </section>
     </div>
 
+    
+    <div id="content" class="container py-5 h-max flex flex-col md:flex-row-reverse items-center gap-7">
+        <div class="w-full mt-9 md:w-3/5 lg:w-1/2 lg:pt-12">
+            <img src="./images/main shoe image.png" class="w-full" alt="main shoe image">
+        </div>
+        <div class="w-full space-y-7 px-2 text-center md:text-left xs:px-1.5 scroll-m-2 md:w-2/5 lg:w-1/2 md:px-0.5">
+            <h2 class="text-4xl text-center font-bold md:text-left lg:text-justify lg:text-5xl">Step into <span class="title-text">Style</span> With every stride</h2>
+            <p class="text-gray-700 text-center md:text-left lg:text-justify md:text-lg">Welcome to our world of footwear,where every step is a statement. Explore our created collection of stylish and comfortable shoes.</p>
+            <button class="py-2 px-3 w-max text-center bg-blueLight-100 font-semibold inline-flex items-center gap-2 rounded-md hover:bg-blueLight-200 transition-colors">Shop Now 
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                </svg>
+            </button>
 
+            <div class="w-full mt-20 py-10 flex flex-col xl:flex-row items-center gap-4 ">
+
+                <div class="w-full xl:w-1/2 h-28 p-px flex items-center gap-4 bg-gray-100 rounded-lg shadow overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-2/5 rounded-md overflow-hidden">
+                        <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Product image" class="w-full group-hover:scale-125 group-hover:rotate-12 duration-300">
+                    </div>
+                    <div class="w-full h-full flex flex-col justify-between gap-1 p-1">
+                        <div class="flex flex-col">
+                            <h4 class="font-bold text-gray-700 text-left">Nike Dunk Low</h4>
+                            <div class="flex items-center space-x-[2px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full  flex items-center justify-between">
+                            <span class="font-bold text-gray-700">$100</span>
+                            <a href="#" class="inline-block bg-secondary hover:scale-110 transition-transform p-[2px] rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-full xl:w-1/2 h-28 p-px flex items-center gap-1 rounded-lg bg-gray-100 shadow overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-2/5 rounded-lg overflow-hidden">
+                        <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Product image" class="w-full group-hover:scale-125 group-hover:rotate-12 duration-300">
+                    </div>
+                    <div class="w-full h-full flex flex-col justify-between gap-1 p-1 pr-2">
+                        <div class="flex flex-col">
+                            <h4 class="font-bold text-gray-700 text-left">Nike Jordan 1</h4>
+                            <div class="flex items-center space-x-[2px]">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="fill-yellow-400 stroke-transparent w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="w-full flex items-center justify-between">
+                            <span class="font-bold text-gray-700">$180</span>
+                            <a href="#" class="inline-block bg-secondary hover:scale-110 transition-transform p-[2px] rounded-full">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+
+    <section class="relatve my-5 -left-4 w-[105%] h-20">
+        <img src="./images/shoe brands.png" class="w-full">
+    </section>
 
 
     <script src="./js/main.js"></script>

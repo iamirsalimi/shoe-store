@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./public/*.html'],
+  content: ['./public/*.html' , './public/**/*.js'],
   theme: {
     screens : {
       'xs': '480px',
@@ -26,7 +26,7 @@ module.exports = {
         secondary : '#114246',
         blueLight : {
           100 : '#89DDCE',
-          200 : '#459384'
+          200 : '#61b2a3'
         },
         
       }

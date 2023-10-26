@@ -9,13 +9,13 @@ const showMenu = () => {
     let menuClass = menu.className
     menu.parentNode.className = menu.parentNode.className.replace('invisible' , 'visible')
     menu.parentNode.className = menu.parentNode.className.replace('z-0' , 'z-20')
-    menu.className = menuClass.replace('translate-x-full' , 'translate-x-0')
+    menu.className = menuClass.replace('-translate-x-full' , 'translate-x-0')
     menu.parentNode.className = menu.parentNode.className.replace('bg-black/0' , 'bg-black/50') 
 }
 
 const closeMenu =  () => {
     let menuClass = menu.className
-    menu.className = menuClass.replace('translate-x-0' , 'translate-x-full')
+    menu.className = menuClass.replace('translate-x-0' , '-translate-x-full')
     menu.parentNode.className = menu.parentNode.className.replace('bg-black/50' , 'bg-black/0') 
     setTimeout(() => {
         menu.parentNode.className = menu.parentNode.className.replace('visible' , 'invisible')
