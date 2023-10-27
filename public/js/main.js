@@ -25,7 +25,6 @@ const closeMenu =  () => {
 
 // changing root and active class to Element
 const changeRoot = e => {
-    console.log(e.target.tagName == "A");
     if(e.target.tagName == "A"){
         let prevLink = e.target.parentNode.parentNode.querySelector('.active')
         prevLink.classList.remove('active')
@@ -33,8 +32,40 @@ const changeRoot = e => {
     }
 }
 
+// when user click on darkness that placed in right of the menu menu must closed
+document.addEventListener('click' , e => {
+    if(e.target.id === 'menu-wrapper'){
+        closeMenu()
+    }
+})
+
 navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 hamburger.addEventListener('click' , showMenu)
 closeModalBtn.addEventListener('click' , closeMenu)
+
+let swiperSlider = new Swiper('.swiper' , {
+    loop : true,
+    slidePerView : 3,
+    fade : true ,
+    spaceBetween : 10,
+    autoplay: {
+        delay: 2500,
+    },
+    // navigation: {
+    //     nextEl: '#swiper-button-next',
+    //     prevEl: '#swiper-button-prev',
+    //  },
+      breakpoints : {
+        0 : {
+            slidesPerView : 1,  
+        },
+        480 : {
+            slidesPerView : 2 ,
+        },
+        768 : {
+            slidesPerView : 3 ,
+        } 
+      }
+})
