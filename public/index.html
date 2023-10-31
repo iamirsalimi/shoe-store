@@ -22,7 +22,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
+                <svg id="basketBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-110 transition-transform duration-150  stroke-gray-700 w-6 h-6">
@@ -94,6 +94,59 @@
                     </li>
                 </ul>
             </nav>
+        </section>
+    </div>
+
+    <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 z-0 w-full h-full transition-colors duration-500 visible">
+        <section id="basket" class="w-3/4 md:w-2/4 xl:w-1/4 h-full bg-white p-4 transition-all duration-200 space-y-7 -translate-x-full">
+            <div class="w-full flex justify-between items-center">
+                <button id="closeBasketBtn" class="p-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary w-7 h-7">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+                <h2 class="block font-bold text-2xl xs:text-3xl sm:text-4xl">Shoe<span class="text-primary">Trends</span></h2>
+            </div>
+
+            <div class="space-y-7 mt-5">
+                <h3 class="text-gray-900 font-bold text-center text-2xl xs:text-3xl sm:text-4xl">Shopping Cart</h3>
+                <ul class="flex flex-col gap-4 items-center overflow-y-scroll h-80">
+                    <li class="flex gap-2 py-3 border-b border-gray-200">
+                        <div class="w-1/5 rounded-lg overflow-hidden">
+                            <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Product Image">
+                        </div>
+                        <div class="w-2/5 flex flex-col gap-2">
+                            <h4 class="font-bold">Nike Metcon Russell</h4>
+                            <button class="bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold">Remove</button>
+                        </div>
+                        <div class="w-1/5">
+                            <input type="number" class="w-full h-5 bg-gray-100">
+                        </div>
+                        <div class="text-gray-900 font-bold text-center">$90</div>
+                    </li>
+                    <li class="flex gap-2 py-3 border-b border-gray-200">
+                        <div class="w-1/5 rounded-lg overflow-hidden">
+                            <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" alt="Product Image">
+                        </div>
+                        <div class="w-2/5 flex flex-col gap-2">
+                            <h4 class="font-bold">Nike Dunk Low</h4>
+                            <button class="bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold">Remove</button>
+                        </div>
+                        <div class="w-1/5">
+                            <input type="number" class="w-full h-5 bg-gray-100">
+                        </div>
+                        <div class="text-gray-900 font-bold text-center">$100</div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <div class="text-gray-900 inline-flex font-bold text-center items-start">
+                    <h3>Total Price :</h3>
+                    <p id="totalPrice">$190</p>
+                </div>
+                <a href="#" class="bg-secondary hover:bg-secondary/90 transition-all w-fit py-2 px-3 rounded-md text-white font-bold">Continue to pay</a>
+            </div>
         </section>
     </div>
 
@@ -201,7 +254,8 @@
         
         <div class="swiper my-5">
             <div class="swiper-wrapper">
-                <div class="swiper-slide p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                    <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
                     <div class="relative w-full !h-72 overflow-hidden rounded-md">
                         <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover" alt="Product Image">
 
@@ -226,7 +280,8 @@
                     </div>
 
                 </div>
-                <div class="swiper-slide p-1 rounded-lg bg-gray-200 flex flex-col gap-7">
+                <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7">
+                    <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
                     <div class="relative w-full !h-72  overflow-hidden rounded-md select-none">
                         <img src="./images/ox-street-Le0o8Ac_Eco-unsplash.jpg" class="object-cover" alt="Product Image">
 
@@ -251,7 +306,8 @@
                     </div>
 
                 </div>
-                <div class="swiper-slide p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                    <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold">-<span>50%</span>Off</span>
                     <div class="relative w-full !h-72 overflow-hidden rounded-md">
                         <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
 
@@ -276,7 +332,8 @@
                     </div>
 
                 </div>
-                <div class="swiper-slide p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                    <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
                     <div class="relative w-full !h-72  overflow-hidden rounded-md">
                         <img src="./images/sports-shoe-pair-design-illustration-generated-by-ai.jpg" class="object-cover" alt="Product Image">
 
@@ -301,10 +358,10 @@
                     </div>
 
                 </div>
-                <div class="swiper-slide p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+                    <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold">-<span>30%</span>Off</span>
                     <div class="relative w-full !h-72 overflow-hidden rounded-md">
                         <img src="./images/ryan-plomp-76w_eDO1u1E-unsplash.jpg" class="object-cover" alt="Product Image">
-
                         <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
@@ -331,6 +388,238 @@
             <div class="swiper-button-next"></div> -->
         </div>
     </section>
+
+    <section class="container mt-28">
+        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800">Provide Best Shoe <span class="title-text">Collection</span></h3>
+
+        <div class="flex flex-col items-center gap-2 my-5 md:flex-row-reverse md:items-start">
+            <div class="w-full overflow-hidden xl:w-2/5">
+                <img src="./images/Screenshot__111_-removebg-preview-izHb6eaqB-transformed.png" alt="shoe collection image">
+            </div>
+            <div class="space-y-4 h-full px-3 text-center md:w-1/2 md:text-lg  lg:text-xl md:text-left md:py-10 lg:py-20 md:spce-y-12 xl:w-3/5">
+                <p class="text-gray-500 text-center md:text-justify">Offers an impressive and diverse assortment of footwear, catering to various tastes and preferences. whether you're in search of trendy sneakers, elegant formal shoes, or comfortable everyday options, our collection features the best and latest designs to meet your footwear needs and elevate your style</p>
+                <a href="#" class="cursor-pointer px-4 py-3 inline-flex items-center gap-4 rounded-md bg-blueLight-100 hover:bg-blueLight-200 transition font-bold">Explore Collection <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
+                    </svg></a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="container space-y-12 my-28">
+        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800">Our Best Selling <span class="title-text">2023</span></h3>
+
+        <div class="grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 md:grid-cols-3">
+            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+                <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
+                <div class="relative w-full !h-72 overflow-hidden rounded-md">
+                    <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
+
+                    <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>                              
+                    </button>
+                </div>
+
+                <div class="space-y-2 py-1 px-2">
+                    <div class="space-y-[2px]">
+                        <h3 class="font-bold text-gray-800">Nike Metcon Russell</h3>
+                        <p class="text-gray-400">Man's training Shoes</p>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center">
+                        <div class="font-bold text-gray-800">$100.00</div>
+                        <a  href="#" class="inline-block py-2 px-4 text-gray-800 bg-blueLight-100 hover:bg-blueLight-200 transition-colors rounded-md ">Buy Now</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+                <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
+                <div class="relative w-full !h-72 overflow-hidden rounded-md">
+                    <img src="./images/ryan-plomp-76w_eDO1u1E-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
+
+                    <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>                              
+                    </button>
+                </div>
+
+                <div class="space-y-2 py-1 px-2">
+                    <div class="space-y-[2px]">
+                        <h3 class="font-bold text-gray-800">Nike Dunk Low</h3>
+                        <p class="text-gray-400">Big Kids Shoes</p>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center">
+                        <div class="font-bold text-gray-800">$90.00</div>
+                        <a  href="#" class="inline-block py-2 px-4 text-gray-800 bg-blueLight-100 hover:bg-blueLight-200 transition-colors rounded-md ">Buy Now</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+                <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
+                <div class="relative w-full !h-72 overflow-hidden rounded-md">
+                    <img src="./images/ox-street-Le0o8Ac_Eco-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
+
+                    <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>                              
+                    </button>
+                </div>
+
+                <div class="space-y-2 py-1 px-2">
+                    <div class="space-y-[2px]">
+                        <h3 class="font-bold text-gray-800">Nike Metcon 5</h3>
+                        <p class="text-gray-400">training Shoes</p>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center">
+                        <div class="font-bold text-gray-800">$120.00</div>
+                        <a  href="#" class="inline-block py-2 px-4 text-gray-800 bg-blueLight-100 hover:bg-blueLight-200 transition-colors rounded-md ">Buy Now</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+                <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
+                <div class="relative w-full !h-72 overflow-hidden rounded-md">
+                    <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
+
+                    <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>                              
+                    </button>
+                </div>
+
+                <div class="space-y-2 py-1 px-2">
+                    <div class="space-y-[2px]">
+                        <h3 class="font-bold text-gray-800">Nike Dunk Low</h3>
+                        <p class="text-gray-400">big Kid's Shoes</p>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center">
+                        <div class="font-bold text-gray-800">$90.00</div>
+                        <a  href="#" class="inline-block py-2 px-4 text-gray-800 bg-blueLight-100 hover:bg-blueLight-200 transition-colors rounded-md ">Buy Now</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+                <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
+                <div class="relative w-full !h-72 overflow-hidden rounded-md">
+                    <img src="./images/sports-shoe-pair-design-illustration-generated-by-ai.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
+
+                    <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>                              
+                    </button>
+                </div>
+
+                <div class="space-y-2 py-1 px-2">
+                    <div class="space-y-[2px]">
+                        <h3 class="font-bold text-gray-800">Nike Metcon Russell</h3>
+                        <p class="text-gray-400">Man's training Shoes</p>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center">
+                        <div class="font-bold text-gray-800">$100.00</div>
+                        <a  href="#" class="inline-block py-2 px-4 text-gray-800 bg-blueLight-100 hover:bg-blueLight-200 transition-colors rounded-md ">Buy Now</a>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+                <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
+                <div class="relative w-full !h-72 overflow-hidden rounded-md">
+                    <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
+
+                    <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                        </svg>                              
+                    </button>
+                </div>
+
+                <div class="space-y-2 py-1 px-2">
+                    <div class="space-y-[2px]">
+                        <h3 class="font-bold text-gray-800">Nike Metcon 5</h3>
+                        <p class="text-gray-400">Training Shoes</p>
+                    </div>
+
+                    <div class="w-full flex justify-between items-center">
+                        <div class="font-bold text-gray-800">$120.00</div>
+                        <a  href="#" class="inline-block py-2 px-4 text-gray-800 bg-blueLight-100 hover:bg-blueLight-200 transition-colors rounded-md ">Buy Now</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="mt-5 py-2 pt-7 bg-secondary relative">
+        <div class="container flex flex-col items-center gap-4 pb-4 md:flex-row">
+            <div class="space-y-2 text-white w-full md:w-1/3">
+                <h3 class=" text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
+                <p class="text-lg text-center md:text-left">Shoe trends is the best nike ,adidas and reebok shoes provider and people trust on us more then 30 years.</p>
+            </div>
+            <div class="space-y-4 text-white text-center w-full md:w-1/3 md:text-left">
+                <h3 class="text-2xl font-bold">Shoes</h3>
+                <ul class="space-y-2" >
+                    <li class="text-base text-white">
+                        <a href="#">All Shoes</a>
+                    </li>
+                    <li class="text-base text-white">
+                        <a href="#">Men Shoes</a>
+                    </li>
+                    <li class="text-base text-white">
+                        <a href="#">Women Shoes</a>
+                    </li>
+                    <li class="text-base text-white">
+                        <a href="#">Kid's Shoes</a>
+                    </li>
+                </ul>    
+            </div>
+            <div class="space-y-4 text-white text-center w-full md:w-1/3 md:text-left">
+                <h3 class="text-2xl font-bold">Collections</h3>
+                <ul class="space-y-2" >
+                    <li class="text-base text-white">
+                        <a href="#">Air Jordan 1</a>
+                    </li>
+                    <li class="text-base text-white">
+                        <a href="#">Metcon</a>
+                    </li>
+                    <li class="text-base text-white">
+                        <a href="#">Air Max 270</a>
+                    </li>
+                    <li class="text-base text-white">
+                        <a href="#">Jordan 1</a>
+                    </li>
+                </ul>    
+            </div>
+            
+        </div>
+        <div class="text-white border-t border-white py-2 text-center">
+            © Designed By <a class="text-primary hover:underline" href="https://dribbble.com/malikhaider">UI_Haider</a> and Developed By <a class="text-primary hover:underline" href="https://github.com/iamirsalimi">Amir Salimi</a>
+        </div>
+
+        <button id="gotoupBtn" class="bg-white rounded-full p-2 absolute -top-5 left-1/2 -translate-x-1/2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
+          </svg>
+        </button>
+    </footer>
 
     <script src="./package/swiper-bundle.min.js"></script>
     <script src="./js/main.js"></script>

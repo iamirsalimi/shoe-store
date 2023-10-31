@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    *{
+        scroll-behavior: smooth;
+    }
+}
+
+body{
+    overflow-anchor: auto;
+}
 
 nav ul .active {
     @apply text-secondary;
