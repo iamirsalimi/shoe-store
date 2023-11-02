@@ -22,9 +22,12 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <svg id="basketBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                </svg>
+                <button class="relative">
+                    <svg id="basketBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                    <span id="basketItemsNumber" class="inline-block w-fit h-auto p-[2px] rounded-full text-xs text-center leading-[10px] bg-blueLight-200 text-white absolute top-0 -right-[2px] select-none">0</span>
+                </button>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-110 transition-transform duration-150  stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
@@ -37,16 +40,16 @@
             
             <ul class="basis-2/5 hidden sm:flex sm:basis-1/2 md:basis-2/5 justify-evenly items-center text-base">
                 <li class="relative font-bold text-gray-500 active after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inlit-block hover:text-secondary transition-colors duration-200 hover:texet-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Home</a>
+                    <a href="index.html">Home</a>
                 </li>
                 <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Men</a>
+                    <a href="products.html?t=men">Men</a>
                 </li>
                 <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Women</a>
+                    <a href="products.html?t=women">Women</a>
                 </li>
                 <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
-                    <a href="#">Kids</a>
+                    <a href="products.html?t=kids">Kids</a>
                 </li>
                 <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
                     <a href="#">Collections</a>
@@ -78,16 +81,16 @@
             <nav id="menu-nav" class="pt-9">
                 <ul class="space-y-7 flex flex-col items-start">
                     <li class="active font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:w-0 after:origin-left after:inline-block  after:-bottom-2 after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
-                        <a href="#">Home</a>
+                        <a href="index.html">Home</a>
                     </li>
                     <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
-                        <a href="#">Men</a>
+                        <a href="products.html?t=men">Men</a>
                     </li>
                     <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
-                        <a href="#">Women</a>
+                        <a href="products.html?t=women">Women</a>
                     </li>
                     <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
-                        <a href="#">Kids</a>
+                        <a href="products.html?t=kids">Kids</a>
                     </li>
                     <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
                         <a href="#">Collections</a>
@@ -97,7 +100,7 @@
         </section>
     </div>
 
-    <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 z-0 w-full h-full transition-colors duration-500 visible">
+    <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 z-0 w-full h-full transition-colors duration-500 invisible">
         <section id="basket" class="w-3/4 md:w-2/4 xl:w-1/4 h-full bg-white p-4 transition-all duration-200 space-y-7 -translate-x-full">
             <div class="w-full flex justify-between items-center">
                 <button id="closeBasketBtn" class="p-1">
@@ -150,12 +153,11 @@
         </section>
     </div>
 
-    
-    <div id="content" class="container py-5 h-max flex flex-col md:flex-row-reverse items-center gap-7">
-        <div class="w-full mt-9 md:w-3/5 lg:w-1/2 lg:pt-12">
+    <div id="content" class="container py-5 h-max flex flex-col md:flex-row-reverse items-center gap-7 md:items-start">
+        <div class="w-full mt-9 md:w-3/5 md:mt-2 lg:w-1/2 md:py-12 ">
             <img src="./images/main shoe image.png" class="w-full" alt="main shoe image">
         </div>
-        <div class="w-full space-y-7 px-2 text-center md:text-left xs:px-1.5 scroll-m-2 md:w-2/5 lg:w-1/2 md:px-0.5">
+        <div class="w-full space-y-7 px-2 text-center md:text-left xs:px-1.5 scroll-m-2 md:w-2/5 lg:w-1/2 md:px-0.5 md:py-20">
             <h2 class="text-4xl text-center font-bold md:text-left lg:text-justify lg:text-5xl">Step into <span class="title-text">Style</span> With every stride</h2>
             <p class="text-gray-700 text-center md:text-left lg:text-justify md:text-lg">Welcome to our world of footwear,where every step is a statement. Explore our created collection of stylish and comfortable shoes.</p>
             <button class="py-2 px-3 w-max text-center bg-blueLight-100 font-semibold inline-flex items-center gap-2 rounded-md hover:bg-blueLight-200 transition-colors">Shop Now 
@@ -243,13 +245,13 @@
     </div>
 
 
-    <div class="w-full">
+    <div class="w-[105%] -translate-x-4">
         <img src="./images/shoe brands.png" class="w-full">
     </div>
 
     <section class="container mt-32 space-y-10 sm:space-y-20">
         <div id="newProducts-heaader">
-            <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800">New Arrival <span class="title-text">2023</span></h3>
+            <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 mx-auto w-fit relative md:w-full md:mx-0">New Arrival <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
         </div>
         
         <div class="swiper my-5">
@@ -390,7 +392,7 @@
     </section>
 
     <section class="container mt-28">
-        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800">Provide Best Shoe <span class="title-text">Collection</span></h3>
+        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 mx-auto w-fit relative md:w-full md:mx-0">Provide Best Shoe <span class="title-text">Collection</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
 
         <div class="flex flex-col items-center gap-2 my-5 md:flex-row-reverse md:items-start">
             <div class="w-full overflow-hidden xl:w-2/5">
@@ -407,7 +409,7 @@
 
 
     <section class="container space-y-12 my-28">
-        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800">Our Best Selling <span class="title-text">2023</span></h3>
+        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 mx-auto w-fit relative md:w-full md:mx-0">Our Best Selling <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
 
         <div class="grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 md:grid-cols-3">
             <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
@@ -554,7 +556,7 @@
 
                 <div class="space-y-2 py-1 px-2">
                     <div class="space-y-[2px]">
-                        <h3 class="font-bold text-gray-800">Nike Metcon 5</h3>
+                        <h3 class="font-bold text-gray-800">Nike Dunk Low</h3>
                         <p class="text-gray-400">Training Shoes</p>
                     </div>
 
@@ -572,39 +574,39 @@
     <footer class="mt-5 py-2 pt-7 bg-secondary relative">
         <div class="container flex flex-col items-center gap-4 pb-4 md:flex-row">
             <div class="space-y-2 text-white w-full md:w-1/3">
-                <h3 class=" text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
+                <h3 class="text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
                 <p class="text-lg text-center md:text-left">Shoe trends is the best nike ,adidas and reebok shoes provider and people trust on us more then 30 years.</p>
             </div>
             <div class="space-y-4 text-white text-center w-full md:w-1/3 md:text-left">
                 <h3 class="text-2xl font-bold">Shoes</h3>
-                <ul class="space-y-2" >
-                    <li class="text-base text-white">
-                        <a href="#">All Shoes</a>
+                <ul class="space-y-2">
+                    <li class="text-base text-white  hover:text-primary transition">
+                        <a href="products.html?t=all">All Shoes</a>
                     </li>
-                    <li class="text-base text-white">
-                        <a href="#">Men Shoes</a>
+                    <li class="text-base text-white  hover:text-primary transition">
+                        <a href="products.html?t=men">Men Shoes</a>
                     </li>
-                    <li class="text-base text-white">
-                        <a href="#">Women Shoes</a>
+                    <li class="text-base text-white  hover:text-primary transition">
+                        <a href="products.html?t=women">Women Shoes</a>
                     </li>
-                    <li class="text-base text-white">
-                        <a href="#">Kid's Shoes</a>
+                    <li class="text-base text-white  hover:text-primary transition">
+                        <a href="products.html?t=kids">Kid's Shoes</a>
                     </li>
                 </ul>    
             </div>
             <div class="space-y-4 text-white text-center w-full md:w-1/3 md:text-left">
                 <h3 class="text-2xl font-bold">Collections</h3>
-                <ul class="space-y-2" >
-                    <li class="text-base text-white">
+                <ul class="space-y-2 z-10">
+                    <li class="text-base text-white hover:text-primary transition">
                         <a href="#">Air Jordan 1</a>
                     </li>
-                    <li class="text-base text-white">
+                    <li class="text-base text-white hover:text-primary transition">
                         <a href="#">Metcon</a>
                     </li>
-                    <li class="text-base text-white">
+                    <li class="text-base text-white hover:text-primary transition">
                         <a href="#">Air Max 270</a>
                     </li>
-                    <li class="text-base text-white">
+                    <li class="text-base text-white hover:text-primary transition">
                         <a href="#">Jordan 1</a>
                     </li>
                 </ul>    
