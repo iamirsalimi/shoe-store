@@ -6,7 +6,10 @@ let basket = document.getElementById('basket')
 let closeBasketBtn = document.getElementById('closeBasketBtn')
 let navElems = document.querySelectorAll('nav ul')
 let goToUpBtn = document.getElementById('gotoupBtn')
-
+let groupBtn = document.querySelector('#groupBtn')
+let sortBtn = document.querySelector('#sortBtn')
+let groupWrapper = document.querySelector('#groupWrapper')
+let sortWrapper = document.querySelector('#sortWrapper')
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -42,6 +45,25 @@ const closeBasket =  () => {
         basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
         basket.parentNode.className = basket.parentNode.className.replace('z-20' , 'z-0')
     } , 500)
+}
+
+function toggleGroupWrapper(){
+    let groupWrapperClass =  groupWrapper.className
+    if(groupWrapperClass.includes('flex')){
+        groupWrapper.className = groupWrapperClass.replace('flex' , 'hidden')
+    } else {
+        groupWrapper.className = groupWrapperClass.replace('hidden' , 'flex')
+    }
+}
+
+function toggleSortWrapper(){
+    let sortWrapperClass  = sortWrapper.className
+
+    if(sortWrapperClass.includes('flex')){
+        sortWrapper.className = sortWrapperClass.replace('hidden' , 'flex')
+    } else {
+        sortWrapper.className = sortWrapperClass.replace('hidden' , 'flex')
+    }
 }
 
 // changing root and active class to Element
@@ -80,6 +102,8 @@ goToUpBtn.addEventListener('click' , () => {
 navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
+groupBtn.addEventListener('click' , toggleGroupWrapper)
+sortBtn.addEventListener('click' , toggleSortWrapper)
 hamburger.addEventListener('click' , showMenu)
 basketBtn.addEventListener('click' , showBasket)
 closeModalBtn.addEventListener('click' , closeMenu)

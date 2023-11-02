@@ -22,8 +22,8 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <button class="relative">
-                    <svg id="basketBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
+                <button id="basketBtn" class="relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     </svg>
                     <span id="basketItemsNumber" class="inline-block w-fit h-auto p-[2px] rounded-full text-xs text-center leading-[10px] bg-blueLight-200 text-white absolute top-0 -right-[2px] select-none">0</span>
@@ -156,13 +156,43 @@
     <div id="content" class="container py-28 flex flex-col items-center gap-7">
         <div class="w-full flex flex-col items-center gap-4 md:flex-row-reverse">
             <div class="w-full flex items-center gap-2 py-2 md:w-1/3">
-                <div id="sort" class="w-1/2 flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer text-gray-700 hover:text-gray-900">Sorting <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
-                  </svg>
+                <div id="sort" class="w-1/2 relative">
+                    <div id="sortBtn" class="flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer text-gray-700 hover:text-gray-900">Sorting <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
+                        </svg>
+                    </div>
+                    <div id="sortWrapper" class="hidden w-full bg-gray-100 shadow absolute z-[15] top-[120%] flex-col rounded-md overflow-hidden">
+                        <ul>
+                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                                <a href="#">most Expensive</a>
+                            </li>
+                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                                <a href="#">cheapest</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <div id="group" class="w-1/2 flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer text-gray-700 hover:text-gray-900">Grouping <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
-                  </svg>
+                <div id="group" class="w-1/2 relative">
+                    <div id="groupBtn" class="flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer text-gray-700 hover:text-gray-900">Grouping <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
+                        </svg>
+                    </div>
+                    <div id="groupWrapper" class="hidden w-full bg-gray-100 shadow absolute z-[15] top-[120%] flex-col rounded-md overflow-hidden">
+                        <ul>
+                            <li class="border-b py-2 px-1 border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                                <a href="#">All</a>
+                            </li>
+                            <li class="border-b py-2 px-1 border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                                <a href="#">Training Shoes</a>
+                            </li>
+                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                                <a href="#">Sport Shoes</a>
+                            </li>
+                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                                <a href="#">Assembly Shoes</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div id="searchInput" class="relative w-full md:w-2/3">
@@ -213,7 +243,7 @@
 
                 <div class="space-y-2 py-1 px-2">
                     <div class="space-y-[2px]">
-                        <h3 class="font-bold text-gray-800">Nike Metcon Russell</h3>
+                        <h3 class="font-bold text-gray-800">Nike Metcon 5</h3>
                         <p class="text-gray-400">Man's training Shoes</p>
                     </div>
 
@@ -278,12 +308,12 @@
     </div>
 
     <footer class="mt-5 py-2 pt-7 bg-secondary relative">
-        <div class="container flex flex-col items-center gap-4 pb-4 md:flex-row">
-            <div class="space-y-2 text-white w-full md:w-1/3">
+        <div class="container w-full flex flex-col items-start gap-4 pb-4 md:flex-row">
+            <div class="space-y-2 text-white w-full md:w-1/4">
                 <h3 class="text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
                 <p class="text-lg text-center md:text-left">Shoe trends is the best nike ,adidas and reebok shoes provider and people trust on us more then 30 years.</p>
             </div>
-            <div class="space-y-4 text-white text-center w-full md:w-1/3 md:text-left">
+            <div class="space-y-4 w-full text-white text-center md:w-1/4 md:text-left">
                 <h3 class="text-2xl font-bold">Shoes</h3>
                 <ul class="space-y-2">
                     <li class="text-base text-white  hover:text-primary transition">
@@ -300,7 +330,7 @@
                     </li>
                 </ul>    
             </div>
-            <div class="space-y-4 text-white text-center w-full md:w-1/3 md:text-left">
+            <div class="space-y-4 text-white text-center w-full md:w-1/4 md:text-left">
                 <h3 class="text-2xl font-bold">Collections</h3>
                 <ul class="space-y-2 z-10">
                     <li class="text-base text-white hover:text-primary transition">
@@ -314,6 +344,20 @@
                     </li>
                     <li class="text-base text-white hover:text-primary transition">
                         <a href="#">Jordan 1</a>
+                    </li>
+                </ul>    
+            </div>
+            <div class="space-y-4 text-white text-center w-full md:w-1/4 md:text-left">
+                <h3 class="text-2xl font-bold">Contact</h3>
+                <ul class="space-y-2 z-10">
+                    <li class="text-base text-white hover:text-primary transition">
+                        <a href="#">Phone : 031111111</a>
+                    </li>
+                    <li class="text-base text-white hover:text-primary transition">
+                        <a href="#">Gmail : test@gmail.com</a>
+                    </li>
+                    <li class="text-base text-white hover:text-primary transition">
+                        <a href="#">Address : US , Los Angeles </a>
                     </li>
                 </ul>    
             </div>
