@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    *{
+        scroll-behavior: smooth;
+    }
+}
+
+body{
+    overflow-anchor: auto;
+}
+
+nav ul .active {
+    @apply text-secondary;
+}
+
+nav ul .active::after {
+    @apply inline-block;
+}
+
+#menu-nav ul .active {
+    @apply text-secondary;
+}
+
+#menu-nav ul .active::after {
+    @apply inline-block w-full;
+}
+
+#menu-nav ul li::after {
+    transition: width 0.25s ease-in-out;
+}
+
+#menu-nav ul li:hover::after {
+    width:100%;
+}
+
+#content #colors .active{
+    @apply ring-2;
+}
+
+@layer components {
+    .title-text{
+        @apply text-primary font-bold;
+        text-shadow: -3px 1px 0 #000;
+    }
+}

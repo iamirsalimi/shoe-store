@@ -6,10 +6,8 @@ let basket = document.getElementById('basket')
 let closeBasketBtn = document.getElementById('closeBasketBtn')
 let navElems = document.querySelectorAll('nav ul')
 let goToUpBtn = document.getElementById('gotoupBtn')
-let groupBtn = document.querySelector('#groupBtn')
-let sortBtn = document.querySelector('#sortBtn')
-let groupWrapper = document.querySelector('#groupWrapper')
-let sortWrapper = document.querySelector('#sortWrapper')
+let colors = document.querySelectorAll('#colors input')
+let backBtn = document.getElementById('backBtn')
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -44,43 +42,16 @@ const closeBasket =  () => {
     setTimeout(() => {
         basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
         basket.parentNode.className = basket.parentNode.className.replace('z-20' , 'z-0')
-    } , 500)
+    } , 500) 
 }
 
-function toggleGroupWrapper(){
-    let groupWrapperClass =  groupWrapper.className
-    if(groupWrapperClass.includes('invisible')){
-        groupWrapper.className = groupWrapperClass.replace('invisible' , 'visible')
-    } else {
-        groupWrapper.className = groupWrapperClass.replace('visible' , 'invisible')
-    }
-}
-
-function filterGroupHandler(e){
-    let filterValue = e.target.tagName == 'A' ? e.target.innerHTML : e.target.firstElementChild.innerHTML
-    if(e.target.tagName === 'A' || e.target.tagName === 'LI'){
-        groupBtn.firstElementChild.innerHTML =  filterValue
-        toggleGroupWrapper()
-    }
-}
-
-function filterSortHandler(e){
-    let filterValue = e.target.tagName == 'A' ? e.target.innerHTML : e.target.firstElementChild.innerHTML
-    if(e.target.tagName === 'A' || e.target.tagName === 'LI'){
-        sortBtn.firstElementChild.innerHTML =  filterValue
-        toggleSortWrapper()
-    }
-}
-
-
-function toggleSortWrapper(){
-    let sortWrapperClass  = sortWrapper.className
-    if(sortWrapperClass.includes('invisible')){
-        sortWrapper.className = sortWrapperClass.replace('invisible' , 'visible')
-    } else {
-        sortWrapper.className = sortWrapperClass.replace('visible' , 'invisible')
-    }
-}
+colors.forEach(color => {
+    color.addEventListener('input' , e => {
+        let prevColor = e.target.parentNode.parentNode.querySelector('.active')
+        prevColor.classList.remove('active')
+        e.target.previousElementSibling.classList.add('active')
+    })
+})
 
 // changing root and active class to Element
 const changeRoot = e => {
@@ -90,7 +61,6 @@ const changeRoot = e => {
         e.target.parentNode.classList.add('active')
     }
 }
-
 
 // events
 
@@ -103,15 +73,8 @@ document.addEventListener('click' , e => {
     }
 })
 
-document.addEventListener('DOMContentLoaded' , () => {
-    let locationSearch = new URLSearchParams(location.search).get('t')
-    if(!['men' , 'women' , 'kids'].includes(locationSearch)){
-        history.back()
-        return false  
-    }
-    document.title = `Shoe Store | ${locationSearch} Shoes`
-    let menuElems = document.querySelectorAll(`#${locationSearch}`)
-    menuElems.forEach(menu => menu.classList.add('active'))
+backBtn.addEventListener('click' , () => {
+    history.back()
 })
 
 goToUpBtn.addEventListener('click' , () => {
@@ -122,10 +85,6 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
-groupWrapper.addEventListener('click' , filterGroupHandler)
-sortWrapper.addEventListener('click' , filterSortHandler)
-groupBtn.addEventListener('click' , toggleGroupWrapper)
-sortBtn.addEventListener('click' , toggleSortWrapper)
 hamburger.addEventListener('click' , showMenu)
 basketBtn.addEventListener('click' , showBasket)
 closeModalBtn.addEventListener('click' , closeMenu)
