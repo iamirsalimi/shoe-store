@@ -40,6 +40,18 @@ nav ul .active::after {
     @apply ring-2;
 }
 
+#content #reviewsAndComment ul .active{
+    @apply text-blue-700;
+}
+
+#content #reviewsAndComment ul .active::after{
+    @apply inline-block;
+}
+
+#content #starSelect .active{
+    @apply fill-yellow-400 stroke-0; 
+}
+
 @layer components {
     .title-text{
         @apply text-primary font-bold;

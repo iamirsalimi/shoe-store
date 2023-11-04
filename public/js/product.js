@@ -8,6 +8,9 @@ let navElems = document.querySelectorAll('nav ul')
 let goToUpBtn = document.getElementById('gotoupBtn')
 let colors = document.querySelectorAll('#colors input')
 let backBtn = document.getElementById('backBtn')
+let commentAndReviewTab = document.getElementById('commentAndReviewTab')
+let starSelect = document.getElementById('starSelect')
+let starNums = 5
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -53,6 +56,53 @@ colors.forEach(color => {
     })
 })
 
+// changing comment and reviews tab
+function changeTabHandler(e){
+    if(e.target.tagName === "LI"){
+        let tabTarget = e.target.dataset.target 
+        let tabTargetWrapper = document.getElementById(tabTarget)
+        
+        let prevActiveTab = e.target.parentNode.querySelector('.active')
+        prevActiveTab.classList.remove('active')
+        e.target.classList.add('active')
+        
+        // access to current tab wrapper to give hide it
+        let prevTabWrapper = tabTarget == 'comment' ? document.getElementById('review') : document.getElementById('comment')
+
+        prevTabWrapper.className = prevTabWrapper.className.replace('flex' , 'hidden')
+        tabTargetWrapper.className = tabTargetWrapper.className.replace('hidden' , 'flex')
+    }
+}
+
+function clearStars(){
+    let allStars = starSelect.querySelectorAll('.active') || null
+
+    if(allStars){
+        allStars.forEach(star => star.classList.remove('active'))
+    }
+}
+
+function starHandler(e){
+    if(e.target.tagName == 'svg' || e.target.tagName == 'path'){
+        clearStars()
+        let targetElem = e.target.tagName == 'path' ? e.target.parentNode : e.target
+        let prevStarElmsNum = parseInt(targetElem.dataset.elemnum)
+        targetElem.classList.add('active')
+        
+        // console.log(prevStarElmsNum);
+        if(!prevStarElmsNum){
+            return false
+        }
+
+        for(let i = prevStarElmsNum ; i > 0 ; i--){
+            targetElem = targetElem.previousElementSibling
+            targetElem.classList.add('active')
+        }
+
+        starNums = prevStarElmsNum + 1
+    }
+}
+
 // changing root and active class to Element
 const changeRoot = e => {
     if(e.target.tagName == "A"){
@@ -85,6 +135,8 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
+starSelect.addEventListener('click' , starHandler)
+commentAndReviewTab.addEventListener('click' , changeTabHandler)
 hamburger.addEventListener('click' , showMenu)
 basketBtn.addEventListener('click' , showBasket)
 closeModalBtn.addEventListener('click' , closeMenu)
