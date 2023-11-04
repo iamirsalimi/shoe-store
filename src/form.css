@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#login-form input:focus ~ label {
+    @apply text-purple-700;
+}
+
+#login-form input:focus ~ button svg {
+    @apply stroke-purple-700 stroke-2;
+}

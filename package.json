@@ -5,6 +5,7 @@
   "scripts" : {
     "build" : "npx tailwindcss -i ./src/input.css -o ./public/styles/style.css --watch",
     "buildProducts" : "npx tailwindcss -i ./src/products.css -o ./public/styles/products.css --watch",
-    "buildProduct" : "npx tailwindcss -i ./src/product.css -o ./public/styles/product.css --watch"
+    "buildProduct" : "npx tailwindcss -i ./src/product.css -o ./public/styles/product.css --watch",
+    "buildForm" : "npx tailwindcss -i ./src/form.css -o ./public/styles/form.css --watch"
   }  
 }
