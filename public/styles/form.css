@@ -713,8 +713,16 @@ video {
   margin-bottom: 1.25rem;
 }
 
+.mr-auto {
+  margin-right: auto;
+}
+
 .mt-1 {
   margin-top: 0.25rem;
+}
+
+.mt-2 {
+  margin-top: 0.5rem;
 }
 
 .mt-20 {
@@ -727,6 +735,10 @@ video {
 
 .mt-32 {
   margin-top: 8rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
 }
 
 .mt-5 {
@@ -834,6 +846,18 @@ video {
   height: 100vh;
 }
 
+.h-\[1\] {
+  height: 1;
+}
+
+.h-\[110vh\] {
+  height: 110vh;
+}
+
+.h-\[105vh\] {
+  height: 105vh;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -906,6 +930,18 @@ video {
 .w-max {
   width: -moz-max-content;
   width: max-content;
+}
+
+.w-4\/5 {
+  width: 80%;
+}
+
+.w-\[100\] {
+  width: 100;
+}
+
+.w-\[90\%\] {
+  width: 90%;
 }
 
 .basis-2\/5 {
@@ -1095,6 +1131,10 @@ video {
   overflow-y: scroll;
 }
 
+.rounded {
+  border-radius: 0.25rem;
+}
+
 .rounded-full {
   border-radius: 9999px;
 }
@@ -1222,14 +1262,19 @@ video {
   background-color: rgb(208 248 12 / var(--tw-bg-opacity));
 }
 
+.bg-purple-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(168 85 247 / var(--tw-bg-opacity));
+}
+
 .bg-purple-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(126 34 206 / var(--tw-bg-opacity));
 }
 
-.bg-purple-800 {
+.bg-purple-900 {
   --tw-bg-opacity: 1;
-  background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+  background-color: rgb(88 28 135 / var(--tw-bg-opacity));
 }
 
 .bg-red-500 {
@@ -1396,6 +1441,10 @@ video {
   padding-bottom: 1rem;
 }
 
+.pb-9 {
+  padding-bottom: 2.25rem;
+}
+
 .pl-12 {
   padding-left: 3rem;
 }
@@ -1518,11 +1567,6 @@ video {
 .text-primary {
   --tw-text-opacity: 1;
   color: rgb(208 248 12 / var(--tw-text-opacity));
-}
-
-.text-purple-500 {
-  --tw-text-opacity: 1;
-  color: rgb(168 85 247 / var(--tw-text-opacity));
 }
 
 .text-purple-700 {
@@ -1657,14 +1701,46 @@ video {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#login-form input:focus ~ label {
+#tabs .notactive {
+  --tw-bg-opacity: 1;
+  background-color: rgb(107 33 168 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+#tabs .notactive:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(88 28 135 / var(--tw-bg-opacity));
+}
+
+#login-form input:focus ~ label,
+#register-form input:focus ~ label {
   --tw-text-opacity: 1;
   color: rgb(126 34 206 / var(--tw-text-opacity));
 }
 
-#login-form input:focus ~ button svg {
+#login-form input:focus ~ #showAndHidePass svg,
+#register-form input:focus ~ #showAndHidePass svg {
   stroke: #7e22ce;
   stroke-width: 2;
+}
+
+#login-form #rememberMe:checked ~ p {
+  --tw-text-opacity: 1;
+  color: rgb(126 34 206 / var(--tw-text-opacity));
+}
+
+#login-form #rememberMe:checked ~ label {
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(126 34 206 / var(--tw-bg-opacity));
+}
+
+#form-wrapper .active {
+  display: flex !important;
 }
 
 .after\:absolute::after {
@@ -1811,11 +1887,6 @@ video {
   background-color: rgb(107 33 168 / var(--tw-bg-opacity));
 }
 
-.hover\:bg-purple-900:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(88 28 135 / var(--tw-bg-opacity));
-}
-
 .hover\:bg-red-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
@@ -1958,6 +2029,10 @@ video {
 
   .sm\:hidden {
     display: none;
+  }
+
+  .sm\:max-w-screen-sm {
+    max-width: 640px;
   }
 
   .sm\:basis-1\/2 {

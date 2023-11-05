@@ -2,10 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-#login-form input:focus ~ label {
+#tabs .notactive{
+    @apply  text-white bg-purple-800 hover:bg-purple-900 transition-colors;
+}
+
+#login-form input:focus ~ label,
+#register-form input:focus ~ label{
     @apply text-purple-700;
 }
 
-#login-form input:focus ~ button svg {
+#login-form input:focus ~ #showAndHidePass svg,
+#register-form input:focus ~ #showAndHidePass svg{
     @apply stroke-purple-700 stroke-2;
+}
+
+#login-form #rememberMe:checked ~ p{
+    @apply text-purple-700;
+}
+
+#login-form #rememberMe:checked ~ label{
+    @apply bg-purple-700 border-none;
+}
+
+#form-wrapper .active{
+    @apply !flex;
 }
