@@ -2,17 +2,26 @@ let showPassBtns = document.querySelectorAll('#showAndHidePass')
 let tabsWrapper = document.getElementById('tabs')
 let formTitle = document.getElementById('form-title')
 let backBtn = document.getElementById('backBtn')
+
+// login form elements
+let passwordInput = document.getElementById('password')
+let loginBtn = document.getElementById('login-submitbtn')
+let rememberMeCheckBox = document.getElementById('rememberMe')
 // register form elements
 let emailInput = document.getElementById('email')
 let usernameInputs = document.querySelectorAll('#username')
-
-let passwordInput = document.getElementById('password')
+let passwordErrorElem = document.getElementById('passwords-validate')
 let passInput = document.getElementById('password-register')
 let repeatPassInput = document.getElementById('passwordrepeat')
-let passwordErrorElem = document.getElementById('passwords-validate')
+let registerBtn = document.getElementById('register-submitbtn')
+
+
+let submitBtns = document.querySelectorAll('#submitBtn')
+
+// regEx
 let emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/gi
 let usernameRegEx = /^[a-z0-9]+([\._]?[a-z0-9]+)*$/gi
-let passwordRegEx = /^([a-z0-9]){8,16}$/g
+let passwordRegEx = /^([a-z0-9])([0-9])*?([a-z0-9]){8,16}$/g
 
 function showPassHandler(e){
     // user may click on svg's path And to avoid errors , we must have SVG in any case
@@ -65,8 +74,10 @@ function emailValidate(e){
     let errorElem = e.target.parentNode.lastElementChild
     if(emailValue && !emailValue.match(emailRegEx)){
         errorElem.classList.remove('hidden')
+        disableSubmits()
     } else {
         errorElem.classList.add('hidden')
+        activeSubmits()
     }
 }
 
@@ -76,8 +87,10 @@ function usernameValidate(e){
 
     if(usernameValue && !usernameValue.match(usernameRegEx)){
         errorElem.classList.remove('hidden')
+        disableSubmits()
     } else {
         errorElem.classList.add('hidden')
+        activeSubmits()
     }
 }
 
@@ -88,8 +101,10 @@ function passValidate(e){
     
     if(passValue && !passValue.match(passwordRegEx)){
         errorElem.classList.remove('hidden')
+        disableSubmits()
     } else {
         errorElem.classList.add('hidden')
+        activeSubmits()
     }
 }
 
@@ -102,12 +117,54 @@ function passwordValidate(e){
 
     if(!(passValue === repeatPassValue)){
         passwordErrorElem.classList.remove('hidden')
+        disableSubmits()
     } else {
         passwordErrorElem.classList.add('hidden')
     }
 }
 
+function disableSubmits(){
+    submitBtns.forEach(submitBtn => {
+        submitBtn.setAttribute('disabled' , 'true')
+    })
+}
 
+function activeSubmits(){
+    submitBtns.forEach(submitBtn => {
+        submitBtn.removeAttribute('disabled' , 'true')
+    })
+}
+
+// login
+function getDate(days){
+    let now = new Date()
+
+    now.setTime(now.getTime() + (days * 24 * 60 * 60 * 1000))
+
+    return now
+}
+
+function setCookie(cookieValue , expires){
+    document.cookie = `userId=${cookieValue};path=/${expires ? (';Expires=' + expires) : ';'}`
+    console.log(document.cookie);
+}
+
+function loginUser(e){
+    let cookieValue = 5
+
+    const cookieDays = 10
+    let expires = rememberMeCheckBox.checked ? getDate(cookieDays) : null
+
+    // cookie value must be user id
+    setCookie(cookieValue , expires)
+}
+
+
+loginBtn.addEventListener('click' , loginUser)
+// register
+
+
+// events
 
 backBtn.addEventListener('click' , () => {
     history.back()
