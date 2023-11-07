@@ -85,7 +85,7 @@ function usernameValidate(e){
     let usernameValue = e.target.value.trim() 
     let errorElem = e.target.parentNode.lastElementChild
 
-    if(usernameValue && !usernameValue.match(usernameRegEx)){
+    if(usernameValue.length < 8 || !usernameValue.match(usernameRegEx)){
         errorElem.classList.remove('hidden')
         disableSubmits()
     } else {
@@ -150,15 +150,22 @@ function setCookie(cookieValue , expires){
 }
 
 function loginUser(e){
-    let cookieValue = 5
+    let loginForms = document.querySelectorAll('#login-form input[type="text"]')
+    let inputFlag = null
 
-    const cookieDays = 10
-    let expires = rememberMeCheckBox.checked ? getDate(cookieDays) : null
+    loginForms.forEach(loginForm => inputFlag = loginForm.length > 0 ? true : false)
 
-    // cookie value must be user id
-    setCookie(cookieValue , expires)
+    if(inputFlag){
+        let cookieValue = 5
+    
+        const cookieDays = 10
+        let expires = rememberMeCheckBox.checked ? getDate(cookieDays) : null
+    
+        // cookie value must be user id
+        setCookie(cookieValue , expires)
+    }
+
 }
-
 
 loginBtn.addEventListener('click' , loginUser)
 // register

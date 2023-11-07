@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#menu ul .active::after{
+    @apply w-full bg-blue-700;
+}
+
+#menu ul .active svg{
+    @apply stroke-blue-800;
+}
+
+#menu ul .active span{
+    @apply text-blue-800;
+}
+
+#content #about-us .active{
+    @apply h-fit;
+}
+
+#content #about-us .active svg {
+    @apply rotate-180;
+}
