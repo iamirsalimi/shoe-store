@@ -4,140 +4,188 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/userPanel.css">
-    <title>Shoe Store | UserPanel</title>
+    <title>Shoe Store | Dashboard</title>
 </head>
 <body class="overflow-x-hidden bg-gray-200">
   
-    <div class="relative flex flex-col-reverse gap-1 w-full h-secreen select-none">
-        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 bg-white shadow-lg md:space-y-4">
-            <h2 class="hidden md:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>
-            <ul class="flex items-center justify-around gap-2">
-                <li class="active hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:w-0 after:h-[2px] after:rounded-md after:bg-gray-900  after:origin-center hover:after:w-full">
-                    <a href="#" class="flex flex-col items-center justify-center gap-1">
+    <div class="relative flex flex-col-reverse gap-3 w-full h-secreen select-none lg:flex-row">
+        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 flex flex-col justify-between bg-white shadow lg:gap-10 lg:h-screen lg:relative lg:w-fit lg:px-5 lg:rounded-r-lg">
+            <h2 class="hidden w-full text-center lg:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>
+            <ul class="flex items-center justify-around gap-3 lg:flex-col lg:h-full lg:gap-5 lg:justify-start lg:items-start">
+                <li data-target="Dashboard" title="Dashboard" class="active hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-2 md:order-1 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
                         </svg>
                         <span class="hidden xs:inline-block">Dashboard</span>
                     </a>
                 </li>
-                <li class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:w-0 after:h-[2px] after:rounded-md after:bg-gray-900  after:origin-center hover:after:w-full">
-                    <a href="#" class="flex flex-col items-center justify-center gap-1">                   
+                <li data-target="Basket" title="Basket" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-1 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">                   
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                         </svg> 
                         <span class="hidden xs:inline-block">Basket</span>
                     </a>
                 </li>
-                <li class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:w-0 after:h-[2px] after:rounded-md after:bg-gray-900  after:origin-center hover:after:w-full">
-                    <a href="#" class="flex flex-col items-center justify-center gap-1">
+                <li data-target="Purchases" title="Purchases" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-1 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
                           </svg>
                         <span class="hidden xs:inline-block">Purchases</span>
                     </a>
                 </li>
-                <li class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:w-0 after:h-[2px] after:rounded-md after:bg-red-700  after:origin-center hover:after:w-full">
-                    <a href="#" class="flex flex-col items-center justify-center gap-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-red-700 w-7 h-7">
+                <li data-target="wishList" title="wishList" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-3 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                          </svg>                          
+                        <span class="hidden xs:inline-block">WishList</span>
+                    </a>
+                </li>
+                <li id="logout-btn" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-red-700  lg:mt-auto order-3">
+                    <a href="#" class="flex flex-col items-center justify-center gap-1 lg:flex-row ">
+                        <svg lg:flex-row lg:w-full lg:gap-1 xmlns="w3.org/2000 lg:justify-start/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-red-700 w-7 h-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                         </svg>
                         <span class="text-red-700 hidden xs:inline-block">Log out</span>
                     </a>
                 </li>
             </ul>
+            <span id="menu-btn" class="hidden absolute top-9 -right-4 border-2 border-white  bg-blue-700 hover:bg-blue-800 rounded-full p-[2px] cursor-pointer hover:scale-110 transition-transform lg:inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  </svg>                  
+            </span>
         </div>
-        <div id="content" class="relative pt-20 pb-20 px-2 overflow-y-auto grid grid-cols-1 gap-2">
-            <div class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
-                <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 stroke-white">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>  
-                </div>
-                <ul id="user-infos" class="border-t border-gray-300 space-y-3 py-5 divide-y divide-gray-100">
-                    <li class="flex items-center justify-between py-1 px-2">
-                        <span class="font-bold text-gray-800">FirstName :</span>
-                        <span class="font-semibold text-gray-600">Alex</span>
-                    </li>
-                    <li class="flex items-center justify-between py-1 px-2">
-                        <span class="font-bold text-gray-800">LastName :</span>
-                        <span class="font-semibold text-gray-600">Green</span>
-                    </li>
-                    <li class="flex items-center justify-between py-1 px-2">
-                        <span class="font-bold text-gray-800">Email :</span>
-                        <span class="font-semibold text-gray-600">AlexGreen1234</span>
-                    </li>
-                    <li class="flex items-center justify-between py-1 px-2">
-                        <span class="font-bold text-gray-800">UserName :</span>
-                        <span class="font-semibold text-gray-600">AlexGreen29</span>
-                    </li>
-                </ul>
-            </div>
-            <div class="px-2 py-2 rounded-lg bg-white space-y-4 sahdow-md">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-gray-900 text-2xl font-bold">Purchases</h2>
-                    <button class="flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
-                        </svg>  
-                    </button>
-                </div>
-                <div class="flex flex-col gap-2 py-1">
-                    <div class="bg-gray-100 flex items-center gap-2 p-[2px]">
-                        <div class="w-[10%] rounded-md overflow-hidden">
-                            <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Purchased product image" class="object-cover">
-                        </div>
-                        <div class="w-[70%] space-y-2">
-                            <h3 class="font-bold text-gray-800">Nike Dunk 1</h3>
-                            <h3 class="font-bold text-gray-500">Men Training Shoe</h3>
-                        </div>
-                        <div class="font-bold text-gray-800">$228</div>
-                    </div>
-                    <div class="bg-gray-100 flex items-center gap-2 p-px">
-                        <div class="w-[10%] rounded-md overflow-hidden">
-                            <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Purchased product image" class="object-cover">
-                        </div>
-                        <div class="w-[70%] space-y-2">
-                            <h3 class="font-bold text-gray-800">Nike Dunk Low</h3>
-                            <h3 class="font-bold text-gray-500">Training Shoe</h3>
-                        </div>
-                        <div class="font-bold text-gray-800">$120</div>
-                    </div>
-                    <div class="bg-gray-100 flex items-center gap-2 p-px">
-                        <div class="w-[10%] rounded-md overflow-hidden">
-                            <img src="./images//ox-street-Le0o8Ac_Eco-unsplash.jpg" alt="Purchased product image" class="object-cover">
-                        </div>
-                        <div class="w-[70%] space-y-2">
-                            <h3 class="font-bold text-gray-800">Nike Dunk Low</h3>
-                            <h3 class="font-bold text-gray-500">women Training Shoe</h3>
-                        </div>
-                        <div class="font-bold text-gray-800">$120</div>
-                    </div>
-                </div>
-            </div>
-            <div id="about-us" class="flex flex-col gap-2 sahdow-md">
-                <div id="accordion" class="active px-2 py-2 rounded-lg bg-white space-y-4 overflow-y-hidden h-12 transition-all cursor-pointer">
-                    <div class="flex items-center justify-between">
-                        <h2 class="font-bold text-gray-800 text-xl">Title 1</h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 rotate-0 transition-transform">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+        <div id="content" class="relative pt-10 pb-20 px-2 overflow-y-auto lg:py-9">
+            <section id="Dashboard" class="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+                <div id="user-info" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
+                    <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 stroke-white">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <div class="text-gray-700 bg-gray-200 font-semibold rounded-md p-1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, fuga!</div>
+                    <ul id="user-infos" class="border-t border-gray-200 space-y-3 py-5 divide-y divide-gray-100">
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">FirstName :</span>
+                            <span class="font-semibold text-gray-600">Alex</span>
+                        </li>
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">LastName :</span>
+                            <span class="font-semibold text-gray-600">Green</span>
+                        </li>
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">Email :</span>
+                            <span class="font-semibold text-gray-600">AlexGreen23@gmail.com</span>
+                        </li>
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">UserName :</span>
+                            <span class="font-semibold text-gray-600">AlexGreen29</span>
+                        </li>
+                    </ul>
                 </div>
-                <div id="accordion" class="px-2 py-2 rounded-lg bg-white space-y-4 overflow-y-hidden h-12 transition-all cursor-pointer">
+                <div id="user-basket" class="px-2 py-2 rounded-lg bg-white space-y-4 sahdow-md">
                     <div class="flex items-center justify-between">
-                        <h2 class="font-bold text-gray-800 text-xl">Title 2</h2>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-7 h-7 rotate-0 transition-transform">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                        </svg>
+                        <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Shopping Cart</h2>
+                        <button class="flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                            </svg>  
+                        </button>
                     </div>
-                    <div class="text-gray-700 bg-gray-200 font-semibold rounded-md p-1">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores quia eum cum quod excepturi cupiditate! Voluptates perferendis alias natus sint.</div>
+                    <div class="flex flex-col gap-2 py-1">
+                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                            <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
+                                <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Purchased product image" class="object-cover">
+                            </div>
+                            <div class="w-[65%] space-y-1 xs:w-[70%] xs:space-y-0">
+                                <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk 1</h3>
+                                <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">Men Training Shoe</h3>
+                            </div>
+                            <div class="font-bold text-gray-800">$228</div>
+                        </div>
+                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                            <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
+                                <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Purchased product image" class="object-cover">
+                            </div>
+                            <div class="w-[65%] space-y-1 xs:w-[70%] xs:space-y-2">
+                                <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk Low</h3>
+                                <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">Training Shoe</h3>
+                            </div>
+                            <div class="font-bold text-gray-800">$120</div>
+                        </div>
+                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                            <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
+                                <img src="./images//ox-street-Le0o8Ac_Eco-unsplash.jpg" alt="Purchased product image" class="object-cover">
+                            </div>
+                            <div class="w-[65%] space-y-1 xs:w-[70%] xs:space-y-2">
+                                <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk Low</h3>
+                                <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">women Training Shoe</h3>
+                            </div>
+                            <div class="font-bold text-gray-800">$120</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
+                <div id="recent-purchases" class="flex flex-col gap-2 sahdow-md bg-white rounded-md py-1 px-2 md:row-start-1 md:row-end-3 lg:col-start-1 lg:col-end-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Recent Purchases</h2>
+                        <button class="flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                            </svg>  
+                        </button>
+                    </div>
+                    <div class="h-full flex flex-col gap-2 py-1 min-h-[15rem]">
+                        <div class="flex items-center justify-between rounded-md px-1">
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">id</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">productName</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Price</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Date</h3>
+                        </div>
+                        <div class="flex flex-col gap-1 lg:mt-2">
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">1</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Nike Dunk 1</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">$120</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">11 dec</span>
+                            </div>
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">2</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Nike Dunk Low</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">$90</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">23 dec</span>
+                            </div>
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">3</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Nike Dunk Low</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">$125</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">5 Nov</span>
+                            </div>
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">4</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Nike Dunk 1</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">$120</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">11 dec</span>
+                            </div>
+                        </div>
+                        <div class="h-full hidden flex-col items-center justify-center gap-3">
+                            <h2 class="text-xl text-blue-700 font-bold text-center xs:text-2xl">You have not made a purchase yet!</h2>
+                            <a href="./products.html?t=men" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Purchase</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            
+            
+            <span class="text-base font-semibold absolute top-1 left-2 space-x-1">
+                <a href="./index.html" class="text-blue-700 hover:underline">Home</a>
+                <span id="currentPage" class="text-gray-500">/ Dashboard</span>
+            </span>
         </div>
     </div>
-
 
     <script src="./js/userPanel.js"></script>
 </body>

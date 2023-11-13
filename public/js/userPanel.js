@@ -1,24 +1,38 @@
-let aboutUsWrapper = document.getElementById('about-us')
-let aboutUsElems = document.querySelectorAll('#about-us #accordion')
+let menu = document.getElementById('menu')
+let menuBtn = document.getElementById('menu-btn')
+let currentPage = document.getElementById('currentPage')
+
+let targetElem = null
+let currentTab = null
 
 
-function showAboutUsContent(e){
-    let targetElem = null
-    let prevActiveElem = aboutUsWrapper.querySelector('.active') || null
-    
-    if(e.target.tagName !== 'DIV'){
-        targetElem = e.target.tagName === 'path' ? e.target.parentNode.parentNode.parentNode : e.target.parentNode.parentNode
-    } else {
-        targetElem = e.target.parentNode
-    }
-    
-
-    targetElem.classList.add('active')
-    if(prevActiveElem){
-        prevActiveElem.classList.remove('active')
-    }
+function toggleMenu(){
+    menu.classList.toggle('unshow')
 }
 
-aboutUsElems.forEach(aboutUsElem => {
-    aboutUsElem.addEventListener('click' , showAboutUsContent)
+function changeMenu(e){
+    // Checking the current active tab with the value that has been clicked so that the page is not refreshed if the current tab is clicked
+    targetElem = e.target
+    if(e.target.tagName !== 'LI' || targetElem.dataset.target === currentTab){
+        return false
+    }
+
+    let prevActiveTab = menu.querySelector('.active')
+    prevActiveTab.classList.remove('active')
+    targetElem.classList.add('active')
+
+    currentTab = targetElem.dataset.target
+    changeCurrentPageHandler()
+}
+
+// change page title and current location link
+function changeCurrentPageHandler(){
+    currentPage.innerHTML = `/ ${currentTab}`
+    document.title = `Shoe Store | ${currentTab}`
+}
+
+document.addEventListener('DOMContentLoaded' , () => {
+    currentTab = menu.querySelector('.active').dataset.target
 })
+menuBtn.addEventListener('click' , toggleMenu)
+menu.addEventListener('click' , changeMenu)

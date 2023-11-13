@@ -2,16 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+#menu ul li::after{
+    @apply w-0 origin-center transition-all;
+}
+
 #menu ul .active::after{
-    @apply w-full bg-blue-700;
+    @apply hidden;
+}
+
+#menu ul li:hover::after{
+    @apply w-full;
+}
+
+
+#menu ul .active{
+    @apply bg-blue-700 lg:w-full text-center rounded-lg px-2 py-1;
+}
+
+#menu ul .active a{
+    @apply font-semibold;
 }
 
 #menu ul .active svg{
-    @apply stroke-blue-800;
+    @apply stroke-white;
 }
 
 #menu ul .active span{
-    @apply text-blue-800;
+    @apply text-white;
+}
+
+.unshow .active{
+    @apply p-px;
+}
+
+.unshow li span{
+    @apply hidden;
+}
+
+.unshow ul{
+    @apply basis-full;
+}
+
+.unshow h2{
+    @apply hidden;
 }
 
 #content #about-us .active{
