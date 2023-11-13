@@ -47,10 +47,10 @@
     @apply hidden;
 }
 
-#content #about-us .active{
-    @apply h-fit;
+#content .notActive{
+    @apply hidden;
 }
 
-#content #about-us .active svg {
-    @apply rotate-180;
+#content #Basket #progress .active{
+    @apply text-white bg-sky-500 border-none ring  ring-sky-500 ring-offset-2 ring-offset-gray-200 outline-gray-200;
 }

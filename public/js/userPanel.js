@@ -1,6 +1,7 @@
 let menu = document.getElementById('menu')
 let menuBtn = document.getElementById('menu-btn')
 let currentPage = document.getElementById('currentPage')
+let content = document.getElementById('content')
 
 let targetElem = null
 let currentTab = null
@@ -21,8 +22,15 @@ function changeMenu(e){
     prevActiveTab.classList.remove('active')
     targetElem.classList.add('active')
 
+    let prevActiveContent = document.getElementById(currentTab)
+    prevActiveContent.classList.add('notActive')
+
+    let targetElemWrapper = document.getElementById(e.target.dataset.target)
+    targetElemWrapper.classList.remove('notActive')
+
     currentTab = targetElem.dataset.target
-    changeCurrentPageHandler()
+    console.log(currentTab);
+    changeCurrentPageHandler(targetElem.dataset.target)
 }
 
 // change page title and current location link
