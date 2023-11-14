@@ -54,3 +54,29 @@
 #content #Basket #progress .active{
     @apply text-white bg-sky-500 border-none ring  ring-sky-500 ring-offset-2 ring-offset-gray-200 outline-gray-200;
 }
+
+#content #Basket #progress .completed{
+    @apply text-sky-500 bg-gray-200 border-2 border-sky-500 outline-gray-200;
+}
+
+#content #Basket #progress .completed span{
+    @apply hidden;
+}
+
+
+#content #Basket #progress .completed svg{
+    @apply inline-block stroke-2;
+}
+
+#content #Basket #userBasketWrapper .show{
+    @apply flex;
+}
+
+#content #Basket #progress .progress-completed{
+    @apply bg-sky-500;
+}
+
+#content #Basket #progress2 #delivery-type input:checked ~ label{
+    @apply border-sky-500 bg-sky-200;
+}
+

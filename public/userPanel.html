@@ -59,7 +59,7 @@
                   </svg>                  
             </span>
         </div>
-        <div id="content" class="relative pt-10 pb-20 px-2 overflow-y-auto lg:py-9">
+        <div id="content" class="relative pt-10 pb-20 px-2 overflow-y-auto h-screen  lg:py-9">
             <section id="Dashboard" class="notActive grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
                 <div id="user-info" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
                     <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
@@ -178,151 +178,314 @@
                 </div>
             </section>
             
-            <section id="Basket" class="mt-5 w-full flex flex-col items-center gap-10">
+            <section id="Basket" class="mt-5 w-full flex flex-col items-center gap-5">
                 <div id="progress" class="w-full max-w-sm relative flex items-center justify-between">
-                    <div class="active h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">1</div>
-                    <div class="h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">2</div>
-                    <div class="h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">3</div>
-                    <span class="h-1 w-full bg-gray-300 rounded-full absolute z-10"></span>
+                    <div data-target="progress1" id="progress-1" class="completed h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">
+                        <span>1</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6 stroke-sky-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </div>
+                   
+                    <span id="progress-line-1" class="progress-completed h-1 w-[39%] bg-gray-300 rounded-full z-10"></span>
+
+                    <div data-target="progress2" id="progress-2" class="active h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">
+                        <span>2</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6 stroke-sky-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </div>
+                   
+                    <span id="progress-line-2" class="h-1 w-[39%] bg-gray-300 rounded-full z-10"></span>
+
+                    <div data-target="progress3" id="progress-3" class="h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">
+                        <span>3</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6 stroke-sky-500">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                        </svg>
+                    </div>
                 </div>
-                <div id="userBasketWrapper" class="w-full flex flex-col items-center gap-4">
-                    <h2 class="text-gray-800 font-semibold text-2xl">Shopping Cart</h2>
-                    <div class="grid grid-cols-1 gap-5 px-2">
-                        <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400">
-                            <div class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
-                                <div class="w-[20%] h-20 overflow-hidden">
-                                    <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
-                                </div>
-                                <div class="w-[60%] h-full flex flex-col items-start justify-between font-semibold">
-                                    <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
-                                    <div class="flex flex-col items-start justify-center gap-[2px] xs:flex-row">
-                                        <button class="group text-gray-700 text-sm flex items-center gap-1  hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5 group-hover:fill-red-500 group-hover:stroke-0 transition-all">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                              </svg>                                              
-                                            Add To WishList
-                                        </button>
-                                        <button class="text-gray-700 text-sm flex items-center gap-1 hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                              </svg>             
-                                            Remove
-                                        </button>
+
+                <div id="userBasketWrapper" class="w-full">
+                    <div id="progress1" class="w-full hidden flex-col items-center gap-4 md:items-start">
+                        <h2 class="text-gray-800 font-bold px-2 text-2xl md:text-3xl">Shopping Cart</h2>
+                        <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 lg:grid-cols-3">
+                            <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 lg:col-start-1 lg:col-end-3">
+                                <div class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
+                                    <div class="w-[20%] h-20 overflow-hidden">
+                                        <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
+                                    </div>
+                                    <div class="w-[60%] h-full flex flex-col items-start justify-between font-semibold">
+                                        <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
+                                        <div class="flex flex-col items-start justify-center gap-[2px] sm:flex-row md:flex-col lg:flex-row">
+                                            <button class="group text-gray-700 text-sm flex items-center gap-1  hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5 group-hover:fill-red-500 group-hover:stroke-0 group-hover:scale-110 transition-all">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                  </svg>                                              
+                                                Add To WishList
+                                            </button>
+                                            <button class="text-gray-700 text-sm flex items-center gap-1 hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                  </svg>             
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end justify-between h-full">
+                                        <h3 class="text-gray-800 font-semibold text-xl tracking-wider">$120</h3>
+                                        <div class="flex items-center gap-2">
+                                            <button id="decrease-count" class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                                </svg>                                              
+                                            </button>
+                                            <span id="productCount" class="text-gray-700 font-semibold">1</span>
+                                            <button id="increase-count" class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>                                                                                         
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="flex flex-col items-end justify-between  h-full">
-                                    <h3 class="text-gray-800 font-semibold text-xl tracking-wider">$120</h3>
-                                    <div class="flex items-center gap-2">
-                                        <button class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-                                            </svg>                                              
-                                        </button>
-                                        <span id="productNumber" class="text-gray-700 font-semibold">1</span>
-                                        <button class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                            </svg>                                                                                         
-                                        </button>
+                                <div class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
+                                    <div class="w-[20%] h-20 overflow-hidden">
+                                        <img src="./images/ryan-plomp-76w_eDO1u1E-unsplash.jpg" class="object-cover" alt="Product Image">
+                                    </div>
+                                    <div class="w-[60%] h-full flex flex-col items-start justify-between font-semibold">
+                                        <h3 class="text-gray-800 font-bold">Dunk Low 5</h3>
+                                        <div class="flex flex-col items-start justify-center gap-[2px] sm:flex-row md:flex-col lg:flex-row">
+                                            <button class="group text-gray-700 text-sm flex items-center gap-1  hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5 group-hover:fill-red-500 group-hover:stroke-0 group-hover:scale-110 transition-all">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                  </svg>                                              
+                                                Add To WishList
+                                            </button>
+                                            <button class="text-gray-700 text-sm flex items-center gap-1 hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                  </svg>             
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end justify-between h-full">
+                                        <h3 class="text-gray-800 font-semibold text-xl tracking-wider">$90</h3>
+                                        <div class="flex items-center gap-2">
+                                            <button id="decrease-count" class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                                </svg>                                              
+                                            </button>
+                                            <span id="productCount" class="text-gray-700 font-semibold">2</span>
+                                            <button id="increase-count" class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>                                                                                         
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
+                                    <div class="w-[20%] h-20 overflow-hidden">
+                                        <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover" alt="Product Image">
+                                    </div>
+                                    <div class="w-[60%] h-full flex flex-col items-start justify-between font-semibold">
+                                        <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
+                                        <div class="flex flex-col items-start justify-center gap-[2px] sm:flex-row md:flex-col lg:flex-row">
+                                            <button class="group text-gray-700 text-sm flex items-center gap-1  hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5 group-hover:fill-red-500 group-hover:stroke-0 group-hover:scale-110 transition-all">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                  </svg>                                              
+                                                Add To WishList
+                                            </button>
+                                            <button class="text-gray-700 text-sm flex items-center gap-1 hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                                  </svg>             
+                                                Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="flex flex-col items-end justify-between h-full">
+                                        <h3 class="text-gray-800 font-semibold text-xl tracking-wider">$120</h3>
+                                        <div class="flex items-center gap-2">
+                                            <button id="decrease-count" class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
+                                                </svg>                                              
+                                            </button>
+                                            <span id="productCount" class="text-gray-700 font-semibold">1</span>
+                                            <button id="increase-count" class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                </svg>                                                                                         
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
-                                <div class="w-[20%] h-20 overflow-hidden">
-                                    <img src="./images/ryan-plomp-76w_eDO1u1E-unsplash.jpg" class="object-cover" alt="Product Image">
+                            <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 h-fit">
+                                <h2 class="text-gray-900 font-semibold text-xl">Summary</h2>
+                                <div class="flex flex-col gap-2 py-2">
+                                    <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                        <span>Subtotal :</span>
+                                        <span id="subtotal" class="text-gray-800 font-bold">$250</span>
+                                    </span>
+                                    <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                        <span>Tax (9%) :</span>
+                                        <span id="subtotal" class="text-gray-800 font-bold">$12</span>
+                                    </span>
+                                    <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                        <span>Total Price :</span>
+                                        <span id="subtotal" class="text-gray-800 font-bold">$262</span>
+                                    </span>
+                                    <button data-target="2" id="checkoutBtn" class="w-full bg-sky-500 hover:bg-sky-700 transition-colors text-white font-bold py-2 rounded-lg">Check Out</button>
                                 </div>
-                                <div class="w-[60%] h-full flex flex-col items-start justify-between font-semibold">
-                                    <h3 class="text-gray-800 font-bold">Dunk Low 5</h3>
-                                    <div class="flex flex-col items-start justify-center gap-[2px] xs:flex-row">
-                                        <button class="group text-gray-700 text-sm flex items-center gap-1  hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5 group-hover:fill-red-500 group-hover:stroke-0 transition-all">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                              </svg>                                              
-                                            Add To WishList
-                                        </button>
-                                        <button class="text-gray-700 text-sm flex items-center gap-1 hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                              </svg>             
-                                            Remove
-                                        </button>
+                            </div>
+                        </div> 
+                    </div>
+
+                    <div id="progress2" class="show w-full hidden flex-col items-center gap-4 md:items-start">
+                        <h2 class="text-gray-800 font-bold px-2 text-2xl md:text-3xl">Delivery</h2>
+                        <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 lg:grid-cols-3">
+                            <div class="w-full h-fit grid grid-cols-2 gap-x-2 gap-y-4 md:col-start-1 md:col-end-2 lg:col-start-1 lg:col-end-3">
+                                <select name="" id="country" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
+                                    <option value="Country">Country</option>
+                                    <option value="Iran">Iran</option>
+                                    <option value="USA">USA</option>
+                                    <option value="Germany">Germany</option>
+                                    <option value="Britain">Britain</option>
+                                </select>
+                                
+                                <input type="text" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="First Name">
+                                
+                                <input type="text" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Last Name">
+                                
+                                <select name="" id="City" class="p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
+                                    <option value="Country">City</option>
+                                </select>
+                                
+                                <input type="text" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Postal Code">
+
+                                <input type="text" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Address">
+                                
+                                <input type="text" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Phone Number">
+
+                                <h2 class="col-start-1 col-end-3 text-gray-800 font-bold px-2 text-2xl md:text-3xl">Shopping Method</h2>
+                                
+                                <div id="delivery-type" class="col-start-1 col-end-3 border-t border-gray-400 py-5 flex flex-col gap-2">
+                                    <div>
+                                        <input type="radio" id="Standard" name="delivery" class="hidden">
+
+                                        <label for="Standard" class="w-full flex items-start justify-between p-2 border border-gray-400 rounded hover:border-sky-500 hover:bg-sky-200 transition-colors cursor-pointer md:items-center">
+                                            
+                                            <div class="flex flex-col items-start justify-start md:flex-row md:gap-2 md:items-center">
+                                                <h3 class="text-gray-800 font-semibold text- xs:text-basesm">Standard Delivery</h3>
+                                                <p class="text-gray-500 text-sm">3 or 7 working days</p>
+                                            </div>
+
+                                            <div class="text-gray-900 font-bold">
+                                                $7.00
+                                            </div>
+                                        </label>
                                     </div>
-                                </div>
-                                <div class="flex flex-col items-end justify-between h-full">
-                                    <h3 class="text-gray-800 font-semibold text-xl tracking-wider">$90</h3>
-                                    <div class="flex items-center gap-2">
-                                        <button class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-                                            </svg>                                              
-                                        </button>
-                                        <span id="productNumber" class="text-gray-700 font-semibold">2</span>
-                                        <button class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                            </svg>                                                                                         
-                                        </button>
+                                    <div>
+                                        <input type="radio" id="Fast" name="delivery" class="hidden">
+
+                                        <label for="Fast" class="w-full flex items-start justify-between p-2 border border-gray-400 rounded hover:border-sky-500 hover:bg-sky-200 transition-colors cursor-pointer md:items-center">
+
+                                            <div class="flex flex-col items-start justify-center md:flex-row md:gap-2 md:items-center">
+                                                <h3 class="text-gray-800 font-semibold text-sm xs:text-base">Fast Delivery</h3>
+                                                <p class="text-gray-500 text-sm">less than 72 Hours</p>
+                                            </div>
+
+                                            <div class="text-gray-900 font-bold">
+                                                $11.00
+                                            </div>
+
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
-                                <div class="w-[20%] h-20 overflow-hidden">
-                                    <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover" alt="Product Image">
-                                </div>
-                                <div class="w-[60%] h-full flex flex-col items-start justify-between font-semibold">
-                                    <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
-                                    <div class="flex flex-col items-start justify-center gap-[2px] xs:flex-row">
-                                        <button class="group text-gray-700 text-sm flex items-center gap-1  hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5 group-hover:fill-red-500 group-hover:stroke-0 transition-all">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                              </svg>                                              
-                                            Add To WishList
-                                        </button>
-                                        <button class="text-gray-700 text-sm flex items-center gap-1 hover:text-white hover:bg-gray-700 transition-colors px-2 py-[2px] rounded-md">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                              </svg>             
-                                            Remove
-                                        </button>
+
+                            <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 h-fit">
+                                <h2 class="text-gray-900 font-bold text-xl sm:text-2xl">Items : <span id="basket-items">3</span></h2>
+                                <div class="flex flex-col gap-2 py-4">
+                                    <div class="flex flex-col gap-2">
+                                        <div class="flex items-start justify-between gap-2">
+                                            <div class="flex gap-2">
+                                                <div class="w-[20%] h-20 overflow-hidden">
+                                                    <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
+                                                </div>
+                                                <div class="flex flex-col gap-1">
+                                                    <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
+                                                    <p class="text-gray-500 font-semibold line-clamp-1">Men Training Shoe</p>
+                                                </div>
+                                            </div>
+                                            <h3 class="text-gray-800 font-semibold text-lg tracking-wider">$120</h3>
+                                        </div>            
+                                        <div class="flex items-start justify-between gap-2">
+                                            <div class="flex gap-2">
+                                                <div class="w-[20%] h-20 overflow-hidden">
+                                                    <img src="./images/ryan-plomp-76w_eDO1u1E-unsplash.jpg" class="object-cover" alt="Product Image">
+                                                </div>
+                                                <div class="flex flex-col gap-1">
+                                                    <h3 class="text-gray-800 font-bold">Dunk Low 5</h3>
+                                                    <p class="text-gray-500 font-semibold line-clamp-1">Training Shoe</p>
+                                                </div>
+                                            </div>
+                                            <h3 class="text-gray-800 font-semibold text-lg tracking-wider">$90</h3>
+                                        </div>
+                                        <div class="flex items-start justify-between gap-2">
+                                            <div class="flex gap-2">
+                                                <div class="w-[20%] h-20 overflow-hidden">
+                                                    <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover" alt="Product Image">
+                                                </div>
+                                                <div class="flex flex-col gap-1">
+                                                    <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
+                                                    <p class="text-gray-500 font-semibold line-clamp-1">Training Shoe</p>
+                                                </div>
+                                            </div>
+                                            <h3 class="text-gray-800 font-semibold text-lg tracking-wider">$120</h3>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="flex flex-col items-end justify-between h-full">
-                                    <h3 class="text-gray-800 font-semibold text-xl tracking-wider">$120</h3>
-                                    <div class="flex items-center gap-2">
-                                        <button class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
-                                            </svg>                                              
-                                        </button>
-                                        <span id="productNumber" class="text-gray-700 font-semibold">1</span>
-                                        <button class="group p-1 rounded border border-gray-400 hover:border-gray-200 hover:bg-gray-700 teansition-all">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                            </svg>                                                                                         
-                                        </button>
+
+                                    <div class="flex flex-col gap-2 py-1">
+                                        <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                            <span>Subtotal :</span>
+                                            <span id="subtotal" class="text-gray-800 font-bold">$250</span>
+                                        </span>
+                                        <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                            <span>Tax (9%) :</span>
+                                            <span id="subtotal" class="text-gray-800 font-bold">$12</span>
+                                        </span>
+                                        <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                            <span>Delivery :</span>
+                                            <span id="Delivery" class="text-gray-800 font-bold">$7</span>
+                                        </span>
+                                        <span class="text-gray-600 font-semibold flex itesm-center justify-between">
+                                            <span>Total Price :</span>
+                                            <span id="subtotal" class="text-gray-800 font-bold">$262</span>
+                                        </span>
+                                        
+                                        <div class="mt-5 grid grid-cols-1 gap-2 xs:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                                            <button data-target="1" class="border-2 border-sky-500 p-2 rounded-md text-sky-600  font-bold hover:bg-sky-200 transition-colors">Back</button>
+                                            <button data-target="3" id="payNowBtn" class="bg-sky-500 p-2 rounded-md text-white font-bold hover:bg-sky-600 transition-colors">Pay Now</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400">
-                            <h2 class="text-gray-900 font-semibold text-xl">Summary</h2>
-                            <div class="flex flex-col gap-2 py-2">
-                                <span class="text-gray-600 font-semibold flex itesm-center justify-between">
-                                    <span>Subtotal :</span>
-                                    <span id="subtotal" class="text-gray-800 font-bold">$250</span>
-                                </span>
-                                <span class="text-gray-600 font-semibold flex itesm-center justify-between">
-                                    <span>Tax (9%) :</span>
-                                    <span id="subtotal" class="text-gray-800 font-bold">$12</span>
-                                </span>
-                                <span class="text-gray-600 font-semibold flex itesm-center justify-between">
-                                    <span>Total Price :</span>
-                                    <span id="subtotal" class="text-gray-800 font-bold">$262</span>
-                                </span>
-                                <button class="w-full bg-sky-500 text-white font-bold py-1 rounded-md">Check Out</button>
-                            </div>
+
+
                         </div>
                     </div>
+
+                    <div id="progress3" class="w-full hidden flex-col items-center gap-4 md:items-start">
+                        
+                    </div>
+
                 </div>
             </section>
             
