@@ -51,6 +51,7 @@
     @apply hidden;
 }
 
+
 #content #Basket #progress .active{
     @apply text-white bg-sky-500 border-none ring  ring-sky-500 ring-offset-2 ring-offset-gray-200 outline-gray-200;
 }
@@ -63,20 +64,30 @@
     @apply hidden;
 }
 
-
 #content #Basket #progress .completed svg{
     @apply inline-block stroke-2;
 }
 
-#content #Basket #userBasketWrapper .show{
-    @apply flex;
+#content #progress1 #basket-product #addToWishList .active{
+    @apply fill-red-500 stroke-0;
+}
+
+
+#content #progress1 #color-picker input:checked ~ label{
+    @apply ring-2;
 }
 
 #content #Basket #progress .progress-completed{
     @apply bg-sky-500;
 }
 
+#content #Basket #userBasketWrapper .show{
+    @apply flex;
+}
+
 #content #Basket #progress2 #delivery-type input:checked ~ label{
     @apply border-sky-500 bg-sky-200;
 }
+
+
 

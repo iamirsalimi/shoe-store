@@ -36,7 +36,7 @@ nav ul .active::after {
     width:100%;
 }
 
-#content #colors .active{
+#content #colors input:checked ~ label{
     @apply ring-2;
 }
 

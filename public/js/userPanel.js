@@ -6,17 +6,18 @@ let content = document.getElementById('content')
 let increaseCountBtns = document.querySelectorAll('#increase-count')
 let decreaseCountBtns = document.querySelectorAll('#decrease-count')
 
-
 // basket section
 let progresses = document.querySelectorAll('#progress div')
 let checkoutBtn = document.getElementById('checkoutBtn')
 let payNowBtn = document.getElementById('payNowBtn')
 
+let backToProgressBtn = document.getElementById('backToProgress1')
+let backToProgressBtn1 = document.getElementById('backToProgress2')
 
 
 let targetElem = null
 let currentTab = null
-let currentProgress = 2
+let currentProgress = 1
 
 
 function toggleMenu(){
@@ -59,29 +60,52 @@ document.addEventListener('DOMContentLoaded' , () => {
 function changePurchaseProgress(e){
     let progressTarget = parseInt(e.target.dataset.target)
 
-    // hide prev progress section and visible next progress section by adding and removing show class
-    let currentProgressWrapper = document.getElementById(`progress${currentProgress}`)
-    currentProgressWrapper.classList.remove('show')
+    if(progressTarget > currentProgress){
+        // hide prev progress section and visible next progress section by adding and removing show class
+        let currentProgressWrapper = document.getElementById(`progress${currentProgress}`)
+        currentProgressWrapper.classList.remove('show')
+        
+        let nextProgressWrapper = document.getElementById(`progress${progressTarget}`)  
+        nextProgressWrapper.classList.add('show')
+        
+        // changing current progress icon style by adding active class
+        let currentProgressIcon = document.getElementById(`progress-${progressTarget}`)
+        currentProgressIcon.classList.add('active')
     
-    let nextProgressWrapper = document.getElementById(`progress${progressTarget}`)  
-    nextProgressWrapper.classList.add('show')
-    
-    // changing current progress icon style by adding active class
-    let currentProgressIcon = document.getElementById(`progress-${progressTarget}`)
-    currentProgressIcon.classList.add('active')
-
-    let progressLine = null
-    let progressIcon = null
-    for(let i = 1 ; i < progressTarget ; i++){
-        // changing progress icon's by adding completed class and removing active class
-        progressIcon = document.getElementById(`progress-${i}`)
-        if(progressIcon.className.includes('active')){
-            progressIcon.classList.remove('active')
+        let progressLine = null
+        let progressIcon = null
+        for(let i = 1 ; i < progressTarget ; i++){
+            // changing progress icon's by adding completed class and removing active class
+            progressIcon = document.getElementById(`progress-${i}`)
+            if(progressIcon.className.includes('active')){
+                progressIcon.classList.remove('active')
+            }
+            progressIcon.classList.add('completed')
+            // changing progress lines styles by adding progress-completed class
+            progressLine = document.getElementById(`progress-line-${i}`)
+            progressLine.classList.add('progress-completed')
         }
-        progressIcon.classList.add('completed')
-        // changing progress lines styles by adding progress-completed class
-        progressLine = document.getElementById(`progress-line-${i}`)
-        progressLine.classList.add('progress-completed')
+    } else {
+        // hide prev progress section and visible next progress section by adding and removing show class
+        let currentProgressWrapper = document.getElementById(`progress${currentProgress}`)
+        currentProgressWrapper.classList.remove('show')
+        console.log(currentProgressWrapper)
+        
+        let nextProgressWrapper = document.getElementById(`progress${progressTarget}`)  
+        nextProgressWrapper.classList.add('show')
+        console.log(nextProgressWrapper)
+
+        // changing current progress icon style by adding active class
+        let currentProgressIcon = document.getElementById(`progress-${progressTarget}`)
+        currentProgressIcon.classList.remove('completed')
+        currentProgressIcon.classList.add('active')
+
+        let progressLine = document.getElementById(`progress-line-${progressTarget}`)
+        progressLine.classList.remove('progress-completed')
+        
+        let progressIcon = document.getElementById(`progress-${currentProgress}`)
+        progressIcon.classList.remove('active')
+        console.log(progressIcon)
     }
 
     // now we must update currentProgress 
@@ -129,7 +153,8 @@ decreaseCountBtns.forEach(decreaseCountBtn => {
     decreaseCountBtn.addEventListener('click' , changeProductCount)
 })
 
-
+backToProgressBtn1.addEventListener('click' , changePurchaseProgress)
+backToProgressBtn.addEventListener('click' , changePurchaseProgress)
 payNowBtn.addEventListener('click' , changePurchaseProgress)
 checkoutBtn.addEventListener('click' , changePurchaseProgress)
 menuBtn.addEventListener('click' , toggleMenu)
