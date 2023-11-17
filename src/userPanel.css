@@ -81,6 +81,7 @@
     @apply bg-sky-500;
 }
 
+
 #content #Basket #userBasketWrapper .show{
     @apply flex;
 }
@@ -89,5 +90,17 @@
     @apply border-sky-500 bg-sky-200;
 }
 
+#content #searchInput:focus ~ svg{
+    @apply stroke-gray-800;
+}
 
+#content::-webkit-scrollbar {
+    @apply hidden;
+}
 
+#content #Purchases tbody:before {
+    content: "-";
+    display: block;
+    line-height: 0.5rem;
+    color: transparent;
+}
