@@ -42,7 +42,6 @@ function changeMenu(e){
     targetElemWrapper.classList.remove('notActive')
 
     currentTab = targetElem.dataset.target
-    console.log(currentTab);
     changeCurrentPageHandler(targetElem.dataset.target)
 }
 
@@ -143,6 +142,29 @@ function decreaseProductCount(countElem){
     countElem.innerHTML -= 1
 }
 
+function getRoute(){
+    let locationSearch =location.search
+
+    if(!locationSearch){
+        return false
+    }
+
+    let tab = new URLSearchParams(locationSearch).get('t')
+    
+    if(tab != 'Basket'){
+        return false
+    }
+    
+    let activeTab = document.getElementById('Basket')
+    activeTab.classList.remove('notActive')
+    activeTab.previousElementSibling.classList.add('notActive')
+    
+    let activeMenu = document.getElementById('BasketMenu')
+    activeMenu.classList.add('active')
+    activeMenu.previousElementSibling.classList.remove('active')
+}
+
+
 // events
 
 increaseCountBtns.forEach(increaseCountBtn => {
@@ -153,6 +175,8 @@ decreaseCountBtns.forEach(decreaseCountBtn => {
     decreaseCountBtn.addEventListener('click' , changeProductCount)
 })
 
+
+document.addEventListener('DOMContentLoaded' , getRoute)
 backToProgressBtn1.addEventListener('click' , changePurchaseProgress)
 backToProgressBtn.addEventListener('click' , changePurchaseProgress)
 payNowBtn.addEventListener('click' , changePurchaseProgress)
