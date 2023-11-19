@@ -59,8 +59,8 @@
                   </svg>                  
             </span>
         </div>
-        <div id="content" class="relative w-full pt-10 pb-32 px-2 lg:overflow-y-auto h-screen lg:pt-9">
-            <section id="Dashboard" class="mt-5 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+        <div id="content" class="relative w-full pt-10 pb-20 px-2 lg:overflow-y-auto h-screen lg:pt-9">
+            <section id="Dashboard" class="mt-5 pb-32 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:pb-12">
                 <div id="user-info" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
                     <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 stroke-white">
@@ -89,7 +89,7 @@
                 <div id="user-basket" class="px-2 py-2 rounded-lg bg-white space-y-4 sahdow-md">
                     <div class="flex items-center justify-between">
                         <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Shopping Cart</h2>
-                        <button class="flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
+                        <button data-target="Basket" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>  
@@ -126,12 +126,16 @@
                             </div>
                             <div class="font-bold text-gray-800">$120</div>
                         </div>
+                        
+                        <!-- <div class="h-full flex flex-col items-center justify-center gap-2">
+                            <p class="text-blue-700 text-2xl font-bold">basket is empty!</p>
+                        </div> -->
                     </div>
                 </div>
                 <div id="recent-purchases" class="flex flex-col gap-2 sahdow-md bg-white rounded-md py-1 px-2 md:row-start-1 md:row-end-3 lg:col-start-1 lg:col-end-3">
                     <div class="flex items-center justify-between">
                         <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Recent Purchases</h2>
-                        <button class="flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
+                        <button data-target="Purchases" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
                             </svg>  
@@ -178,7 +182,7 @@
                 </div>
             </section>
             
-            <section id="Basket" class="notActive w-full mt-5 flex flex-col items-center gap-5">
+            <section id="Basket" class="notActive w-full mt-5 pb-5 flex flex-col items-center gap-5">
                 <div id="progress" class="w-full max-w-sm flex items-center justify-between">
                     <div data-target="progress1" id="progress-1" class="active h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">
                         <span>1</span>
@@ -726,7 +730,7 @@
 
             </section>
             
-            <section id="Purchases" class="notActive pb-20 mt-5 flex flex-col gap-5 md:gap-3">
+            <section id="Purchases" class="notActive pb-32 mt-5 flex flex-col gap-5 md:gap-3 lg:pb-12">
                 <div class="w-full flex flex-col justify-between gap-4 md:flex-row">
                     <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Purchases</h2>
                     <div class="w-full relative md:w-1/2 lg:w-1/3">
@@ -737,7 +741,7 @@
                     </div>
                 </div>
                 <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-auto">
-                    <table class="w-full space-y-2 px-2">
+                    <table class="w-full space-y-2 px-2 overflow-auto">
                         <thead>
                             <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
                                 <th>Id</th>

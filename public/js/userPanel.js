@@ -15,6 +15,8 @@ let backToProgressBtn = document.getElementById('backToProgress1')
 let backToProgressBtn1 = document.getElementById('backToProgress2')
 
 
+let shortCutBtns = document.querySelectorAll('.shortcut-btn')
+
 let targetElem = null
 let currentTab = null
 let currentProgress = 1
@@ -88,11 +90,9 @@ function changePurchaseProgress(e){
         // hide prev progress section and visible next progress section by adding and removing show class
         let currentProgressWrapper = document.getElementById(`progress${currentProgress}`)
         currentProgressWrapper.classList.remove('show')
-        console.log(currentProgressWrapper)
         
         let nextProgressWrapper = document.getElementById(`progress${progressTarget}`)  
         nextProgressWrapper.classList.add('show')
-        console.log(nextProgressWrapper)
 
         // changing current progress icon style by adding active class
         let currentProgressIcon = document.getElementById(`progress-${progressTarget}`)
@@ -104,7 +104,6 @@ function changePurchaseProgress(e){
         
         let progressIcon = document.getElementById(`progress-${currentProgress}`)
         progressIcon.classList.remove('active')
-        console.log(progressIcon)
     }
 
     // now we must update currentProgress 
@@ -165,6 +164,23 @@ function getRoute(){
 }
 
 
+function changeContent(e){
+    let targetElem = e.target.tagName === 'path' ? e.target.parentNode.parentNode: e.target.tagName === 'svg' ? e.target.parentNode : e.target
+
+    console.log(targetElem.dataset.target)
+
+    let prevActiveMenu = menu.querySelector(`.active`)
+    prevActiveMenu.classList.remove('active')
+    let targetMenu = menu.querySelector(`#${targetElem.dataset.target}Menu`)
+    targetMenu.classList.add('active')
+
+    content.firstElementChild.classList.add('notActive')
+    let targetContent = content.querySelector(`#${targetElem.dataset.target}`) 
+    targetContent.classList.remove('notActive')
+    
+    currentTab = targetElem.dataset.target
+}
+
 // events
 
 increaseCountBtns.forEach(increaseCountBtn => {
@@ -175,6 +191,9 @@ decreaseCountBtns.forEach(decreaseCountBtn => {
     decreaseCountBtn.addEventListener('click' , changeProductCount)
 })
 
+shortCutBtns.forEach(shortCutBtn => {
+    shortCutBtn.addEventListener('click' , changeContent)
+})
 
 document.addEventListener('DOMContentLoaded' , getRoute)
 backToProgressBtn1.addEventListener('click' , changePurchaseProgress)
