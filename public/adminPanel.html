@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/adminPanel.css">
+    <title>Shoe Store | Dashboard</title>
+</head>
+<body class="overflow-x-hidden bg-gray-200">
+  
+    <div class="relative flex flex-col-reverse gap-3 w-full h-secreen select-none lg:flex-row">
+        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 flex flex-col justify-between bg-white shadow lg:gap-10 lg:h-screen lg:relative lg:w-fit lg:px-5 lg:rounded-r-lg">
+            <h2 class="hidden w-full text-center lg:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>
+            <ul class="flex items-center justify-around gap-3 lg:flex-col lg:h-full lg:gap-5 lg:justify-start lg:items-start">
+                <li data-target="Dashboard" title="Dashboard" id="DashboardMenu" class="active hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-2 md:order-1 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                        </svg>
+                        <span class="hidden xs:inline-block">Dashboard</span>
+                    </a>
+                </li>
+                <li data-target="Users" title="Users" id="UsersMenu" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-1 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">                   
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>                          
+                        <span class="hidden xs:inline-block">Users</span>
+                    </a>
+                </li>
+                <li data-target="Purchases" title="Purchases" id="PurchasesMenu" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-1 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                        </svg>
+                        <span class="hidden xs:inline-block">Purchases</span>
+                    </a>
+                </li>
+                <li data-target="Products" title="Products" id="ProductsMenu" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-3 cursor-pointer">
+                    <a href="#" class="pointer-events-none flex flex-col items-center justify-center gap-1 lg:flex-row lg:gap-1 lg:justify-start">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-900 w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                          </svg>                          
+                        <span class="hidden xs:inline-block">Products</span>
+                    </a>
+                </li>
+                <li id="logout-btn" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-red-700  lg:mt-auto order-3">
+                    <a href="#" class="flex flex-col items-center justify-center gap-1 lg:flex-row ">
+                        <svg lg:flex-row lg:w-full lg:gap-1 xmlns="w3.org/2000 lg:justify-start/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-red-700 w-7 h-7">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>
+                        <span class="text-red-700 hidden xs:inline-block">Log out</span>
+                    </a>
+                </li>
+            </ul>
+            <span id="menu-btn" class="hidden absolute top-9 -right-4 border-2 border-white  bg-blue-700 hover:bg-blue-800 rounded-full p-[2px] cursor-pointer hover:scale-110 transition-transform lg:inline-block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                  </svg>                  
+            </span>
+        </div>
+        <div id="content" class="relative w-full pt-10 pb-20 px-2 lg:overflow-y-auto h-screen lg:pt-9">
+            <section id="Dashboard" class="mt-5 pb-32 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:pb-12">
+                <div id="user-info" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
+                    <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 stroke-white">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </div>
+                    <ul id="user-infos" class="border-t border-gray-200 space-y-3 py-1 divide-y divide-gray-100 md:py-2">
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">FirstName :</span>
+                            <span class="font-semibold text-gray-600">Alex</span>
+                        </li>
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">LastName :</span>
+                            <span class="font-semibold text-gray-600">Green</span>
+                        </li>
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">Email :</span>
+                            <span class="font-semibold text-gray-600">AlexGreen23@gmail.com</span>
+                        </li>
+                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                            <span class="font-bold text-gray-800">UserName :</span>
+                            <span class="font-semibold text-gray-600">AlexGreen29</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="user-basket" class="px-2 py-2 min-h-[5rem] rounded-lg bg-white space-y-4 sahdow-md">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Purchases</h2>
+                        <button data-target="Purchases" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                            </svg>  
+                        </button>
+                    </div>
+                    <div class="flex flex-col gap-2 py-1">
+                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                            <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
+                                <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Purchased product image" class="object-cover">
+                            </div>
+                            <div class="w-[65%] flex flex-col justify-start gap-px xs:w-[70%]">
+                                <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk 1</h3>
+                                <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">Men Training Shoe</h3>
+                            </div>
+                            <div class="font-bold text-gray-800">$228</div>
+                        </div>
+                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                            <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
+                                <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Purchased product image" class="object-cover">
+                            </div>
+                            <div class="w-[65%] flex-col justify-start gap-px xs:w-[70%]">
+                                <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk Low</h3>
+                                <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">Training Shoe</h3>
+                            </div>
+                            <div class="font-bold text-gray-800">$120</div>
+                        </div>
+                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                            <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
+                                <img src="./images//ox-street-Le0o8Ac_Eco-unsplash.jpg" alt="Purchased product image" class="object-cover">
+                            </div>
+                            <div class="w-[65%] flex-col justify-start gap-px xs:w-[70%]">
+                                <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk Low</h3>
+                                <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">women Training Shoe</h3>
+                            </div>
+                            <div class="font-bold text-gray-800">$120</div>
+                        </div>
+                        
+                        <!-- <div class="h-full flex flex-col items-center justify-center gap-2">
+                            <p class="text-blue-700 text-2xl font-bold">basket is empty!</p>
+                        </div> -->
+                    </div>
+                </div>
+                <div id="recent-purchases" class="flex flex-col gap-2 sahdow-md bg-white rounded-md py-1 px-2 md:row-start-1 md:row-end-3 lg:col-start-1 lg:col-end-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Users</h2>
+                        <button data-target="Users" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+                            </svg>  
+                        </button>
+                    </div>
+                    <div class="h-full flex flex-col gap-2 py-1 min-h-[15rem]">
+                        <div class="flex items-center justify-between rounded-md px-1">
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">id</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">FullName</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">username</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">role</h3>
+                        </div>
+                        <div class="flex flex-col gap-1 lg:mt-2">
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">1</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Alex Green</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">AlexGrn</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">user</span>
+                            </div>
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">2</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Rachel Green</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">AlexGrn</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">user</span>
+                            </div>
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">3</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">AmirSalimi</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">AmirSlm</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">admin</span>
+                            </div>
+                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">4</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Sarah Mozby</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">SarahMzb</span>
+                                <span class="text-gray-800 rounded font-semibold lg:text-lg">Admin</span>
+                            </div>
+                        </div>
+                        <div class="h-full hidden flex-col items-center justify-center gap-3">
+                            <h2 class="text-xl text-blue-700 font-bold text-center xs:text-2xl">You have not made a purchase yet!</h2>
+                            <a href="./products.html?t=men" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Purchase</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="Users" class="notActive w-full mt-5 flex flex-col gap-10 pb-28 md:gap-3 xs:pb-36 lg:pb-0">
+                <div id="UserDetail" class="flex flex-col gap-2 bg-white rounded-lg p-2">
+                    <h2 class="text-gray-900 font-bold text-xl">User Details</h2>
+                    <ul class="flex flex-col justify-around gap-2 py-2 px-1 text-gray-700">
+                        <li class="flex items-center justify-between font-bold">
+                            <span>User Id :</span>
+                            <span class="text-gray-500">5</span>
+                        </li>
+                        <li class="flex items-center justify-between font-bold">
+                            <span>Full Name :</span>
+                            <span class="text-gray-500">Alex Green</span>
+                        </li>
+                        <li class="flex items-center justify-between font-bold">
+                            <span>UserName :</span>
+                            <span class="text-gray-500">AlexGrn28</span>
+                        </li>
+                        <li class="flex items-center justify-between font-bold">
+                            <span>Email :</span>
+                            <span class="text-gray-500">AlexGrn@gmail.com</span>
+                        </li>
+                        <li class="flex items-center justify-between font-bold">
+                            <span>Number Of Orders :</span>
+                            <span class="text-gray-500">2</span>
+                        </li>
+                        <li class="flex items-center justify-between font-bold">
+                            <span>Orders :</span>
+                            <button class="changeBtn">View orders</button>
+                        </li>
+
+                        <li class="flex items-center justify-between font-bold">
+                            <span>role :</span>
+                            <span class="text-gray-500">User</span>
+                        </li>
+                    </ul>
+                    <div class="py-2 px-1 border-t border-gray-100 flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
+                        <div class="flex items-center gap-2 ">
+                            <h2 class="text-gray-800 font-bold">Change User Role : </h2>
+                            <select id="userRole" class="px-4 py-1 rounded-md border border-gray-200 bg-white text-gray-800 cursor-pointer">
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <div class="self-end flex items-center gap-5">
+                            <button class="changeBtn">Change</button>
+                            <button class="removeBtn self-end">Remove User</button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="flex flex-col gap-5 md:gap-3 md:mt-10">
+                    <div class="w-full flex flex-col justify-between gap-4 md:flex-row">
+                        <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Users</h2>
+                        <div class="w-full relative md:w-1/2 lg:w-1/3">
+                            <input type="text" data-searchTarget="UserId" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="UserName">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-6 h-6 stroke-gray-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-x-auto">
+                        <table class="w-full space-y-2 xs:px-2">
+                            <thead>
+                                <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
+                                    <th>User Id</th>
+                                    <th>FullName</th>
+                                    <th>UserName</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>View</th>
+                                </tr>
+                            </thead>
+                            <tbody id="UsersTable" class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base">
+                                <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+                                    <td class="px-[2px] text-center text-gray-500">1</td>
+                                    <td class="text-center text-gray-800">Alex Green</td>
+                                    <td class="UserId px-[2px] text-center text-gray-800">AlexGrn</td>
+                                    <td class="px-[2px] text-center text-gray-800">AlexGreen123@gmail.com</td>
+                                    <td class="px-[2px] text-center text-gray-800">user</td>
+                                    <td class="text-center">
+                                        <button class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
+                                    </td>
+                                </tr>
+                                <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+                                    <td class="px-[2px] text-center text-gray-500">2</td>
+                                    <td class="text-center text-gray-800">Rachel Mzb</td>
+                                    <td class="UserId px-[2px] text-center text-gray-800">RachelMzb20</td>
+                                    <td class="px-[2px] text-center text-gray-800">RachelMozby22@gmail.com</td>
+                                    <td class="px-[2px] text-center text-gray-800">User</td>
+                                    <td class="text-center">
+                                        <button class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h2 class="h-full hidden text-xl text-blue-700 font-bold text-center xs:text-2xl">No purchases have been registered yet!</h2>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="Purchases" class="notActive mt-5 flex flex-col gap-10 pb-28 md:gap-3 xs:pb-36 lg:pb-0">
+                <div id="productDetail" class="flex items-center justify-center bg-white rounded-lg p-1 md:gap-20">
+                    <div class="flex flex-col items-center gap-2 md:flex-row md:items-start">
+                        <div class="w-full max-h-[35rem] rounded overflow-hidden">
+                            <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover object-center" alt="productImage">
+                        </div>
+                        <div class="w-full h-full flex flex-col p-2 gap-3">
+                            <h2 class="text-gray-900 font-bold text-xl">Order Details</h2>
+                            <ul class="!h-full flex flex-col justify-around gap-2 py-1 text-gray-700">
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>order Id :</span>
+                                    <span class="text-gray-500">#1234</span>
+                                </li>
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>product Name :</span>
+                                    <span class="text-gray-500">Dunk Low 5</span>
+                                </li>
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Quantity :</span>
+                                    <span class="text-gray-500">2</span>
+                                </li>
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Colors :</span>
+                                    <div id="productsColorDetail" class="flex items-center gap-2">
+                                        <span class="inline-block w-3 h-3 rounded-full bg-red-500"></span>
+                                        <span class="inline-block w-3 h-3 rounded-full bg-sky-500"></span>
+                                    </div>
+                                </li>
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Sizes :</span>
+                                    <div id="productsColorDetail" class="flex items-center gap-2 text-gray-500">
+                                        <span>41</span>
+                                        <span>42</span>
+                                    </div>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Price :</span>
+                                    <span class="text-gray-500">$100</span>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Purchase Date :</span>
+                                    <span class="text-gray-500">05/07/2023</span>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Customer Id :</span>
+                                    <span class="text-gray-500">5</span>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Customer Name :</span>
+                                    <span class="text-gray-500">Alex Green</span>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Phone Number :</span>
+                                    <span class="text-gray-500">+9111111111</span>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Country / City :</span>
+                                    <div class="text-gray-500">
+                                        <span id="countryDetail">Germany</span> / <span class="cityDetail">Frankfort</span>
+                                    </div>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Postal Code :</span>
+                                    <span class="text-gray-500">235</span>
+                                </li>
+    
+                                <li class="flex flex-col gap-1 font-bold">
+                                    <span>Address :</span>
+                                    <span class="text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit, pariatur!</span>
+                                </li>
+    
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Delivery Type :</span>
+                                    <span class="text-gray-500">Fast</span>
+                                </li>
+    
+                                <li class="flex flex-col gap-1 font-bold">
+                                    <span>Description :</span>
+                                    <span class="text-gray-500">Lorem ipsum dolor sit amet.</span>
+                                </li>
+    
+                                <li class="border-t border-gray-100 pt-2 flex items-center justify-between font-bold text-lg">
+                                    <span>Total Price :</span>
+                                    <span class="text-gray-700">$150</span>
+                                </li>
+    
+                            </ul>
+                        </div>
+                    </div>
+                    <h2 id="OrderDetails" class="hidden text-sky-600 font-bold text-3xl py-2">Order Details</h2>
+                </div>
+
+                <div class="flex flex-col gap-5 md:gap-3 md:mt-10">
+                    <div class="w-full flex flex-col justify-between gap-4 lg:flex-row">
+                        <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Purchases</h2>
+                        <div class="w-full flex flex-col items-start justify-end gap-3 lg:flex-row lg:items-center">
+                            <div id="changeSearchTarget" class="flex items-center justify-center gap-1">
+                                <h2 class="text-gray-700 font-bold text-sm">Search accord OrderId / CustomerId : </h2>
+                                <input type="checkbox" id="changeSearchTargetCheckBox" checked class="hidden">
+                                <label for="changeSearchTargetCheckBox" class="bg-white hover:bg-white/90 transition-colors rounded-full p-1 min-w-[2.5rem] w-12 flex items-center cursor-pointer group">
+                                    <span class="inline-block w-5 h-5 rounded-full bg-sky-500 group-hover:bg-sky-600 transition-all ml-auto"></span>
+                                </label>
+                            </div>
+                            <div class="w-full relative lg:w-1/2">
+                                <input data-searchTarget="CustomerId" type="text" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Customer Id">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-6 h-6 stroke-gray-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-x-auto">
+                        <table class="w-full space-y-2 xs:px-2">
+                            <thead>
+                                <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
+                                    <th>Order Id</th>
+                                    <th>Product Name</th>
+                                    <th>Customer name</th>
+                                    <th>Customer Id</th>
+                                    <th>order date</th>
+                                    <th>Show Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="PurchasesTable" class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base">
+                                <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+                                    <td class="OrderId px-[2px] text-center text-gray-500">#1234</td>
+                                    <td class="text-center text-gray-800">Nike Dunk 5</td>
+                                    <td class="px-[2px] text-center text-gray-800">Alex Green</td>
+                                    <td class="CustomerId px-[2px] text-center text-gray-800">5</td>
+                                    <td class="px-[2px] text-center text-gray-800">11/12/2023</td>
+                                    <td class="text-center">
+                                        <button class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
+                                    </td>
+                                </tr>
+                                <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+                                    <td class="OrderId px-[2px] text-center text-gray-500">#2375</td>
+                                    <td class="text-center text-gray-800">Nike Dunk 1</td>
+                                    <td class="px-[2px] text-center text-gray-800">Rachel Mzb</td>
+                                    <td class="CustomerId px-[2px] text-center text-gray-800">12</td>
+                                    <td class="px-[2px] text-center text-gray-800">05/11/2023</td>
+                                    <td class="text-center">
+                                        <button class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h2 class="h-full hidden text-xl text-blue-700 font-bold text-center xs:text-2xl">No purchases have been registered yet!</h2>
+                    </div>
+                </div>
+            </section>
+
+            <section id="Products" class="notActive mt-5 flex flex-col gap-5 md:gap-3"></section>
+            
+            <span class="text-base font-semibold absolute top-1 left-2 space-x-1">
+                <a href="./index.html" class="text-blue-700 hover:underline">Home</a>
+                <span id="currentPage" class="text-gray-500">/ Dashboard</span>
+            </span>
+        </div>
+    </div>
+    
+
+    <script src="./js/adminPanel.js"></script>
+</body>
+</html>

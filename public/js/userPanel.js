@@ -144,30 +144,28 @@ function decreaseProductCount(countElem){
 function getRoute(){
     let locationSearch =location.search
 
-    if(!locationSearch){
-        return false
+    if(locationSearch){
+        let tab = new URLSearchParams(locationSearch).get('t')
+        
+        if(tab != 'Basket'){
+            return false
+        }
+        
+        let activeTab = document.getElementById('Basket')
+        activeTab.classList.remove('notActive')
+        activeTab.previousElementSibling.classList.add('notActive')
+        
+        let activeMenu = document.getElementById('BasketMenu')
+        activeMenu.classList.add('active')
+        activeMenu.previousElementSibling.classList.remove('active')
+        currentTab = 'Basket'
     }
 
-    let tab = new URLSearchParams(locationSearch).get('t')
-    
-    if(tab != 'Basket'){
-        return false
-    }
-    
-    let activeTab = document.getElementById('Basket')
-    activeTab.classList.remove('notActive')
-    activeTab.previousElementSibling.classList.add('notActive')
-    
-    let activeMenu = document.getElementById('BasketMenu')
-    activeMenu.classList.add('active')
-    activeMenu.previousElementSibling.classList.remove('active')
 }
 
 
 function changeContent(e){
     let targetElem = e.target.tagName === 'path' ? e.target.parentNode.parentNode: e.target.tagName === 'svg' ? e.target.parentNode : e.target
-
-    console.log(targetElem.dataset.target)
 
     let prevActiveMenu = menu.querySelector(`.active`)
     prevActiveMenu.classList.remove('active')

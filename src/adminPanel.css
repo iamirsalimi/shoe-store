@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    scroll-behavior: smooth;
+}
+
+#menu ul li::after{
+    @apply w-0 origin-center transition-all;
+}
+
+#menu ul .active::after{
+    @apply hidden;
+}
+
+#menu ul li:hover::after{
+    @apply w-full;
+}
+
+
+#menu ul .active{
+    @apply bg-blue-700 lg:w-full text-center rounded-lg px-2 py-1;
+}
+
+#menu ul .active a{
+    @apply font-semibold;
+}
+
+#menu ul .active svg{
+    @apply stroke-white;
+}
+
+#menu ul .active span{
+    @apply text-white;
+}
+
+.unshow .active{
+    @apply p-px;
+}
+
+.unshow li span{
+    @apply hidden;
+}
+
+.unshow ul{
+    @apply basis-full;
+}
+
+.unshow h2{
+    @apply hidden;
+}
+
+#content .notActive{
+    @apply hidden;
+}
+
+#content #searchInput:focus ~ svg{
+    @apply stroke-gray-800;
+}
+
+#content::-webkit-scrollbar {
+    @apply hidden;
+}
+
+#content #Purchases tbody:before {
+    content: "-";
+    display: block;
+    line-height: 0.5rem;
+    color: transparent;
+}
+
+
+@layer components{
+    .changeBtn{
+        @apply py-1 px-4 bg-sky-500 hover:bg-sky-600 transition-colors text-white font-bold rounded-md;
+    }
+    .removeBtn{
+        @apply py-1 px-4 bg-red-600 hover:bg-red-700 transition-colors text-white font-bold rounded-md;
+    }
+}

@@ -86,7 +86,7 @@
                         </li>
                     </ul>
                 </div>
-                <div id="user-basket" class="px-2 py-2 rounded-lg bg-white space-y-4 sahdow-md">
+                <div id="user-basket" class="px-2 py-2 min-h-[5rem] rounded-lg bg-white space-y-4 sahdow-md">
                     <div class="flex items-center justify-between">
                         <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Shopping Cart</h2>
                         <button data-target="Basket" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
@@ -100,7 +100,7 @@
                             <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
                                 <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Purchased product image" class="object-cover">
                             </div>
-                            <div class="w-[65%] space-y-1 xs:w-[70%] xs:space-y-0">
+                            <div class="w-[65%] flex flex-col justify-start gap-px xs:w-[70%]">
                                 <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk 1</h3>
                                 <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">Men Training Shoe</h3>
                             </div>
@@ -110,7 +110,7 @@
                             <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
                                 <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Purchased product image" class="object-cover">
                             </div>
-                            <div class="w-[65%] space-y-1 xs:w-[70%] xs:space-y-2">
+                            <div class="w-[65%] flex-col justify-start gap-px xs:w-[70%]">
                                 <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk Low</h3>
                                 <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">Training Shoe</h3>
                             </div>
@@ -120,7 +120,7 @@
                             <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
                                 <img src="./images//ox-street-Le0o8Ac_Eco-unsplash.jpg" alt="Purchased product image" class="object-cover">
                             </div>
-                            <div class="w-[65%] space-y-1 xs:w-[70%] xs:space-y-2">
+                            <div class="w-[65%] flex-col justify-start gap-px xs:w-[70%]">
                                 <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">Nike Dunk Low</h3>
                                 <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">women Training Shoe</h3>
                             </div>
@@ -182,8 +182,9 @@
                 </div>
             </section>
             
+            
             <section id="Basket" class="notActive w-full mt-5 pb-5 flex flex-col items-center gap-5">
-                <div id="progress" class="w-full max-w-sm flex items-center justify-between">
+                <div id="progress" class="w-full max-w-md flex items-center justify-between">
                     <div data-target="progress1" id="progress-1" class="active h-9 w-9 rounded-full bg-gray-200 outline outline-gray-200 border border-gray-400 z-20 text-center text-gray-500 leading-7 font-bold">
                         <span>1</span>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="hidden w-6 h-6 stroke-sky-500">
@@ -396,8 +397,8 @@
 
                     <div id="progress2" class="w-full hidden flex-col items-center gap-4 md:items-start">
                         <h2 class="text-gray-800 font-bold px-2 text-2xl md:text-3xl">Delivery</h2>
-                        <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 lg:grid-cols-3">
-                            <div class="w-full h-fit grid grid-cols-2 gap-x-2 gap-y-4 md:col-start-1 md:col-end-2 lg:col-start-1 lg:col-end-3">
+                        <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 xl:grid-cols-3">
+                            <div class="w-full h-fit grid grid-cols-2 gap-x-2 gap-y-4 md:col-start-1 md:col-end-2 xl:col-start-1 xl:col-end-3">
                                 <select name="" id="country" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
                                     <option value="Country">Country</option>
                                     <option value="Iran">Iran</option>
@@ -694,6 +695,10 @@
                                             <span>Address :</span>
                                             <span id="fullName" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, quisquam!</span>
                                         </span>    
+                                        <span class="text-gray-600 font-semibold flex flex-col items-start justify-between">
+                                            <span>Description :</span>
+                                            <span id="fullName" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor sit amet.</span>
+                                        </span>    
                                     </div>
 
                                     <span class="text-gray-600 font-semibold flex items-center justify-between">
@@ -740,8 +745,8 @@
                         </svg>
                     </div>
                 </div>
-                <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-auto">
-                    <table class="w-full space-y-2 px-2 overflow-auto">
+                <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-x-auto">
+                    <table class="w-full space-y-2 xs:px-2">
                         <thead>
                             <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
                                 <th>Id</th>
@@ -753,7 +758,7 @@
                                 <th>order date</th>
                             </tr>
                         </thead>
-                        <tbody class="p-2 text-gray-700 font-semibold text-xs xs:text-sm sm:text-base">
+                        <tbody class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base">
                             <tr class="even:bg-white odd:bg-gray-100">
                                 <td class="px-[2px] text-gray-500 text-center">1</td>
                                 <td class="flex flex-col items-center gap-[2px] px-[2px]">
