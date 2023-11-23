@@ -55,7 +55,7 @@
     @apply hidden;
 }
 
-#content #searchInput:focus ~ svg{
+#content .searchInput:focus ~ svg{
     @apply stroke-gray-800;
 }
 
@@ -68,6 +68,19 @@
     display: block;
     line-height: 0.5rem;
     color: transparent;
+}
+
+#content .searched tr{
+    @apply bg-sky-100 even:bg-sky-200;
+}
+
+/* #content table tbody:has(tr:hover) > tr:not(:hover){
+    @apply scale-90 opacity-75;
+} */
+
+#addAndEditModal::-webkit-scrollbar,
+#removeProductModal::-webkit-scrollbar{
+    @apply hidden;
 }
 
 

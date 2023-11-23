@@ -11,7 +11,12 @@ let shortCutBtns = document.querySelectorAll('.shortcut-btn')
 // purchases section elems
 let changeSearchTargetCheckBox = document.getElementById('changeSearchTargetCheckBox')
 let changeSearchTargetLabel = document.querySelector('#changeSearchTarget label')
+let viewUserOrdersBtn = document.getElementById('viewUserOrdersBtn')
+let editProductBtns = document.querySelectorAll('.editProductBtn') 
+let removeProductBtns = document.querySelectorAll('.deleteProductBtn') 
 
+let addAndEditModal = document.getElementById('addAndEditModal') 
+let removeProductModal = document.getElementById('removeProductModal')
 
 let targetElem = null
 let currentTab = 'Dashboard'
@@ -41,6 +46,8 @@ function changeMenu(e){
     targetElemWrapper.classList.remove('notActive')
 
     currentTab = targetElem.dataset.target
+    window.scrollTo(0,0)
+    content.scrollTo(0,0)
     changeCurrentPageHandler(targetElem.dataset.target)
 }
 
@@ -98,21 +105,22 @@ function changeSearchTargetHandler(e){
     searchInput.setAttribute('data-searchTarget' , searchTarget.replace(' ' , ''))
     spanElem.className = spanClass
     if(searchInput.value.trim()){
-        searchTargetHadnler(searchInput.value , searchTarget.replace(' ' , ''))
+        searchTargetHandler(searchInput.value , searchTarget.replace(' ' , ''))
     }
 }
 
 function searchHandler(e){
     let searchValue = e.target.value.trim()
-    searchTargetHadnler(searchValue , e.target.dataset.searchtarget)
+    searchTargetHandler(searchValue , e.target.dataset.searchtarget.replace(' ' , ''))
 }
 
 
-function searchTargetHadnler(searchValue , searchTarget){
+function searchTargetHandler(searchValue , searchTarget){
     let targetTable = document.getElementById(`${currentTab}Table`)
     if(searchValue){
         let searchTargetElem = null
-
+        targetTable.classList.add('searched')
+ 
         if(searchTarget == 'OrderId'){
             searchValue = searchValue.startsWith('#') ? searchValue : '#' + searchValue
         }
@@ -127,11 +135,117 @@ function searchTargetHadnler(searchValue , searchTarget){
             }
         })
     } else {
+        targetTable.classList.remove('searched')
+
         let trElems = targetTable.querySelectorAll('tr')
         trElems.forEach(trElem => {
             trElem.style.display = 'table-row'
         })
     }
+}
+
+function showUserOrdersHandler(e){
+    // We get the customer ID information and the tab we want to display from the dataset
+    let targetElem = e.target.dataset.target
+    let customerId = e.target.dataset.customerid
+
+    // We get the ID of the content that we want to display by clicking on the button through the dataset And by giving and taking the active class, we display the content we want
+
+    let prevActiveTab = menu.querySelector('.active')
+    prevActiveTab.classList.remove('active')
+    let targetMenu = menu.querySelector(`#${targetElem}Menu`)
+    targetMenu.classList.add('active')
+
+    let prevActiveContent = document.getElementById(currentTab)
+    prevActiveContent.classList.add('notActive')
+
+    let targetElemWrapper = document.getElementById(targetElem)
+    targetElemWrapper.classList.remove('notActive')
+
+    currentTab = targetElem
+    changeCurrentPageHandler()
+
+    setTimeout(() => {
+        window.scrollTo(0,window.scrollMaxY)
+        content.scrollTo(0,content.scrollHeight)
+    } , 10)
+
+    let searchInput = targetElemWrapper.querySelector('input[type="text"]')
+    searchInput.value = customerId
+
+    let checkBoxElem = targetElemWrapper.querySelector('input[type="checkbox"]')
+    checkBoxElem.checked = true
+
+    let spanElem = changeSearchTargetLabel.firstElementChild 
+    let spanClass = spanElem.className
+
+    spanClass = spanClass.replace('bg-red-500','bg-sky-500')
+    spanClass = spanClass.replace('bg-red-600','bg-sky-600')
+    spanClass = spanClass.replace('ml-0' , 'ml-auto')
+    searchTarget = 'Customer Id'
+
+    spanElem.className = spanClass
+    searchInput.placeholder = searchTarget
+    searchInput.setAttribute('data-searchTarget' , searchTarget.replace(' ' , ''))
+
+    searchTargetHandler(searchInput.value , searchTarget.replace(' ' , ''))
+}
+
+function showAddAndEditModalHandler(){
+    let modalWrapperClass = addAndEditModal.className
+    let modalClass = addAndEditModal.firstElementChild.className
+    
+    // modalWrapperClass = modalWrapperClass.replace('hidden' , 'flex')
+    modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
+    
+    modalClass = modalClass.replace('opacity-0' , 'opacity-100')
+    
+    addAndEditModal.className = modalWrapperClass
+    addAndEditModal.firstElementChild.className = modalClass 
+}
+
+function showRemoveProductModalHandler(){
+    let modalWrapperClass = removeProductModal.className
+    let modalClass = removeProductModal.firstElementChild.className
+    
+    // modalWrapperClass = modalWrapperClass.replace('hidden' , 'flex')
+    modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
+    
+    modalClass = modalClass.replace('opacity-0' , 'opacity-100')
+    
+    removeProductModal.className = modalWrapperClass
+    removeProductModal.firstElementChild.className = modalClass 
+}
+
+function closeAddAndEditModalHandler(){
+    let modalWrapperClass = addAndEditModal.className
+    let modalClass = addAndEditModal.firstElementChild.className
+    
+    // modalWrapperClass = modalWrapperClass.replace('flex' , 'hidden')
+    modalWrapperClass = modalWrapperClass.replace('z-30' , '-z-10')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/50' , 'bg-black/0')
+    
+    modalClass = modalClass.replace('opacity-100' , 'opacity-0')
+    
+    addAndEditModal.className = modalWrapperClass
+    addAndEditModal.firstElementChild.className = modalClass 
+
+}
+
+function closeRemoveProductModalHandler(){
+    let modalWrapperClass = removeProductModal.className
+    let modalClass = removeProductModal.firstElementChild.className
+    
+    // modalWrapperClass = modalWrapperClass.replace('flex' , 'hidden')
+    modalWrapperClass = modalWrapperClass.replace('z-30' , '-z-10')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/50' , 'bg-black/0')
+    
+    modalClass = modalClass.replace('opacity-100' , 'opacity-0')
+    
+    removeProductModal.className = modalWrapperClass
+    removeProductModal.firstElementChild.className = modalClass 
 }
 
 // events
@@ -148,9 +262,29 @@ showOrderDetailsBtns.forEach(showOrderDetailsBtn => {
 searchInputs.forEach(searchInput => {
     searchInput.addEventListener('keyup' , searchHandler)
 })
+// show and hide modals
+
+editProductBtns.forEach(editProductBtn => {
+    editProductBtn.addEventListener('click' , showAddAndEditModalHandler)
+})
+
+removeProductBtns.forEach(removeProductBtn => {
+    removeProductBtn.addEventListener('click' , showRemoveProductModalHandler)
+})
+
+addAndEditModal.addEventListener('click' , e => {
+    if(e.target.id === 'addAndEditModal'){
+        closeAddAndEditModalHandler()
+    }
+})
+
+removeProductModal.addEventListener('click' , e => {
+    if(e.target.id === 'removeProductModal' || e.target.id === 'closeRemoveProductModalBtn'){
+        closeRemoveProductModalHandler()
+    }
+})
 
 changeSearchTargetLabel.addEventListener('click' , changeSearchTargetHandler)
-
-
+viewUserOrdersBtn.addEventListener('click' , showUserOrdersHandler)
 menuBtn.addEventListener('click' , toggleMenu)
 menu.addEventListener('click' , changeMenu)
