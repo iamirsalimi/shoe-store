@@ -1,3 +1,6 @@
+import apiData from './api.js'
+
+
 let menu = document.getElementById('menu')
 let menuBtn = document.getElementById('menu-btn')
 let currentPage = document.getElementById('currentPage')
@@ -14,6 +17,7 @@ let changeSearchTargetLabel = document.querySelector('#changeSearchTarget label'
 let viewUserOrdersBtn = document.getElementById('viewUserOrdersBtn')
 let editProductBtns = document.querySelectorAll('.editProductBtn') 
 let removeProductBtns = document.querySelectorAll('.deleteProductBtn') 
+let addNewProductBtn = document.getElementById('addNewProduct') 
 
 let addAndEditModal = document.getElementById('addAndEditModal') 
 let removeProductModal = document.getElementById('removeProductModal')
@@ -21,7 +25,7 @@ let removeProductModal = document.getElementById('removeProductModal')
 let targetElem = null
 let currentTab = 'Dashboard'
 let searchTarget = 'Customer Id'
-let currentProgress = 1
+let productId = null
 
 
 function toggleMenu(){
@@ -191,11 +195,20 @@ function showUserOrdersHandler(e){
     searchTargetHandler(searchInput.value , searchTarget.replace(' ' , ''))
 }
 
-function showAddAndEditModalHandler(){
+// products section
+
+// show And Hide modals
+function showAddAndEditModalHandler(e){
     let modalWrapperClass = addAndEditModal.className
     let modalClass = addAndEditModal.firstElementChild.className
     
-    // modalWrapperClass = modalWrapperClass.replace('hidden' , 'flex')
+    let modalTitle = addAndEditModal.querySelector('h2')
+    let modalSubmitBtn = addAndEditModal.querySelector('button')
+    let targetOperation = e.target.dataset.target
+
+    modalTitle.innerHTML = targetOperation === 'PUSH' ? 'Add Product' : 'Edit Product Details'  
+    modalSubmitBtn.innerHTML = targetOperation === 'PUSH' ? 'Add Product' : 'Edit Product'
+
     modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
     modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
     
@@ -209,7 +222,6 @@ function showRemoveProductModalHandler(){
     let modalWrapperClass = removeProductModal.className
     let modalClass = removeProductModal.firstElementChild.className
     
-    // modalWrapperClass = modalWrapperClass.replace('hidden' , 'flex')
     modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
     modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
     
@@ -223,7 +235,6 @@ function closeAddAndEditModalHandler(){
     let modalWrapperClass = addAndEditModal.className
     let modalClass = addAndEditModal.firstElementChild.className
     
-    // modalWrapperClass = modalWrapperClass.replace('flex' , 'hidden')
     modalWrapperClass = modalWrapperClass.replace('z-30' , '-z-10')
     modalWrapperClass = modalWrapperClass.replace('bg-black/50' , 'bg-black/0')
     
@@ -238,7 +249,6 @@ function closeRemoveProductModalHandler(){
     let modalWrapperClass = removeProductModal.className
     let modalClass = removeProductModal.firstElementChild.className
     
-    // modalWrapperClass = modalWrapperClass.replace('flex' , 'hidden')
     modalWrapperClass = modalWrapperClass.replace('z-30' , '-z-10')
     modalWrapperClass = modalWrapperClass.replace('bg-black/50' , 'bg-black/0')
     
@@ -284,6 +294,7 @@ removeProductModal.addEventListener('click' , e => {
     }
 })
 
+addNewProductBtn.addEventListener('click' , showAddAndEditModalHandler)
 changeSearchTargetLabel.addEventListener('click' , changeSearchTargetHandler)
 viewUserOrdersBtn.addEventListener('click' , showUserOrdersHandler)
 menuBtn.addEventListener('click' , toggleMenu)

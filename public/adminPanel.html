@@ -414,7 +414,7 @@
                         <table class="w-full space-y-2 xs:px-2">
                             <thead>
                                 <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
-                                    <th>Id</th>
+                                    <th>Product Id</th>
                                     <th>Order Id</th>
                                     <th>Product Name</th>
                                     <th>Customer name</th>
@@ -472,14 +472,25 @@
                                     <span class="text-gray-500">Dunk Low 5</span>
                                 </li>
 
+                                
+                                <li class="flex flex-col justify-center gap-px font-bold">
+                                    <span>Product summary:</span>
+                                    <span class="text-gray-500">Lorem ipsum dolor sit amet.</span>
+                                </li>
+                                
                                 <li class="flex flex-col justify-center gap-px font-bold">
                                     <span>Product desc :</span>
                                     <span class="text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, magnam.</span>
                                 </li>
-    
-                                <li class="flex flex-col justify-center gap-px font-bold">
-                                    <span>Product summary:</span>
-                                    <span class="text-gray-500">Lorem ipsum dolor sit amet.</span>
+                                
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Image Path :</span>
+                                    <span class="text-gray-500">1.JPG</span>
+                                </li>
+
+                                <li class="flex items-center justify-between font-bold">
+                                    <span>Is In Slider :</span>
+                                    <span class="text-gray-500">true</span>
                                 </li>
                                 
                                 <li class="flex items-center justify-between font-bold">
@@ -563,7 +574,7 @@
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="stroke-white w-6 h-6 pointer-events-none">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
-                                <span class="hidden lg:inline-block">Add New Product</span>                                
+                                <span class="hidden pointer-events-none lg:inline-block">Add New Product</span>                                
                             </button>
                             <div class="w-full relative lg:w-1/2">
                                 <input data-searchTarget="CustomerId" type="text" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Customer Id">
@@ -579,9 +590,9 @@
                                 <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
                                     <th>Product Id</th>
                                     <th>Product Name</th>
-                                    <th>Product Desc</th>
                                     <th>Order Numbers</th>
                                     <th>Price</th>
+                                    <th>is in Slider</th>
                                     <th>Show Details</th>
                                 </tr>
                             </thead>
@@ -589,16 +600,15 @@
                                 <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
                                     <td class="px-[2px] text-center text-gray-500">1</td>
                                     <td class="text-center text-gray-800">Nike Dunk 5</td>
-                                    <td class="px-[2px] text-center text-gray-800 line-clamp-1">Lorem, ipsum dolor.</td>
                                     <td class="CustomerId px-[2px] text-center text-gray-800">5</td>
                                     <td class="px-[2px] text-center text-gray-800">$90</td>
+                                    <td class="px-[2px] text-center text-green-500">true</td>
                                     <td class="h-full flex items-center justify-center gap-1 md:gap-2">
                                         <button title="View More Details" class="showOrderDetailsBtn bg-green-100 hover:bg-green-200 transition-colors rounded p-[2px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-green-700 pointer-events-none">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             </svg>
-                                              
                                         </button>
                                         <button title="Edit Product" data-target="PUT" class="editProductBtn bg-sky-100 hover:bg-sky-200 transition-colors rounded p-[2px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-sky-700 pointer-events-none">
@@ -615,16 +625,15 @@
                                 <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
                                     <td class="px-[2px] text-center text-gray-500">2</td>
                                     <td class="text-center text-gray-800">Nike Dunk 1</td>
-                                    <td class="px-[2px] text-center text-gray-800 line-clamp-1">Lorem ipsum dolor sit amet.</td>
                                     <td class="CustomerId px-[2px] text-center text-gray-800">12</td>
                                     <td class="px-[2px] text-center text-gray-800">$120</td>
+                                    <td class="px-[2px] text-center text-red-500">false</td>
                                     <td class="h-full flex items-center justify-center gap-1 md:gap-2">
                                         <button title="View More Details" class="showOrderDetailsBtn bg-green-100 hover:bg-green-200 transition-colors rounded p-[2px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-green-700 pointer-events-none">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                              
+                                            </svg>     
                                         </button>
                                         <button title="Edit Product" data-target="PUT" class="editProductBtn bg-sky-100 hover:bg-sky-200 transition-colors rounded p-[2px]">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-sky-700 pointer-events-none">
@@ -655,7 +664,7 @@
     </div>
 
     <div id="addAndEditModal" class="fixed pt-20 pb-10 bottom-0 left-0 top-0 -z-10 w-full h-full bg-black/0 px-2 flex items-center justify-center overflow-y-scroll transition-all duration-200 md:py-0">
-        <div id="productModal" class="bg-white w-full rounded-md flex flex-col gap-5 py-5 px-2 md:min-w-[70vw] opacity-0 transition-all duration-200 md:w-max">
+        <div id="productModal" class="bg-white w-full rounded-md flex flex-col gap-5 py-5 px-2 opacity-0 transition-all duration-200 md:w-max md:min-w-[70vw]">
             <h2 class="text-gray-800 text-xl font-bold">Edit Product Details</h2>
             <div class="grid grid-cols-1 gap-x-2 gap-y-3 md:grid-cols-2">
                 <input type="text" class="py-1 px-2 rounded border border-gray-200 outline-none bg-white placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Product Name">
@@ -683,19 +692,23 @@
                 
                 <input type="text" class="py-1 px-2 rounded border border-gray-200 outline-none bg-white placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Product Description">
                 
-                <select id="productCategory" class="py-1 px-2 rounded border border-gray-200 outline-none bg-white text-gray-700 focus:border-gray-900 focus:border transition-all cursor-pointer">
+                <select id="productCategory" class="py-1 px-2 rounded border border-gray-200 outline-none bg-white text-gray-700 focus:border-gray-900 focus:border transition-all cursor-pointer" placeholder="Product Category">
                     <option value="All">All</option>
                     <option value="Men">Men</option>
-                    <option selected="true" value="Women">Women</option>
+                    <option value="Women">Women</option>
                     <option value="Kids">Kids</option>
                 </select>
 
-                <input type="text" class="md:col-start-1 md:col-end-3 py-1 px-2 rounded border border-gray-200 outline-none bg-white placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="image Path">
+                <input type="text" class="py-1 px-2 rounded border border-gray-200 outline-none bg-white placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all md:col-start-1 md:col-end-3 " placeholder="image Path">
                 
-                <textarea name="" id="" cols="20" rows="20" class="md:col-start-1 md:col-end-3 h-20 py-1 px-2 rounded border border-gray-200 outline-none bg-white placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all resize-none " placeholder="Product Description"></textarea>
+                <textarea name="" id="" cols="20" rows="20" class="h-20 py-1 px-2 rounded border border-gray-200 outline-none bg-white placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all resize-none md:col-start-1 md:col-end-3" placeholder="Product Description"></textarea>
 
+                <div class="flex items-center gap-2 md:col-start-1 md:col-end-3">
+                    <input id="isInSliderCheckbox" type="checkbox">
+                    <label for="isInSliderCheckbox" class="text-sky-500 font-semibold">Add This Product in Slider</label>
+                </div>
 
-                <button class="md:col-start-1 md:col-end-3 bg-sky-500 hover:bg-sky-600 transition-colors text-white font-bold py-1 rounded-md">Edit Product</button>    
+                <button class="bg-sky-500 hover:bg-sky-600 transition-colors text-white font-bold py-1 rounded-md md:col-start-1 md:col-end-3">Edit Product</button>    
 
 
 
@@ -705,7 +718,7 @@
     </div>
 
     <div id="removeProductModal" class="fixed pt-20 bottom-0 left-0 top-0 -z-10 w-full h-full bg-black/0 px-2 flex items-center justify-center overflow-y-scroll transition-all duration-200 md:pt-0">
-        <div class="bg-white w-full rounded-md flex flex-col gap-5 py-5 px-2 md:min-w-[70vw] opacity-0 transition-all duration-200 md:max-w-[30rem]">
+        <div class="bg-white w-full rounded-md flex flex-col gap-5 py-7 px-4 md:max-w-[50vw] opacity-0 transition-all duration-200">
             <h2 class="text-red-500 text-center text-xl font-bold">Are you sure you want to delete this Product ?</h2>
             <div class="w-full flex items-center gap-2">
                 <button class="w-full bg-red-500 hover:bg-red-600 transition-colors text-white font-bold py-2 rounded-md">Remove Product</button>    
@@ -719,6 +732,6 @@
     
     
 
-    <script src="./js/adminPanel.js"></script>
+    <script type="module" src="./js/adminPanel.js"></script>
 </body>
 </html>
