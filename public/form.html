@@ -17,20 +17,20 @@
     </div>
     <div class="relative w-[90%] space-y-4 bg-white rounded-lg overflow-hidden shadow sm:max-w-screen-sm">
         <ul id="tabs" class="flex items-center gap-1">
-            <li data-target="login-form" data-title="Login Your Account" class="cursor-pointer font-bold text-purple-700 px-2 py-1 rounded-br-md">Login</li>
-            <li data-target="register-form" data-title="Register Your Account" class="notactive cursor-pointer font-bold text-purple-700 px-2 py-1 w-full rounded-bl-md">Register</li>
+            <li id="login-tab" data-target="login-form" data-title="Login Your Account" class="cursor-pointer font-bold text-purple-700 px-2 py-1 rounded-br-md">Login</li>
+            <li id="register-tab" data-target="register-form" data-title="Register Your Account" class="notactive cursor-pointer font-bold text-purple-700 px-2 py-1 w-full rounded-bl-md">Register</li>
         </ul>
         <div id="form-wrapper" class="px-4 pb-9">
             <h2 id="form-title" class="text-lg text-purple-700 font-bold">Login Your Account</h2>
 
-            <form action="" onsubmit="event.preventDefault()" autocomplete="off" id="login-form" class="active pt-12 hidden flex-col gap-2 select-none">
+            <form action="" id="login-form" class="active pt-12 hidden flex-col gap-2 select-none">
                 <div class="relative">
-                    <input type="text" id="username" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8" maxLength="16">
+                    <input type="text" id="login-username" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8" maxLength="16">
                     <label for="username" class="absolute -top-7 left-0 text-gray-600 font-bold">User Name</label>
                     <p id="username-err" class="hidden mt-2 text-red-700 font-semibold text-sm">UserName only can be letters and numbers , and it must have minimum of 8 characters and maximum of 16 characters</p>
                 </div>
                 <div class="relative mt-7">
-                    <input type="password" id="password" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" maxlength="16">
+                    <input type="password" id="login-password" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" maxlength="16">
                     <label for="username" class="absolute -top-7 left-0 text-gray-600 font-bold" required minlength="8">Password</label>
                     <div id="showAndHidePass" class="absolute right-1 top-1 cursor-pointer">
                         <svg id="showPassBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-gray-600">
@@ -44,13 +44,16 @@
 
                     <p id="password-err" class="hidden mt-1 text-red-700 font-semibold text-sm">password must contain at least 8 characters and It can only be numbers and letters</p>
                 </div>
-
+                
                 <div class="flex items-center gap-2">
                     <input type="checkbox" id="rememberMe" class="hidden" checked>
                     <p class="text-gray-600 font-bold">Remember Me</p>
                     <label for="rememberMe" class="inline-block w-4 h-4 rounded hover:scale-110 transition-transform border border-gray-500 cursor-pointer"></label>
                 </div>
-
+                
+                <p id="err-wrapper" class="hidden mt-1 text-red-700 font-semibold text-sm"></p>
+                <p id="success-wrapper" class="hidden mt-1 text-green-700 font-semibold text-sm">You have successfully logged into your account , Now you will redirect to home pag</p>
+                
                 <button id="login-submitbtn" type="submit" class="submitBtn mt-5 w-full py-1 text-white font-bold rounded-md bg-purple-700 hover:bg-purple-800 transition-colors disabled:bg-purple-400"">Log In</button>
             </form>
             <form action="" autocomplete="off" id="register-form" class="pt-12 hidden flex-col gap-2 select-none">
@@ -78,12 +81,17 @@
                     <p id="email-err" class="hidden mt-4 text-red-700 font-semibold text-sm">Email is Invalid</p>
                 </div>
                 <div class="relative mt-7">
-                    <input type="text" id="username" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8" maxLength="16">
+                    <input type="text" data-target="register-username" id="username" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8" maxLength="16">
                     <label for="username" class="absolute -top-7 left-0 text-gray-600 font-bold">User Name</label>
                     <p id="username-err" class="hidden mt-2 text-red-700 font-semibold text-sm">UserName only can be letters and numbers , and it must have minimum of 8 characters and maximum of 16 characters</p>
+                    
+                    <p id="register-usernameErr" class="mt-2 w-full h-fit hidden items-center gap-2">
+                        <span class="hidden w-4 h-4 bg-transparent border-2 border-transparent border-t-purple-700 rounded-full animate-spin"></span>
+                        <span class="hidden mt-2 text-red-700 font-semibold text-sm">username is already exist</span>
+                    </p>
                 </div>
                 <div class="relative mt-7">
-                    <input type="password" id="password-register" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8"  maxlength="16">
+                    <input type="password" id="password-register" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8"  maxlength="16" autocomplete="off">
                     <label for="username" class="absolute -top-7 left-0 text-gray-600 font-bold">Password</label>
                     <div id="showAndHidePass" class="absolute right-1 top-1 cursor-pointer">
                         <svg id="showPassBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-gray-600">
@@ -98,7 +106,7 @@
                     <p id="password-err" class="hidden mt-1 text-red-700 font-semibold text-sm">password must contain at least 8 characters and It can only be numbers and letters</p>
                 </div>
                 <div class="relative mt-7">
-                    <input type="password" id="passwordrepeat" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8"  maxlength="16">
+                    <input type="password" id="passwordrepeat" class="w-full px-2 py-1 border border-gray-300 text-purple-700 rounded-md outline-none focus:border-0 focus:outline-2 focus:outline-purple-500" required minlength="8"  maxlength="16" autocomplete="off">
                     <label for="passwordrepeat" class="absolute -top-7 left-0 text-gray-600 font-bold">Confirm Password</label>
                     <div id="showAndHidePass" class="absolute right-1 top-1 cursor-pointer">
                         <svg id="showPassBtn" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-gray-600">
@@ -121,7 +129,7 @@
     </div>
     
 
-
-    <script src="./js/form.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="module" src="./js/form.js"></script>
 </body>
 </html>

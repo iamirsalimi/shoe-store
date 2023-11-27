@@ -27,3 +27,7 @@
 #form-wrapper .active{
     @apply !flex;
 }
+
+.swal-button {
+    @apply bg-purple-700 transition-colors text-white font-bold py-2 px-5 rounded-lg text-xl text-center;
+}

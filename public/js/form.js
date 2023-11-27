@@ -1,13 +1,16 @@
+import apiData from './api.js'
+
 let showPassBtns = document.querySelectorAll('#showAndHidePass')
 let tabsWrapper = document.getElementById('tabs')
 let formTitle = document.getElementById('form-title')
 let backBtn = document.getElementById('backBtn')
 
 // login form elements
-let passwordInput = document.getElementById('password')
-let loginBtn = document.getElementById('login-submitbtn')
+let passwordInput = document.getElementById('login-password')
+let loginForm = document.getElementById('login-form')
 let rememberMeCheckBox = document.getElementById('rememberMe')
 // register form elements
+let registerForm = document.getElementById('register-form')
 let emailInput = document.getElementById('email')
 let usernameInputs = document.querySelectorAll('#username')
 let passwordErrorElem = document.getElementById('passwords-validate')
@@ -15,13 +18,31 @@ let passInput = document.getElementById('password-register')
 let repeatPassInput = document.getElementById('passwordrepeat')
 let registerBtn = document.getElementById('register-submitbtn')
 
-
+let allInputs = document.querySelectorAll('input')
 let submitBtns = document.querySelectorAll('#submitBtn')
+
 
 // regEx
 let emailRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,3}$/gi
 let usernameRegEx = /^[a-z0-9]+([\._]?[a-z0-9]+)*$/gi
-let passwordRegEx = /^([a-z0-9])([0-9])*?([a-z0-9]){8,16}$/g
+let passwordRegEx = /^([a-z0-9])([0-9])*?([a-z0-9]){7,16}$/gi
+
+// User Class for creating User Object
+class User {
+    constructor(firstName , lastName , userName , password , email){
+        this.firstName = firstName,
+        this.lastName = lastName,
+        this.userName = userName,
+        this.password = password,
+        this.email = email,
+        this.role = 'user',
+        this.orders = null,
+        this.basket = null,
+        this.wishlist = null
+    }
+}
+
+
 
 function showPassHandler(e){
     // user may click on svg's path And to avoid errors , we must have SVG in any case
@@ -40,30 +61,44 @@ function showPassHandler(e){
 }
 
 // changing tabs
-function changeTabs(e){
+function changeTabs(e , targetTab){
     let prevNotActiveTab = tabsWrapper.querySelector('.notactive')
 
-    if(prevNotActiveTab !== e.target){
-        return false
-    }
-
-
-    changeForms(e)
+    let prevActiveTab = null
+    if(targetTab){
+        prevActiveTab = targetTab == 'Register' ? tabsWrapper.querySelector('#login-tab') : tabsWrapper.querySelector('#register-tab')
+    } else {
+        if(prevNotActiveTab !== e.target){
+            return false
+        }
     
-    // first we must remove active class from prev form tab then we must give active class to target form tab 
-    let prevActiveTab = e.target.innerHTML =='Register' ? e.target.previousElementSibling : e.target.nextElementSibling
+        changeForms(e)
 
+        // first we must remove active class from prev form tab then we must give active class to target form tab 
+        prevActiveTab = e.target.innerHTML =='Register' ? e.target.previousElementSibling : e.target.nextElementSibling
+    }
     prevActiveTab.classList.add('notactive')
-    e.target.classList.remove('notactive')
+    prevNotActiveTab.classList.remove('notactive')
 }
 
-function changeForms(e){
+function changeForms(e , targetForm){
     // accessing to the form wrapper accord dataset target
-    let targetWrapper = document.getElementById(e.target.dataset.target)
-    formTitle.innerHTML = e.target.dataset.title
 
+    let targetWrapper = null
+    let prevActiveFormWrapper = null
+    if(targetForm){
+        targetWrapper = document.getElementById(targetForm) 
+        document.title = `Show Store | ${targetForm === 'register-form'  ? 'Register' : 'Login'}`
+        prevActiveFormWrapper = targetForm == 'register-form' ? targetWrapper.previousElementSibling : targetWrapper.nextElementSibling
+        
+    } else {
+        targetWrapper = document.getElementById(e.target.dataset.target)
+        document.title = `Show Store | ${e.target.dataset.target === 'register-form' ? 'Register' : 'Login'}`
+        prevActiveFormWrapper = e.target.dataset.target === 'register-form' ? targetWrapper.previousElementSibling : targetWrapper.nextElementSibling
+    }
+    
     // first we must remove active class from prev form wrapper then we must give active class to target form wrapper 
-    let prevActiveFormWrapper = e.target.dataset.target === 'register-form' ? targetWrapper.previousElementSibling : targetWrapper.nextElementSibling
+    formTitle.innerHTML = targetForm || e.target.dataset.title
     
     prevActiveFormWrapper.classList.remove('active')
     targetWrapper.classList.add('active')
@@ -83,7 +118,8 @@ function emailValidate(e){
 
 function usernameValidate(e){
     let usernameValue = e.target.value.trim() 
-    let errorElem = e.target.parentNode.lastElementChild
+    let errorElem = e.target.parentNode.querySelector('#username-err')
+    let usernameErr = document.getElementById('register-usernameErr')
 
     if(usernameValue.length < 8 || !usernameValue.match(usernameRegEx)){
         errorElem.classList.remove('hidden')
@@ -92,6 +128,21 @@ function usernameValidate(e){
         errorElem.classList.add('hidden')
         activeSubmits()
     }
+
+    if(usernameValue){
+        usernameErr.classList.remove('hidden') 
+        usernameErr.classList.add('flex')
+        usernameErr.firstElementChild.classList.remove('hidden')
+        usernameErr.firstElementChild.classList.add('inline-block')
+    } else {
+        usernameErr.classList.remove('flex')
+        usernameErr.classList.add('hidden')
+        usernameErr.firstElementChild.classList.remove('hidden')
+        usernameErr.firstElementChild.classList.add('inline-block')
+    }
+
+    usernameErr.lastElementChild.classList.remove('inline-block')
+    usernameErr.lastElementChild.classList.add('hidden')
 }
 
 
@@ -146,30 +197,140 @@ function getDate(days){
 
 function setCookie(cookieValue , expires){
     document.cookie = `userId=${cookieValue};path=/${expires ? (';Expires=' + expires) : ';'}`
-    console.log(document.cookie);
 }
 
-function loginUser(e){
-    let loginForms = document.querySelectorAll('#login-form input[type="text"]')
-    let inputFlag = null
-
-    loginForms.forEach(loginForm => inputFlag = loginForm.length > 0 ? true : false)
-
-    if(inputFlag){
-        let cookieValue = 5
+async function isUserInUsers(username){
+    let targetUserObject = null
+    await fetch(apiData.getUsersUrl , {
+        headers : {
+            'apikey' : apiData.getUsersApiKey,
+            'authorization' : apiData.authorization
+        }
+    })
+    .then(res => res.json())
+    .then(users => {
+        targetUserObject = users.find(user => user.userName === username) 
+    })
+    .catch(err => console.log(err))
     
-        const cookieDays = 10
-        let expires = rememberMeCheckBox.checked ? getDate(cookieDays) : null
+    return targetUserObject
+}
+
+
+async function loginUserHandler(e){
+    e.preventDefault()
+    let userNameInput= e.target.querySelector('#login-username')
+    let passwordInput= e.target.querySelector('#login-password')
     
-        // cookie value must be user id
-        setCookie(cookieValue , expires)
+    let errWrapper = e.target.querySelector('#err-wrapper')
+    
+    let userObject = await isUserInUsers(userNameInput.value.toLowerCase())
+    console.log(userObject)
+    if(userObject){
+        if(passwordInput.value.toLowerCase() === userObject.password){
+            errWrapper.classList.add('hidden')
+            let successWrapper = e.target.querySelector('#success-wrapper')
+            successWrapper.classList.remove('hidden')
+            
+            let cookieValue = userObject.id
+        
+            const cookieDays = 10
+            let expires = rememberMeCheckBox.checked ? getDate(cookieDays) : null
+        
+            // cookie value must be user id
+            setCookie(cookieValue , expires)
+
+            // redirect user to home page
+            location.href = 'http://127.0.0.1:5500/public/index.html'
+        } else {
+            errWrapper.classList.remove('hidden')
+            errWrapper.innerHTML = 'Password Is incorrect'
+        }
+    } else {
+        errWrapper.classList.remove('hidden')
+        errWrapper.innerHTML = 'UserName is not exist, please register first'
     }
-
 }
 
-loginBtn.addEventListener('click' , loginUser)
 // register
 
+async function registerUserHandler(e){
+    e.preventDefault()
+
+    let targetForm = e.target
+
+    let firstName = targetForm.querySelector('#firstname').value.toLowerCase()
+    let lastName = targetForm.querySelector('#lastname').value.toLowerCase()
+    let email = targetForm.querySelector('#email').value.toLowerCase()
+    let userName = targetForm.querySelector('#username').value.toLowerCase()
+    let password = passInput.value.toLowerCase()
+
+    let newUserObj = new User(firstName , lastName , userName , password , email)
+
+    await fetch(apiData.postUsersUrl , {
+        method : 'POST',
+
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.postUsersApiData,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(newUserObj)
+    })
+    .then(res => {
+        console.log(res)
+        changeTabs(e , 'Login')
+        changeForms(null , 'login-form')
+        swal({
+            title : 'Your Account Was Created Successfully' ,
+            text : 'Now you can log in to your account' , 
+            icon : 'success',
+            timer:5000,
+        })
+    })
+    .catch(err => {
+        console.log(err)
+        swal({
+            title : 'Failed' ,
+            text : 'please try again later' ,
+            icon :  'error'
+        })
+    })
+    .finally(clearInputs)
+}
+
+function clearInputs(){
+    allInputs.forEach(input => {
+        if(input.type !== 'checkbox'){
+            input.value = ''
+        }
+    })
+}
+
+
+
+async function checkUsernameExistHandler(e){ 
+    let userObject = await isUserInUsers(e.target.value.toLowerCase())
+    let usernameErr = document.getElementById('register-usernameErr')
+    if(userObject){
+        usernameErr.classList.remove('hidden') 
+        usernameErr.classList.add('flex')
+        usernameErr.firstElementChild.classList.add('hidden')
+        usernameErr.firstElementChild.classList.remove('inline-block')
+        usernameErr.lastElementChild.classList.remove('hidden')
+        usernameErr.lastElementChild.classList.add('inline-block')
+        disableSubmits()
+    } else {
+        usernameErr.classList.remove('flex')
+        usernameErr.classList.add('hidden')
+        usernameErr.firstElementChild.classList.remove('hidden')
+        usernameErr.firstElementChild.classList.add('inline-block')
+        usernameErr.lastElementChild.classList.remove('hidden')
+        usernameErr.lastElementChild.classList.add('inline-block')
+        activeSubmits()
+    }
+}
 
 // events
 
@@ -183,11 +344,19 @@ showPassBtns.forEach(showPassBtn => {
 
 usernameInputs.forEach(usernameInput => {
     usernameInput.addEventListener('input' , usernameValidate)
+    
+    if(usernameInput.dataset.target === 'register-username'){
+        usernameInput.addEventListener('blur' , checkUsernameExistHandler)
+    }
 })
 
+
+
+document.addEventListener('DOMContentLoaded' , clearInputs)
+loginForm.addEventListener('submit' , loginUserHandler)
+registerForm.addEventListener('submit' , registerUserHandler)
 passwordInput.addEventListener('input' , passValidate)
 passInput.addEventListener('input' , passwordValidate)
 repeatPassInput.addEventListener('input' , passwordValidate)
 emailInput.addEventListener('input' , emailValidate)
 tabsWrapper.addEventListener('click' , changeTabs)
-

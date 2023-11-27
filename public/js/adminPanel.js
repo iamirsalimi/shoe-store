@@ -22,9 +22,13 @@ let addNewProductBtn = document.getElementById('addNewProduct')
 let addAndEditModal = document.getElementById('addAndEditModal') 
 let removeProductModal = document.getElementById('removeProductModal')
 
+let addAndEditProductForm = document.querySelector('#addAndEditModal form') 
+
+
 let targetElem = null
 let currentTab = 'Dashboard'
 let searchTarget = 'Customer Id'
+let productTargetOperation = null
 let productId = null
 
 
@@ -216,6 +220,8 @@ function showAddAndEditModalHandler(e){
     
     addAndEditModal.className = modalWrapperClass
     addAndEditModal.firstElementChild.className = modalClass 
+
+    productTargetOperation = targetOperation 
 }
 
 function showRemoveProductModalHandler(){
@@ -258,6 +264,85 @@ function closeRemoveProductModalHandler(){
     removeProductModal.firstElementChild.className = modalClass 
 }
 
+async function addAndEditProductHandler(e){
+    e.preventDefault()
+    
+    let targetForm = e.target
+
+    let productName = targetForm.querySelector('#productName').value
+    let productSummary = targetForm.querySelector('#productSummary').value
+    let price = targetForm.querySelector('#productPrice').value
+    let sizes = targetForm.querySelector('#productSizes').value
+    let colors = targetForm.querySelector('#productColors').value
+    let imagePath = targetForm.querySelector('#productImagePath').value
+    let discount = targetForm.querySelector('#productDiscount').value
+    let productCategory = targetForm.querySelector('#productCategory').value
+    let productDesc = targetForm.querySelector('#productDesc').value
+    let isInSlider = targetForm.querySelector('#isInSliderCheckbox').checked
+
+    let finalPrice = price - ((parseInt(price) * parseInt(discount)) / 100).toFixed(1) 
+
+    let newProductObj = {
+        productName,
+        productSummary,
+        productDesc,
+        imagePath,
+        isInSlider,
+        sizes,
+        colors,
+        productCategory,
+        orderNumbers : 0,
+        reviews : null,
+        price,
+        discount,
+        finalPrice,
+    }
+
+    if(productTargetOperation === 'PUSH'){
+        await fetch(apiData.postProductsUrl , {
+            method : 'POST' , 
+            
+            headers : {
+                'Content-Type': 'application/json',
+                'apikey' : apiData.postProductsApiData,
+                'authorization' : apiData.authorization
+            },
+
+            body : JSON.stringify(newProductObj)
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+        
+    } else {
+        await fetch(`apiData.updateProductsUrl${productId}` , {
+            method : 'PATCH' , 
+            
+            headers : {
+                'Content-Type': 'application/json',
+                'apikey' : apiData.updateProductsApiKey,
+                'authorization' : apiData.authorization
+            },
+
+            body : JSON.stringify(newProductObj)
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
+
+    closeAddAndEditModalHandler()
+}
+
+async function getInfosHandler(){
+    let usersTable =  document.querySelector('')
+    let purchasesTable = document.querySelector('')  
+    let productsTable =  document.querySelector('') 
+
+
+
+
+}
+
+
 // events
 
 
@@ -294,6 +379,9 @@ removeProductModal.addEventListener('click' , e => {
     }
 })
 
+
+document.addEventListener('DOMContentLoaded', getInfosHandler)
+addAndEditProductForm.addEventListener('submit' ,  addAndEditProductHandler)
 addNewProductBtn.addEventListener('click' , showAddAndEditModalHandler)
 changeSearchTargetLabel.addEventListener('click' , changeSearchTargetHandler)
 viewUserOrdersBtn.addEventListener('click' , showUserOrdersHandler)

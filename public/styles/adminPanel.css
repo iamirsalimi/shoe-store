@@ -1823,6 +1823,11 @@ video {
   padding-bottom: 1.25rem;
 }
 
+.py-7 {
+  padding-top: 1.75rem;
+  padding-bottom: 1.75rem;
+}
+
 .py-\[2px\] {
   padding-top: 2px;
   padding-bottom: 2px;
@@ -1831,16 +1836,6 @@ video {
 .py-px {
   padding-top: 1px;
   padding-bottom: 1px;
-}
-
-.py-12 {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-}
-
-.py-7 {
-  padding-top: 1.75rem;
-  padding-bottom: 1.75rem;
 }
 
 .pb-10 {
@@ -2752,11 +2747,6 @@ video {
     width: 70%;
   }
 
-  .xs\:w-max {
-    width: -moz-max-content;
-    width: max-content;
-  }
-
   .xs\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2971,24 +2961,8 @@ video {
     width: max-content;
   }
 
-  .md\:min-w-\[50vw\] {
-    min-width: 50vw;
-  }
-
   .md\:min-w-\[70vw\] {
     min-width: 70vw;
-  }
-
-  .md\:min-w-\[30vw\] {
-    min-width: 30vw;
-  }
-
-  .md\:min-w-\[40vw\] {
-    min-width: 40vw;
-  }
-
-  .md\:max-w-\[40vw\] {
-    max-width: 40vw;
   }
 
   .md\:max-w-\[50vw\] {
@@ -3214,14 +3188,6 @@ video {
 
   .lg\:w-full {
     width: 100%;
-  }
-
-  .lg\:min-w-\[50vw\] {
-    min-width: 50vw;
-  }
-
-  .lg\:min-w-\[70vw\] {
-    min-width: 70vw;
   }
 
   .lg\:grid-cols-1 {
