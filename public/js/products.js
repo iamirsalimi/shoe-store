@@ -1,3 +1,7 @@
+import apiData from './api.js'
+import {getUsersAndProductsHandler , getCookies , isUserInUsers} from './api.js'
+
+
 let hamburger = document.getElementById('hamburger-menu')
 let menu = document.getElementById('menu')
 let closeModalBtn = document.getElementById('closeModalBtn')
@@ -10,6 +14,11 @@ let groupBtn = document.querySelector('#groupBtn')
 let sortBtn = document.querySelector('#sortBtn')
 let groupWrapper = document.querySelector('#groupWrapper')
 let sortWrapper = document.querySelector('#sortWrapper')
+
+
+async function getUserAndProductDetailsHandler(){
+    await getUsersAndProductsHandler()
+}
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -122,6 +131,7 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
+document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 groupWrapper.addEventListener('click' , filterGroupHandler)
 sortWrapper.addEventListener('click' , filterSortHandler)
 groupBtn.addEventListener('click' , toggleGroupWrapper)

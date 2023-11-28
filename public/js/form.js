@@ -19,7 +19,7 @@ let repeatPassInput = document.getElementById('passwordrepeat')
 let registerBtn = document.getElementById('register-submitbtn')
 
 let allInputs = document.querySelectorAll('input')
-let submitBtns = document.querySelectorAll('#submitBtn')
+let submitBtns = document.querySelectorAll('.submitBtn')
 
 
 // regEx
@@ -145,6 +145,28 @@ function usernameValidate(e){
     usernameErr.lastElementChild.classList.add('hidden')
 }
 
+async function checkUsernameExistHandler(e){ 
+    let userObject = await isUserInUsers(e.target.value.toLowerCase())
+    let usernameErr = document.getElementById('register-usernameErr')
+    if(userObject){
+        usernameErr.classList.remove('hidden') 
+        usernameErr.classList.add('flex')
+        usernameErr.firstElementChild.classList.add('hidden')
+        usernameErr.firstElementChild.classList.remove('inline-block')
+        usernameErr.lastElementChild.classList.remove('hidden')
+        usernameErr.lastElementChild.classList.add('inline-block')
+        disableSubmits()
+    } else {
+        usernameErr.classList.remove('flex')
+        usernameErr.classList.add('hidden')
+        usernameErr.firstElementChild.classList.remove('hidden')
+        usernameErr.firstElementChild.classList.add('inline-block')
+        usernameErr.lastElementChild.classList.remove('hidden')
+        usernameErr.lastElementChild.classList.add('inline-block')
+    }
+}
+
+
 
 function passValidate(e){
     let passValue = e.target.value.trim() 
@@ -196,7 +218,7 @@ function getDate(days){
 }
 
 function setCookie(cookieValue , expires){
-    document.cookie = `userId=${cookieValue};path=/${expires ? (';Expires=' + expires) : ';'}`
+    document.cookie = `userToken=${cookieValue};path=/${expires ? (';Expires=' + expires) : ';'}`
 }
 
 async function isUserInUsers(username){
@@ -225,14 +247,14 @@ async function loginUserHandler(e){
     let errWrapper = e.target.querySelector('#err-wrapper')
     
     let userObject = await isUserInUsers(userNameInput.value.toLowerCase())
-    console.log(userObject)
+    
     if(userObject){
         if(passwordInput.value.toLowerCase() === userObject.password){
             errWrapper.classList.add('hidden')
             let successWrapper = e.target.querySelector('#success-wrapper')
             successWrapper.classList.remove('hidden')
             
-            let cookieValue = userObject.id
+            let cookieValue = `${userObject.id}-${userObject.userName}`
         
             const cookieDays = 10
             let expires = rememberMeCheckBox.checked ? getDate(cookieDays) : null
@@ -308,29 +330,6 @@ function clearInputs(){
     })
 }
 
-
-
-async function checkUsernameExistHandler(e){ 
-    let userObject = await isUserInUsers(e.target.value.toLowerCase())
-    let usernameErr = document.getElementById('register-usernameErr')
-    if(userObject){
-        usernameErr.classList.remove('hidden') 
-        usernameErr.classList.add('flex')
-        usernameErr.firstElementChild.classList.add('hidden')
-        usernameErr.firstElementChild.classList.remove('inline-block')
-        usernameErr.lastElementChild.classList.remove('hidden')
-        usernameErr.lastElementChild.classList.add('inline-block')
-        disableSubmits()
-    } else {
-        usernameErr.classList.remove('flex')
-        usernameErr.classList.add('hidden')
-        usernameErr.firstElementChild.classList.remove('hidden')
-        usernameErr.firstElementChild.classList.add('inline-block')
-        usernameErr.lastElementChild.classList.remove('hidden')
-        usernameErr.lastElementChild.classList.add('inline-block')
-        activeSubmits()
-    }
-}
 
 // events
 

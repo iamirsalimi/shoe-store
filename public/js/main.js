@@ -1,3 +1,6 @@
+import apiData from './api.js'
+import {getUsersAndProductsHandler , getCookies , isUserInUsers} from './api.js'
+
 let hamburger = document.getElementById('hamburger-menu')
 let menu = document.getElementById('menu')
 let closeModalBtn = document.getElementById('closeModalBtn')
@@ -7,6 +10,10 @@ let closeBasketBtn = document.getElementById('closeBasketBtn')
 let navElems = document.querySelectorAll('nav ul')
 let goToUpBtn = document.getElementById('gotoupBtn')
 
+async function getUserAndProductDetailsHandler(){
+    await getUsersAndProductsHandler()
+
+}
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -66,13 +73,19 @@ goToUpBtn.addEventListener('click' , () => {
     window.scrollTo(0,0)
 })
 
+
 navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
+
+document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 hamburger.addEventListener('click' , showMenu)
 basketBtn.addEventListener('click' , showBasket)
 closeModalBtn.addEventListener('click' , closeMenu)
 closeBasketBtn.addEventListener('click', closeBasket)
+
+
+// libraries 
 
 let swiperSlider = new Swiper('.swiper' , {
     loop : true,
