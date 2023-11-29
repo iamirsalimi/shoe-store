@@ -19,6 +19,7 @@ let addAndEditModal = document.getElementById('addAndEditModal')
 let removeProductModal = document.getElementById('removeProductModal')
 
 let addAndEditProductForm = document.querySelector('#addAndEditModal form') 
+let removeProductBtn = document.querySelector('#removeProductModal #removeProductBtn')
 
 
 let targetElem = null
@@ -27,6 +28,7 @@ let searchTarget = 'Customer Id'
 let productTargetOperation = null
 let productId = null
 let tableFragment = document.createDocumentFragment()
+let targetProductObj = null
 
 
 function toggleMenu(){
@@ -77,12 +79,59 @@ function changeContent(e){
     currentTab = targetElem.dataset.target
 }
 
-function showOrderDetail(e){
+function showProductDetailsHandler(productObj){
+    let productDetailWrapper = document.querySelector('#productDetailWrapper')
+    let productImgElem = productDetailWrapper.querySelector('.productDetailImgWrapper img')
+    let productIdElem = productDetailWrapper.querySelector('.productIdWrapper').lastElementChild
+    let productNameElem = productDetailWrapper.querySelector('.productNameWrapper').lastElementChild
+    let productSummaryElem = productDetailWrapper.querySelector('.productSummaryWrapper').lastElementChild
+    let productDescElem = productDetailWrapper.querySelector('.productDescWrapper').lastElementChild
+    let imagePathElem = productDetailWrapper.querySelector('.imagePathWrapper').lastElementChild
+    let isInSliderWrapper = productDetailWrapper.querySelector('.isInSliderWrapper').lastElementChild
+    let productSizesElem = productDetailWrapper.querySelector('.productsSizeDetail')
+    let productColorsElem = productDetailWrapper.querySelector('.productsColorDetail')
+    let productCategoryElem = productDetailWrapper.querySelector('.productCategoryWrapper').lastElementChild
+    let orderNumberElem = productDetailWrapper.querySelector('.orderNumberWrapper').lastElementChild
+    let productReviewsElem = productDetailWrapper.querySelector('.productReviewsWrapper').lastElementChild
+    let priceElem = productDetailWrapper.querySelector('.priceWrapper').lastElementChild
+    let discountElem = productDetailWrapper.querySelector('.discountWrapper').lastElementChild
+    let finalPriceElem = productDetailWrapper.querySelector('.finalPriceWrapper').lastElementChild
+
+    productImgElem.src = `./images/${productObj.imagePath}`
+    productIdElem.innerHTML = productObj.id
+    productNameElem.innerHTML = productObj.productName
+    productSummaryElem.innerHTML = productObj.productSummary
+    productDescElem.innerHTML = productObj.productDesc
+    imagePathElem.innerHTML = productObj.imagePath
+    isInSliderWrapper.innerHTML = productObj.isInSlider
+    isInSliderWrapper.className = `text-${productObj.isInSlider ? 'green' : 'red'}-500`
+
+    productSizesElem.innerHTML = productObj.sizes.split(' ').map(size => `<span>${size}</span>`).join('')
+
+    productColorsElem.innerHTML = productObj.colors.split(' ').map(color => `<span class="inline-block w-3 h-3 rounded-full bg-${(color =='white' || color == 'black') ? color : color + '-500'} ${color == 'white' ? 'border border-gray-400' : ''}"></span>`).join('')
+    
+    productCategoryElem.innerHTML = productObj.productCategory
+    orderNumberElem.innerHTML = productObj.orderNumbers
+    productReviewsElem.innerHTML = productObj.reviews?.length || 0 
+    priceElem.innerHTML = `$${productObj.price}`
+    discountElem.innerHTML = `${productObj.discount}%`
+    finalPriceElem.innerHTML = `$${productObj.finalPrice}`
+}
+
+
+
+function showOrderDetail(targetDetailsWrapper , targetObj){
     window.scrollTo(0,0)
     content.scrollTo(0,0)
 
-
-
+    if(targetDetailsWrapper == 'product'){
+        showProductDetailsHandler(targetObj)
+    } 
+    // else if(targetDetailsWrapper == 'user'){
+    //     showUserDetailsHandler(targetObj)
+    // } else if(targetDetailsWrapper == 'purchases'){
+    //     showPurchasesDetailsHandler(targetObj)
+    // }
 }
 
 
@@ -118,7 +167,6 @@ function searchHandler(e){
     let searchValue = e.target.value.trim()
     searchTargetHandler(searchValue , e.target.dataset.searchtarget.replace(' ' , ''))
 }
-
 
 function searchTargetHandler(searchValue , searchTarget){
     let targetTable = document.getElementById(`${currentTab}Table`)
@@ -199,15 +247,18 @@ function showUserOrdersHandler(e){
 // products section
 
 // show And Hide modals
-function showAddAndEditModalHandler(e){
-    productId = e.target.dataset.productid
+function showAddAndEditModalHandler(e , productObj){
+    clearInputs()
+    targetProductObj = productObj
     
+    productId = productObj?.id
+    let targetOperation = e.target.dataset.target
+
     let modalWrapperClass = addAndEditModal.className
     let modalClass = addAndEditModal.firstElementChild.className
     
     let modalTitle = addAndEditModal.querySelector('h2')
     let modalSubmitBtn = addAndEditModal.querySelector('button')
-    let targetOperation = e.target.dataset.target
 
     modalTitle.innerHTML = targetOperation === 'PUSH' ? 'Add Product' : 'Edit Product Details'  
     modalSubmitBtn.innerHTML = targetOperation === 'PUSH' ? 'Add Product' : 'Edit Product'
@@ -225,6 +276,7 @@ function showAddAndEditModalHandler(e){
 
 function showRemoveProductModalHandler(e){
     productId = e.target.dataset.productid
+
     let modalWrapperClass = removeProductModal.className
     let modalClass = removeProductModal.firstElementChild.className
     
@@ -248,7 +300,7 @@ function closeAddAndEditModalHandler(){
     
     addAndEditModal.className = modalWrapperClass
     addAndEditModal.firstElementChild.className = modalClass 
-
+    targetProductObj = null
 }
 
 function closeRemoveProductModalHandler(){
@@ -264,20 +316,116 @@ function closeRemoveProductModalHandler(){
     removeProductModal.firstElementChild.className = modalClass 
 }
 
+// set and update products
+
+// set new Product
+async function setProductsHandler(newProductObj){
+    await fetch(apiData.postProductsUrl , {
+        method : 'POST' , 
+        
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.postProductsApiData,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(newProductObj)
+    })
+    .then(res => {
+        console.log(res)
+        Swal.fire({
+            icon: "success",
+            title: "Product Was Added",
+            showConfirmButton: false,
+            timer: 2000
+        })
+        getProductsHandler()
+        clearInputs()
+    })
+    .catch(err =>{
+        console.log(err)
+        Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+        timer: 2000
+        });
+    })
+}
+
+// update products
+async function updateProductHandler(newProductObj){
+    delete targetProductObj.id
+
+    // Checking whether the previous value differs from the new value or not, so that if there is no difference, the request for information update will not be made.
+    if(JSON.stringify(newProductObj) === JSON.stringify(targetProductObj)){
+        
+        Swal.fire({
+            icon: "info",
+            title: "The changes were not applied because no new information was entered",
+            showConfirmButton: false,
+            timer: 5000
+          });
+
+        closeAddAndEditModalHandler()
+    } else {
+        await fetch(`${apiData.updateProductsUrl}${productId}` , {
+            method : 'PATCH' , 
+            
+            headers : {
+                'Content-Type': 'application/json',
+                'apikey' : apiData.updateProductsApiKey,
+                'authorization' : apiData.authorization
+            },
+    
+            body : JSON.stringify(newProductObj)
+        })
+        .then(res => {
+            console.log(res)
+            if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+                Swal.fire({
+                    icon: "success",
+                    title: "Product Was Added",
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+                getProductsHandler()
+                clearInputs()
+            } else {
+                Swal.fire({
+                icon: "error",
+                title: `${res.status} Error`,
+                text: "Something went wrong! please try again later",
+                timer: 3000
+                });
+            }
+        })
+        .catch(err =>{
+            console.log(err)
+            Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong! please try again later",
+            timer: 3000
+            });
+        })
+    }
+}
+
 async function addAndEditProductHandler(e){
     e.preventDefault()
     
     let targetForm = e.target
 
-    let productName = targetForm.querySelector('#productName').value
-    let productSummary = targetForm.querySelector('#productSummary').value
-    let price = targetForm.querySelector('#productPrice').value
-    let sizes = targetForm.querySelector('#productSizes').value
-    let colors = targetForm.querySelector('#productColors').value
-    let imagePath = targetForm.querySelector('#productImagePath').value
-    let discount = targetForm.querySelector('#productDiscount').value
+    let productName = targetForm.querySelector('#productName').value.trim()
+    let productSummary = targetForm.querySelector('#productSummary').value.trim()
+    let price = parseFloat(targetForm.querySelector('#productPrice').value.trim())
+    let sizes = targetForm.querySelector('#productSizes').value.trim()
+    let colors = targetForm.querySelector('#productColors').value.trim()
+    let imagePath = targetForm.querySelector('#productImagePath').value.trim()
+    let discount = parseFloat(targetForm.querySelector('#productDiscount').value.trim())
     let productCategory = targetForm.querySelector('#productCategory').value
-    let productDesc = targetForm.querySelector('#productDesc').value
+    let productDesc = targetForm.querySelector('#productDesc').value.trim()
     let isInSlider = targetForm.querySelector('#isInSliderCheckbox').checked
 
     let finalPrice = price - ((parseInt(price) * parseInt(discount)) / 100).toFixed(1) 
@@ -291,107 +439,84 @@ async function addAndEditProductHandler(e){
         sizes,
         colors,
         productCategory,
-        orderNumbers : 0,
-        reviews : null,
+        orderNumbers : targetProductObj?.orderNumbers || 0,
+        reviews : targetProductObj?.reviews || null,
         price,
         discount,
         finalPrice,
     }
 
     if(productTargetOperation === 'PUSH'){
-        await fetch(apiData.postProductsUrl , {
-            method : 'POST' , 
-            
-            headers : {
-                'Content-Type': 'application/json',
-                'apikey' : apiData.postProductsApiData,
-                'authorization' : apiData.authorization
-            },
-
-            body : JSON.stringify(newProductObj)
-        })
-        .then(res => {
-            console.log(res)
-            Swal.fire({
-                icon: "success",
-                title: "Product Was Added",
-                showConfirmButton: false,
-                timer: 2000
-            })
-            clearInputs()
-        })
-        .catch(err =>{
-            console.log(err)
-            Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            timer: 2000
-            });
-        })
+        setProductsHandler(newProductObj)
     } else {
-        await fetch(`apiData.updateProductsUrl${productId}` , {
-            method : 'PATCH' , 
-            
-            headers : {
-                'Content-Type': 'application/json',
-                'apikey' : apiData.updateProductsApiKey,
-                'authorization' : apiData.authorization
-            },
-
-            body : JSON.stringify(newProductObj)
-        })
-        .then(res => {
-            console.log(res)
-            Swal.fire({
-                icon: "success",
-                title: "Product Was Added",
-                showConfirmButton: false,
-                timer: 2000
-            })
-            clearInputs()
-        })
-        .catch(err =>{
-            console.log(err)
-            Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong!",
-            timer: 2000
-            });
-        })
+        updateProductHandler(newProductObj)
     }
 
     getProductsHandler()
     closeAddAndEditModalHandler()
 }
 
+// delete Product
+async function deleteProductHandler(){
+    fetch(`${apiData.deleteProductsUrl}${productId}` , {
+        method:'DELETE',
+        
+        headers : {
+            'apikey' : apiData.deleteProductsApiKey,
+            'authorization' : apiData.authorization
+        }
+    })
+    .then(res => {
+        console.log(res)
+        if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            Swal.fire({
+                icon: "success",
+                title: `Product with ${productId} ID Was Removed`,
+                showConfirmButton: false,
+                timer: 3000
+            })
+            getProductsHandler()
+            clearInputs()
+        } else {
+            Swal.fire({
+            icon: "error",
+            title: `${res.status} Error`,
+            text: "Something went wrong! please try again later",
+            timer: 3000
+            });
+        }
+    })
+    .catch(err =>{
+        console.log(err)
+        Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong! please try again later",
+        timer: 3000
+        });
+    })
+
+    closeRemoveProductModalHandler()
+}
+
+
 function clearInputs(){
     let allInputs = document.querySelectorAll('input')
     let textarea = document.querySelector('textarea')
+    let selectBox = document.querySelector('#addAndEditModal #productCategory')
     textarea.value = ''
+    selectBox.value = 'All'
 
     allInputs.forEach(input => {
         if(input.type != 'checkbox'){
             input.value = ''
+        } else {
+            input.checked = false
         }
     })
 }
 
 // getting users and products and purchases
-
-async function getUsersHandler(){
-    await fetch(apiData.getUsersUrl , {
-        headers : {
-            'apikey' : apiData.getUsersApiKey,
-            'authorization' : apiData.authorization
-        }
-    })
-    .then(res => res.json())
-    .then(users => createUsersRowHandler(users))
-    .catch(err => console.log(err))
-}
-
 function createUsersRowHandler(users){
     let usersTable =  document.querySelector('#UsersTable')
 
@@ -436,15 +561,15 @@ function createUsersRowHandler(users){
     usersTable.append(tableFragment)
 }
 
-async function getProductsHandler(){
-    await fetch(apiData.getProductsUrl , {
+async function getUsersHandler(){
+    await fetch(apiData.getUsersUrl , {
         headers : {
-            'apikey' : apiData.getProductsApiKey,
+            'apikey' : apiData.getUsersApiKey,
             'authorization' : apiData.authorization
         }
     })
     .then(res => res.json())
-    .then(products => createProductsRowHandler(products))
+    .then(users => createUsersRowHandler(users))
     .catch(err => console.log(err))
 }
 
@@ -452,6 +577,11 @@ function createProductsRowHandler(products){
     let productsTable =  document.querySelector('#ProductsTable') 
 
     productsTable.innerHTML = ''
+
+    products.sort(function(a, b) {
+        return (a.id - b.id)
+    })
+
     products.forEach(product => {
         let trElem = document.createElement('tr')
         trElem.className = 'even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors'
@@ -486,26 +616,51 @@ function createProductsRowHandler(products){
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>`
         viewProductDetailsBtn.title = 'View More Details'
-        viewProductDetailsBtn.addEventListener('click' ,showOrderDetail)
+        viewProductDetailsBtn.addEventListener('click' ,() => showOrderDetail('product' , product))
         
         let editProductBtn = document.createElement('button')
         editProductBtn.className = 'editProductBtn bg-sky-100 hover:bg-sky-200 transition-colors rounded p-[2px]'
         editProductBtn.setAttribute('data-target' , 'PATCH')
-        editProductBtn.setAttribute('data-productId' , product.productId)
         editProductBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-sky-700 pointer-events-none">
         <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
         </svg>`
         editProductBtn.title = 'Edit Product'
-        editProductBtn.addEventListener('click' ,showAddAndEditModalHandler)
+        editProductBtn.addEventListener('click' , e => {
+            showAddAndEditModalHandler(e , product)
+            
+            let productName = addAndEditModal.querySelector('#productName')
+            let productSummary = addAndEditModal.querySelector('#productSummary')
+            let price = addAndEditModal.querySelector('#productPrice')
+            let sizes = addAndEditModal.querySelector('#productSizes')
+            let colors = addAndEditModal.querySelector('#productColors')
+            let imagePath = addAndEditModal.querySelector('#productImagePath')
+            let discount = addAndEditModal.querySelector('#productDiscount')
+            let productCategory = addAndEditModal.querySelector('#productCategory')
+            let productDesc = addAndEditModal.querySelector('#productDesc')
+            let isInSlider = addAndEditModal.querySelector('#isInSliderCheckbox')
+        
+            productName.value = product.productName
+            productSummary.value = product.productSummary
+            price.value = product.price
+            sizes.value = product.sizes
+            colors.value = product.colors
+            imagePath.value = product.imagePath
+            discount.value = product.discount
+            productCategory.value = product.productCategory
+            // for old Browsers we must change select box value with selectedIndex
+            productCategory.selectedIndex = product.productCategory == 'All' ?  0 : product.productCategory == 'Men' ? 1 : product.productCategory == 'Women' ? 2 : 3     
+            productDesc.value = product.productDesc
+            isInSlider.checked = product.isInSlider
+        })
         
         let deleteProductsBtn = document.createElement('button')
         deleteProductsBtn.className = `bg-red-100 hover:bg-red-200 transition-colors rounded p-[2px]`
-        deleteProductsBtn.setAttribute('data-productId' , product.productId)
+        deleteProductsBtn.setAttribute('data-productId' , product.id)
         deleteProductsBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-red-700 pointer-events-none">
             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
             </svg>` 
             deleteProductsBtn.title = 'View More Details'
-        deleteProductsBtn.addEventListener('click' ,showRemoveProductModalHandler)
+        deleteProductsBtn.addEventListener('click' , showRemoveProductModalHandler)
             
 
         productBtnTdWrapper.append(viewProductDetailsBtn , editProductBtn , deleteProductsBtn)
@@ -513,6 +668,18 @@ function createProductsRowHandler(products){
         tableFragment.append(trElem)
     })
     productsTable.append(tableFragment)
+}
+
+async function getProductsHandler(){
+    await fetch(apiData.getProductsUrl , {
+        headers : {
+            'apikey' : apiData.getProductsApiKey,
+            'authorization' : apiData.authorization
+        }
+    })
+    .then(res => res.json())
+    .then(products => createProductsRowHandler(products))
+    .catch(err => console.log(err))
 }
 
 async function getInfosHandler(){
@@ -556,6 +723,7 @@ removeProductModal.addEventListener('click' , e => {
     }
 })
 
+removeProductBtn.addEventListener('click' , deleteProductHandler)
 document.addEventListener('DOMContentLoaded', getInfosHandler)
 addAndEditProductForm.addEventListener('submit' ,  addAndEditProductHandler)
 addNewProductBtn.addEventListener('click' , showAddAndEditModalHandler)
