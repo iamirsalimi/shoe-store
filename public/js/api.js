@@ -75,7 +75,6 @@ async function getUsersAndProductsHandler(){
     
     if(userToken){
         let userObj = await isUserInUsers(userToken)
-        console.log(userObj)
         
         // If there is a user token, we must show the first child that is linked to the panels and hide the second child that is linked to the registration and login form.
         if(userObj){
@@ -101,10 +100,6 @@ async function getUsersAndProductsHandler(){
             loginAndPanelWrapper.firstElementChild.classList.remove('flex')
             loginAndPanelWrapper.firstElementChild.classList.add('hidden')
         }
-
-
-
-        console.log(loginAndPanelWrapper.firstElementChild , loginAndPanelWrapper.lastElementChild);
     }
 }
 

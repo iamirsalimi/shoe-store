@@ -1,4 +1,6 @@
 import apiData from './api.js'
+import {isUserInUsers , getCookies} from './api.js'
+
 
 let menu = document.getElementById('menu')
 let menuBtn = document.getElementById('menu-btn')
@@ -21,6 +23,10 @@ let removeProductModal = document.getElementById('removeProductModal')
 let addAndEditProductForm = document.querySelector('#addAndEditModal form') 
 let removeProductBtn = document.querySelector('#removeProductModal #removeProductBtn')
 
+// users section elems
+let updateUserBtn = document.getElementById('updateUserBtn')
+let removeUserBtn = document.getElementById('removeUserBtn')
+let userRoleSelect = document.getElementById('userRoleSelect')
 
 let targetElem = null
 let currentTab = 'Dashboard'
@@ -28,8 +34,10 @@ let searchTarget = 'Customer Id'
 let productTargetOperation = null
 let productId = null
 let tableFragment = document.createDocumentFragment()
+let usersTableFragment = document.createDocumentFragment()
 let targetProductObj = null
-
+let targetUserObj = null
+let deleteModalTarget = null
 
 function toggleMenu(){
     menu.classList.toggle('unshow')
@@ -79,8 +87,24 @@ function changeContent(e){
     currentTab = targetElem.dataset.target
 }
 
+function showDetailsHandler(detailsWrapper){
+    console.log(detailsWrapper);
+    detailsWrapper.classList.remove('hidden')
+    detailsWrapper.classList.add('flex')
+    detailsWrapper.nextElementSibling.classList.add('hidden')
+}
+
+function hideDetailsHandler(detailsWrapper){
+    console.log(detailsWrapper);
+    detailsWrapper.classList.remove('flex')
+    detailsWrapper.classList.add('hidden')
+    detailsWrapper.nextElementSibling.classList.remove('hidden')
+}
+
 function showProductDetailsHandler(productObj){
-    let productDetailWrapper = document.querySelector('#productDetailWrapper')
+    let productDetailWrapper = document.querySelector('#productDetailWrapper').firstElementChild
+    showDetailsHandler(productDetailWrapper)
+
     let productImgElem = productDetailWrapper.querySelector('.productDetailImgWrapper img')
     let productIdElem = productDetailWrapper.querySelector('.productIdWrapper').lastElementChild
     let productNameElem = productDetailWrapper.querySelector('.productNameWrapper').lastElementChild
@@ -118,6 +142,149 @@ function showProductDetailsHandler(productObj){
     finalPriceElem.innerHTML = `$${productObj.finalPrice}`
 }
 
+function showUserDetailsHandler(userObj){
+    let userDetailWrapper = document.querySelector('#UserDetailWrapper').firstElementChild
+    showDetailsHandler(userDetailWrapper)
+
+    let userIdElem = userDetailWrapper.querySelector('.userIdWrapper').lastElementChild
+    let userFullNameElem = userDetailWrapper.querySelector('.userFullNameWrapper').lastElementChild
+    let usernameElem = userDetailWrapper.querySelector('.usernameWrapper').lastElementChild
+    let userEmailElem = userDetailWrapper.querySelector('.userEmailWrapper').lastElementChild
+    let userNumOfOrdersElem = userDetailWrapper.querySelector('.userNumOfOrdersWrapper').lastElementChild
+    let userViewOrdersBtn = userDetailWrapper.querySelector('.userOrdersBtn').lastElementChild
+    let userRoleElem = userDetailWrapper.querySelector('.userRoleWrapper').lastElementChild
+
+    userIdElem.innerHTML = userObj.id
+    userFullNameElem.innerHTML = `${userObj.firstName} ${userObj.lastName}` 
+    usernameElem.innerHTML = userObj.userName
+    userEmailElem.innerHTML = userObj.email
+    userNumOfOrdersElem.innerHTML = userObj.numberOfOrders 
+    userViewOrdersBtn.setAttribute('data-customerId' , userObj.id)
+    userRoleElem.innerHTML = userObj.role
+    userRoleSelect.value = userObj.role
+    
+    targetUserObj = userObj
+}
+
+async function updateUserRoleHandler(){
+    // Checking whether the previous value differs from the new value or not, so that if there is no difference (previous value and new value were same), the request for information update will not be made.
+    if(userRoleSelect.value == targetUserObj.role){
+        Swal.fire({
+            icon: "info",
+            title: 'No new information has been entered to update user information',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    } else {
+        let newUserRole = {
+            role : userRoleSelect.value
+        }
+
+        if(targetUserObj.id == 1){
+            Swal.fire({
+                icon: "info",
+                title: 'You cannot change the information of this admin',
+                showConfirmButton: false,
+                timer: 3000
+            })
+           } else {
+            
+            await fetch(`${apiData.updateUsersUrl}${targetUserObj.id}` , {
+                method : 'PATCH',
+    
+                headers : {
+                    'Content-type' : 'application/json',
+                    'apikey' : apiData.updateUsersApiKey,
+                    'authorization' : apiData.authorization
+                },
+    
+                body : JSON.stringify(newUserRole)
+            })
+            .then(res => {
+                console.log(res)
+                if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+                    Swal.fire({
+                        icon: "success",
+                        title: `User with ${targetUserObj.id} ID Was Updated`,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+
+                    targetUserObj.role = newUserRole.role
+                    getUsersHandler()
+                } else {
+                    Swal.fire({
+                    icon: "error",
+                    title: `${res.status} Error`,
+                    text: "Something went wrong! please try again later",
+                    timer: 3000
+                    });
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Something went wrong! please try again later",
+                    timer: 3000
+                });
+            })
+        }
+    }
+}
+
+async function removeUserHandler(){
+    if(targetUserObj.role == 'admin'){
+        Swal.fire({
+            icon: "info",
+            title: 'You cannot delete admins',
+            showConfirmButton: false,
+            timer: 3000
+        })
+    } else {
+        await fetch(`${apiData.deleteUsersUrl}${targetUserObj.id}` , {
+            method : 'DELETE',
+        
+            headers : {
+                'apikey' : apiData.deleteUsersApiKey,
+                'authorization' : apiData.authorization
+            }
+        })
+        .then(res => {
+            console.log(res)
+            if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+                Swal.fire({
+                    icon: "success",
+                    title: `User with ${targetUserObj.id} ID Was Deleted`,
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+        
+                let userDetailWrapper = document.querySelector('#UserDetailWrapper').firstElementChild
+                hideDetailsHandler(userDetailWrapper)
+                getUsersHandler()
+                closeRemoveProductModalHandler()
+            } else {
+                Swal.fire({
+                icon: "error",
+                title: `${res.status} Error`,
+                text: "Something went wrong! please try again later",
+                timer: 3000
+                });
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong! please try again later",
+                timer: 3000
+            });
+        })
+    }
+}
 
 
 function showOrderDetail(targetDetailsWrapper , targetObj){
@@ -126,10 +293,10 @@ function showOrderDetail(targetDetailsWrapper , targetObj){
 
     if(targetDetailsWrapper == 'product'){
         showProductDetailsHandler(targetObj)
+    } else if(targetDetailsWrapper == 'user'){
+        showUserDetailsHandler(targetObj)
     } 
-    // else if(targetDetailsWrapper == 'user'){
-    //     showUserDetailsHandler(targetObj)
-    // } else if(targetDetailsWrapper == 'purchases'){
+    // else if(targetDetailsWrapper == 'purchases'){
     //     showPurchasesDetailsHandler(targetObj)
     // }
 }
@@ -276,10 +443,15 @@ function showAddAndEditModalHandler(e , productObj){
 
 function showRemoveProductModalHandler(e){
     productId = e.target.dataset.productid
+    deleteModalTarget = e.target.dataset.target
 
     let modalWrapperClass = removeProductModal.className
     let modalClass = removeProductModal.firstElementChild.className
-    
+    let removeModalTitle = removeProductModal.querySelector('span')
+
+    removeModalTitle.innerHTML = deleteModalTarget
+    removeProductBtn.innerHTML = `Remove ${deleteModalTarget}`
+
     modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
     modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
     
@@ -475,6 +647,9 @@ async function deleteProductHandler(){
                 showConfirmButton: false,
                 timer: 3000
             })
+            
+            let productDetailWrapper = document.querySelector('#productDetailWrapper').firstElementChild
+            showDetailsHandler(productDetailWrapper)
             getProductsHandler()
             clearInputs()
         } else {
@@ -518,10 +693,39 @@ function clearInputs(){
 
 // getting users and products and purchases
 function createUsersRowHandler(users){
-    let usersTable =  document.querySelector('#UsersTable')
+    let usersTable = document.querySelector('.usersTableShortCutWrapper')
+    let mainUsersTable =  document.querySelector('#UsersTable')
 
+    mainUsersTable.innerHTML = ''
     usersTable.innerHTML = ''
+
+    users.sort((a , b) => a.id - b.id)
+
     users.forEach(user => {
+        // users Shortcut Table 
+        let divElem = document.createElement('div')
+        divElem.className = 'flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4'
+
+        let userIdSpan = document.createElement('span')
+        userIdSpan.className = 'text-gray-800 rounded font-semibold lg:text-lg'
+        userIdSpan.innerHTML = user. id
+        
+        let userFullNameSpan = document.createElement('span')
+        userFullNameSpan.className = 'text-gray-800 rounded font-semibold lg:text-lg'
+        userFullNameSpan.innerHTML = `${user.firstName} ${user.lastName}` 
+        
+        let userNameSpan = document.createElement('span')
+        userNameSpan.className = 'text-gray-800 rounded font-semibold lg:text-lg'
+        userNameSpan.innerHTML = user.userName
+        
+        let userRoleSpan = document.createElement('span')
+        userRoleSpan.className = 'text-gray-800 rounded font-semibold lg:text-lg'
+        userRoleSpan.innerHTML = user.role
+
+        divElem.append(userIdSpan , userFullNameSpan , userNameSpan , userRoleSpan)
+        usersTableFragment.append(divElem)
+
+        // main Users Table
         let trElem = document.createElement('tr')
         trElem.className = 'even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors'
 
@@ -551,14 +755,17 @@ function createUsersRowHandler(users){
         let viewUserDetailsBtn = document.createElement('button')
         viewUserDetailsBtn.className = 'showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer' 
         viewUserDetailsBtn.innerHTML = 'View'
-        viewUserDetailsBtn.addEventListener('click' ,showOrderDetail)
+        viewUserDetailsBtn.addEventListener('click' ,() => showOrderDetail('user' , user))
 
         viewUserDetailsTdWrapper.append(viewUserDetailsBtn)
 
         trElem.append(userIdTdElem , userNameTdElem , usernameTdElem , userEmailTdElem , userRoleTdElem , viewUserDetailsTdWrapper)
         tableFragment.append(trElem)
     })
-    usersTable.append(tableFragment)
+
+    usersTable.append(usersTableFragment)
+
+    mainUsersTable.append(tableFragment)
 }
 
 async function getUsersHandler(){
@@ -578,9 +785,7 @@ function createProductsRowHandler(products){
 
     productsTable.innerHTML = ''
 
-    products.sort(function(a, b) {
-        return (a.id - b.id)
-    })
+    products.sort((a, b) => a.id - b.id)
 
     products.forEach(product => {
         let trElem = document.createElement('tr')
@@ -656,6 +861,7 @@ function createProductsRowHandler(products){
         let deleteProductsBtn = document.createElement('button')
         deleteProductsBtn.className = `bg-red-100 hover:bg-red-200 transition-colors rounded p-[2px]`
         deleteProductsBtn.setAttribute('data-productId' , product.id)
+        deleteProductsBtn.setAttribute('data-target' , 'product')
         deleteProductsBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 stroke-red-700 pointer-events-none">
             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
             </svg>` 
@@ -682,21 +888,52 @@ async function getProductsHandler(){
     .catch(err => console.log(err))
 }
 
+function showUserInfos(userObj){
+    let userInfoWrapper = document.querySelector('#userInfo')
+
+    let userFirstName = userInfoWrapper.querySelector('.userFirstNameDetail').lastElementChild
+    let userLastName = userInfoWrapper.querySelector('.userLastNameDetail').lastElementChild
+    let userEmail = userInfoWrapper.querySelector('.userEmailDetail').lastElementChild
+    let userName = userInfoWrapper.querySelector('.userNameDetail').lastElementChild
+
+    userFirstName.innerHTML = userObj.firstName
+    userLastName.innerHTML = userObj.lastName
+    userEmail.innerHTML = userObj.email
+    userName.innerHTML = userObj.userName
+}
+
 async function getInfosHandler(){
     clearInputs()
 
-    // let purchasesTable = document.querySelector('#PurchasesTable')  
-    try{
-        await getUsersHandler()
-        await getProductsHandler()
-        
-    } catch(err){
-        Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: "Something went wrong! please refresh the page",
-            timer: 5000
-        });
+    let userToken = getCookies()
+    let userObj = await isUserInUsers(userToken) 
+    // if user wasn't admin we must redirect him/her to home page
+    
+    if(userObj?.role === 'admin'){
+        // let purchasesTable = document.querySelector('#PurchasesTable')  
+        showUserInfos(userObj)
+        try{
+            await getUsersHandler()
+            await getProductsHandler()
+
+        } catch(err){
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Something went wrong! please refresh the page",
+                timer: 5000
+            });
+        }
+    } else {
+        location.href = 'http://127.0.0.1:5500/public/index.html'
+    }
+}
+
+function deleteHandler(){
+    if(deleteModalTarget == 'user'){
+        removeUserHandler()
+    } else if(deleteModalTarget == 'product') {
+        deleteProductHandler()
     }
 }
 
@@ -723,7 +960,9 @@ removeProductModal.addEventListener('click' , e => {
     }
 })
 
-removeProductBtn.addEventListener('click' , deleteProductHandler)
+updateUserBtn.addEventListener('click' , updateUserRoleHandler)
+removeUserBtn.addEventListener('click' , showRemoveProductModalHandler)
+removeProductBtn.addEventListener('click' , deleteHandler)
 document.addEventListener('DOMContentLoaded', getInfosHandler)
 addAndEditProductForm.addEventListener('submit' ,  addAndEditProductHandler)
 addNewProductBtn.addEventListener('click' , showAddAndEditModalHandler)

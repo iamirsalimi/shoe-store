@@ -36,6 +36,7 @@ class User {
         this.password = password,
         this.email = email,
         this.role = 'user',
+        this.numberOfOrders = null,
         this.orders = null,
         this.basket = null,
         this.wishlist = null

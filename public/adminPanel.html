@@ -61,32 +61,32 @@
         </div>
         <div id="content" class="relative w-full pt-10 pb-20 px-2 lg:overflow-y-auto h-screen lg:pt-9">
             <section id="Dashboard" class="mt-5 pb-32 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:pb-12">
-                <div id="user-info" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
+                <div id="userInfo" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
                     <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-20 h-20 stroke-white">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
                     <ul id="user-infos" class="border-t border-gray-200 space-y-3 py-1 divide-y divide-gray-100 md:py-2">
-                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                        <li class="userFirstNameDetail flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">FirstName :</span>
-                            <span class="font-semibold text-gray-600">Alex</span>
+                            <span class="font-semibold text-gray-600"></span>
                         </li>
-                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                        <li class="userLastNameDetail flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">LastName :</span>
-                            <span class="font-semibold text-gray-600">Green</span>
+                            <span class="font-semibold text-gray-600"></span>
                         </li>
-                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                        <li class="userEmailDetail flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">Email :</span>
-                            <span class="font-semibold text-gray-600">AlexGreen23@gmail.com</span>
+                            <span class="font-semibold text-gray-600"></span>
                         </li>
-                        <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
+                        <li class="userNameDetail flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">UserName :</span>
-                            <span class="font-semibold text-gray-600">AlexGreen29</span>
+                            <span class="font-semibold text-gray-600"></span>
                         </li>
                     </ul>
                 </div>
-                <div id="user-basket" class="px-2 py-2 min-h-[5rem] rounded-lg bg-white space-y-4 sahdow-md">
+                <div id="purchases" class="px-2 py-2 min-h-[5rem] rounded-lg bg-white space-y-4 sahdow-md">
                     <div class="flex items-center justify-between">
                         <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Purchases</h2>
                         <button data-target="Purchases" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
@@ -132,7 +132,7 @@
                         </div> -->
                     </div>
                 </div>
-                <div id="recent-purchases" class="flex flex-col gap-2 sahdow-md bg-white rounded-md py-1 px-2 md:row-start-1 md:row-end-3 lg:col-start-1 lg:col-end-3">
+                <div id="userTableShortCut" class="flex flex-col gap-2 sahdow-md bg-white rounded-md py-1 px-2 md:row-start-1 md:row-end-3 lg:col-start-1 lg:col-end-3">
                     <div class="flex items-center justify-between">
                         <h2 class="text-gray-900 text-xl font-bold xs:text-2xl">Users</h2>
                         <button data-target="Users" class="shortcut-btn flex items-center gap-2 p-2 rounded-md hover:bg-gray-300 transition-colors text-gray-900 font-bold">
@@ -148,8 +148,8 @@
                             <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">username</h3>
                             <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">role</h3>
                         </div>
-                        <div class="flex flex-col gap-1 lg:mt-2">
-                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                        <div class="usersTableShortCutWrapper flex flex-col gap-1 lg:mt-2">
+                            <!-- <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">1</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">Alex Green</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">AlexGrn</span>
@@ -172,65 +172,62 @@
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">Sarah Mozby</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">SarahMzb</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">Admin</span>
-                            </div>
-                        </div>
-                        <div class="h-full hidden flex-col items-center justify-center gap-3">
-                            <h2 class="text-xl text-blue-700 font-bold text-center xs:text-2xl">You have not made a purchase yet!</h2>
-                            <a href="./products.html?t=men" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Purchase</a>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </section>
             
             <section id="Users" class="notActive w-full mt-5 flex flex-col gap-10 pb-28 md:gap-3 xs:pb-36 lg:pb-0">
-                <div id="UserDetail" class="flex flex-col gap-2 bg-white rounded-lg p-2">
-                    <h2 class="text-gray-900 font-bold text-xl">User Details</h2>
-                    <ul class="flex flex-col justify-around gap-2 py-2 px-1 text-gray-700">
-                        <li class="flex items-center justify-between font-bold">
-                            <span>User Id :</span>
-                            <span class="text-gray-500">5</span>
-                        </li>
-                        <li class="flex items-center justify-between font-bold">
-                            <span>Full Name :</span>
-                            <span class="text-gray-500">Alex Green</span>
-                        </li>
-                        <li class="flex items-center justify-between font-bold">
-                            <span>UserName :</span>
-                            <span class="text-gray-500">AlexGrn28</span>
-                        </li>
-                        <li class="flex items-center justify-between font-bold">
-                            <span>Email :</span>
-                            <span class="text-gray-500">AlexGrn@gmail.com</span>
-                        </li>
-                        <li class="flex items-center justify-between font-bold">
-                            <span>Number Of Orders :</span>
-                            <span class="text-gray-500">2</span>
-                        </li>
-                        <li class="flex items-center justify-between font-bold">
-                            <span>Orders :</span>
-                            <button data-target="Purchases" data-customerId="5" id="viewUserOrdersBtn" class="changeBtn">View orders</button>
-                        </li>
-
-                        <li class="flex items-center justify-between font-bold">
-                            <span>role :</span>
-                            <span class="text-gray-500">User</span>
-                        </li>
-                    </ul>
-                    <div class="py-2 px-1 border-t border-gray-100 flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
-                        <div class="flex items-center gap-2 ">
-                            <h2 class="text-gray-800 font-bold">Change User Role : </h2>
-                            <select id="userRole" class="px-4 py-1 rounded-md border border-gray-200 bg-white text-gray-800 cursor-pointer">
-                                <option value="user">User</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                        </div>
-                        <div class="self-end flex items-center gap-5">
-                            <button class="changeBtn">Change</button>
-                            <button class="removeBtn self-end">Remove User</button>
+                <div id="UserDetailWrapper" class=" bg-white rounded-lg p-2">
+                    <div class="hidden flex-col gap-2">
+                        <h2 class="text-gray-900 font-bold text-xl">User Details</h2>
+                        <ul class="flex flex-col justify-around gap-2 py-2 px-1 text-gray-700">
+                            <li class="userIdWrapper flex items-center justify-between font-bold">
+                                <span>User Id :</span>
+                                <span class="text-gray-500">5</span>
+                            </li>
+                            <li class="userFullNameWrapper flex items-center justify-between font-bold">
+                                <span>Full Name :</span>
+                                <span class="text-gray-500">Alex Green</span>
+                            </li>
+                            <li class="usernameWrapper flex items-center justify-between font-bold">
+                                <span>UserName :</span>
+                                <span class="text-gray-500">AlexGrn28</span>
+                            </li>
+                            <li class="userEmailWrapper flex items-center justify-between font-bold">
+                                <span>Email :</span>
+                                <span class="text-gray-500">AlexGrn@gmail.com</span>
+                            </li>
+                            <li class="userNumOfOrdersWrapper flex items-center justify-between font-bold">
+                                <span>Number Of Orders :</span>
+                                <span class="text-gray-500">2</span>
+                            </li>
+                            <li class="userOrdersBtn flex items-center justify-between font-bold">
+                                <span>Orders :</span>
+                                <button data-target="Purchases" data-customerId="5" id="viewUserOrdersBtn" class="changeBtn">View orders</button>
+                            </li>
+    
+                            <li class="userRoleWrapper flex items-center justify-between font-bold">
+                                <span>role :</span>
+                                <span class="text-gray-500">User</span>
+                            </li>
+                        </ul>
+                        <div class="py-2 px-1 border-t border-gray-100 flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
+                            <div class="flex items-center gap-2 ">
+                                <h2 class="text-gray-800 font-bold">Change User Role : </h2>
+                                <select id="userRoleSelect" class="px-4 py-1 rounded-md border border-gray-200 bg-white text-gray-800 cursor-pointer">
+                                    <option value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="self-end flex items-center gap-5">
+                                <button id="updateUserBtn" class="changeBtn">Change</button>
+                                <button id="removeUserBtn" data-target="user" class="removeBtn self-end">Remove User</button>
+                            </div>
                         </div>
                     </div>
-
-
+                    <p class="text-center py-5 text-3xl text-sky-500 font-bold">User information</p>
                 </div>
 
                 <div class="flex flex-col gap-5 md:gap-3 md:mt-10">
@@ -284,7 +281,7 @@
             </section>
             
             <section id="Purchases" class="notActive mt-5 flex flex-col gap-10 pb-28 md:gap-3 xs:pb-36 lg:pb-0">
-                <div id="productDetail" class="flex items-center justify-center bg-white rounded-lg p-1 md:gap-20">
+                <div id="purchasesDetailWrapper" class="flex items-center justify-center bg-white rounded-lg p-1 md:gap-20">
                     <div class="flex flex-col items-center gap-2 md:flex-row md:items-start">
                         <div class="w-full max-h-[35rem] rounded overflow-hidden">
                             <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover object-center" alt="productImage">
@@ -424,7 +421,7 @@
                                 </tr>
                             </thead>
                             <tbody id="PurchasesTable" class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base">
-                                <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+                                <!-- <tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
                                     <td class="px-[2px] text-center text-gray-500">1</td>
                                     <td class="OrderId px-[2px] text-center text-gray-500">#1234</td>
                                     <td class="text-center text-gray-800">Nike Dunk 5</td>
@@ -445,7 +442,7 @@
                                     <td class="text-center">
                                         <button class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
                                     </td>
-                                </tr>
+                                </tr> -->
                             </tbody>
                         </table>
                         <h2 class="h-full hidden text-xl text-blue-700 font-bold text-center xs:text-2xl">No purchases have been registered yet!</h2>
@@ -455,8 +452,8 @@
 
             <section id="Products" class="notActive mt-5 flex flex-col gap-10 pb-28 md:gap-3 xs:pb-36 lg:pb-0">
                 <div id="productDetailWrapper" class="flex items-center justify-center gap-5 p-1 rounded-md bg-white md:gap-20">
-                    <div class="flex flex-col items-center gap-2 md:flex-row md:items-start">
-                        <div class="productDetailImgWrapper w-full max-h-[30rem] rounded overflow-hidden">
+                    <div class="hidden flex-col items-center gap-2 md:flex-row md:items-start">
+                        <div class="productDetailImgWrapper w-full max-h-[40rem] rounded overflow-hidden">
                             <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover object-center" alt="productImage">
                         </div>
                         <div class="w-full h-full flex flex-col p-2 gap-3">
@@ -546,26 +543,9 @@
                             </ul>
                         </div>
                     </div>
+                    <p class="text-center py-5 text-3xl text-sky-500 font-bold">Product information</p>
                 </div>
-                <div  class="hidden flex-col gap-2 p-1 rounded-md bg-white">
-                    <div class="py-2 px-1 border-t border-gray-200 flex flex-col items-start justify-between gap-5 md:flex-row md:items-center">
-                        <div class="flex items-center gap-2 ">
-                            <h2 class="text-gray-800 font-bold">Product Category : </h2>
-                            <select id="productCategory" class="px-4 py-1 rounded-md border border-gray-200 bg-white text-gray-800 cursor-pointer">
-                                <option value="All">All</option>
-                                <option value="Men">Men</option>
-                                <option value="Women">Women</option>
-                                <option value="Kids">Kids</option>
-                            </select>
-                        </div>
-                        <div class="self-end flex items-center gap-5">
-                            <button class="changeBtn">Change</button>
-                            <button class="removeBtn self-end">Remove Product</button>
-                        </div>
-                    </div>
-                    <h2 id="OrderDetails" class="hidden text-sky-600 font-bold text-3xl py-2">Order Details</h2>
-                </div>
-                
+
                 <div class="flex flex-col gap-5 md:gap-3 md:mt-10">
                     <div class="w-full flex flex-col justify-between gap-4 lg:flex-row">
                         <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Purchases</h2>
@@ -720,13 +700,14 @@
 
     <div id="removeProductModal" class="fixed pt-20 bottom-0 left-0 top-0 -z-10 w-full h-full bg-black/0 px-2 flex items-center justify-center overflow-y-scroll transition-all duration-200 md:pt-0">
         <div class="bg-white w-full rounded-md flex flex-col gap-5 py-7 px-4 md:max-w-[50vw] opacity-0 transition-all duration-200">
-            <h2 class="text-red-500 text-center text-xl font-bold">Are you sure you want to delete this Product ?</h2>
+            <h2 class="text-red-500 text-center text-xl font-bold">Are you sure you want to delete this <span>Product</span> ?</h2>
             <div class="w-full flex items-center gap-2">
                 <button id="removeProductBtn" class="w-full bg-red-500 hover:bg-red-600 transition-colors text-white font-bold py-2 rounded-md">Remove Product</button>    
                 <button id="closeRemoveProductModalBtn" class="w-full border border-sky-500 hover:bg-sky-600 text-sky-500 hover:text-white transition-colors font-bold py-2 rounded-md">Cancel</button>    
             </div>
         </div>
     </div>
+
 
 
 
