@@ -36,6 +36,10 @@ nav ul .active::after {
     width:100%;
 }
 
+#paginationBtnsWrapper .active{
+    @apply text-white bg-sky-500 rounded; 
+}
+
 @layer components {
     .title-text{
         @apply text-primary font-bold;

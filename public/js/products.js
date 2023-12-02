@@ -4,6 +4,7 @@ import {getUsersAndProductsHandler , getCookies , isUserInUsers} from './api.js'
 
 let hamburger = document.getElementById('hamburger-menu')
 let menu = document.getElementById('menu')
+let content = document.getElementById('content')
 let closeModalBtn = document.getElementById('closeModalBtn')
 let basketBtn = document.getElementById('basketBtn')
 let basket = document.getElementById('basket')
@@ -15,13 +16,98 @@ let sortBtn = document.querySelector('#sortBtn')
 let groupWrapper = document.querySelector('#groupWrapper')
 let sortWrapper = document.querySelector('#sortWrapper')
 let searchInput = document.querySelector('#searchInput input')
+
 let productsWrapper = document.querySelector('#products')
+let btnsWrapper = document.querySelector('#paginationBtnsWrapper')
+let prevPageBtn = document.querySelector('#prevPageBtn')
+let nextPageBtn = document.querySelector('#nextPageBtn')
 
 let allProducts = null
 
-function createProductsCardsHandler(products){
-    products.sort((a , b) => a.id - b.id)
+let rows = 5 , 
+    startIndex = null , 
+    endIndex = null , 
+    currentPage = 1 ,
+    btn = null ,
+    prevBtn = null
 
+function generateBtnsHandler(i){
+    let btn = document.createElement('button')
+    btn.className = '!px-2 py-1 text-gray-500 hover:text-white hover:bg-sky-400 transition-colors duration-200 cursor-pointer rounded'
+    btn.innerHTML = i
+
+    btn.addEventListener('click' , e => {
+        prevBtn = btnsWrapper.querySelector('.active')
+        prevBtn.classList.remove('active')
+        e.target.classList.add('active')
+
+        currentPage = parseInt(e.target.innerHTML)
+
+        window.scrollTo(0,0)
+        content.scrollTo(0,0)
+        createProductsHandler(allProducts)
+        setupPagination(allProducts , rows , btnsWrapper , currentPage)
+    })
+
+    if(i == currentPage){
+        btn.classList.add('active')
+    }
+
+    return btn
+}
+
+function setupPagination(products , rows , pagesContainer , currentPage){
+    let pagesCount = Math.ceil(products.length / rows)
+    
+    pagesContainer.innerHTML = ''
+    
+    for(let i = 1 ; i <= pagesCount ; i++){
+        btn = generateBtnsHandler(i) 
+        pagesContainer.append(btn)
+    }
+
+    if(currentPage == pagesCount){
+        nextPageBtn.classList.add('hidden')
+        prevPageBtn.classList.remove('hidden')
+    } else if(currentPage == 1){
+        prevPageBtn.classList.add('hidden')
+        nextPageBtn.classList.remove('hidden')
+    } else{
+        prevPageBtn.classList.remove('hidden')
+        nextPageBtn.classList.remove('hidden')
+    }
+}
+
+
+function createProductsHandler(products){
+    endIndex = currentPage * rows 
+    startIndex = endIndex - rows
+
+    let filteredProducts = products.slice(startIndex , endIndex) 
+
+    if(allProducts.length <= rows){
+        btnsWrapper.parentNode.classList.add('hidden')
+    }
+
+    createProductsCardsHandler(filteredProducts)
+    
+}
+
+function changePageHandler(e){
+    if(e.target.id == 'prevPageBtn'){
+        currentPage -=1
+    } else {
+        currentPage +=1
+    }
+
+    window.scrollTo(0,0)
+    content.scrollTo(0,0)
+    createProductsHandler(allProducts)
+    setupPagination(allProducts , rows , btnsWrapper , currentPage)
+}
+
+
+function createProductsCardsHandler(products){
     productsWrapper.innerHTML = ''
     products.forEach(product => {
         productsWrapper.insertAdjacentHTML('beforeend' , `<div class="relative p-1 hover:-translate-y-2 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
@@ -64,8 +150,10 @@ async function getProductsHandler(productType){
     })
     .then(res => res.json())
     .then(products => {
+        products.sort((a , b) => a.id - b.id)
         allProducts = productType == 'all' ? products : products.filter(product => product.productCategory.toLowerCase() == productType)
-        createProductsCardsHandler(allProducts)
+        createProductsHandler(allProducts)
+        setupPagination(products , rows , btnsWrapper , currentPage)
     })
     .catch(err => {
         console.log(err)
@@ -76,16 +164,50 @@ async function getProductsHandler(productType){
             timer: 3000
         });    
     })
+
+
 }
 
 async function getUserAndProductDetailsHandler(){
     let locationElems = new URLSearchParams(location.search)
     let productType = !locationElems.size ? 'all' : 
-                    ['all' , 'men' , 'women' , 'kids'].includes(locationElems.get('t')) ? locationElems.get('t') : null
+                    ['all' , 'men' , 'women' , 'kids'].includes(locationElems.get('t').toLowerCase()) ? locationElems.get('t').toLowerCase() : null
+
+
+    groupBtn.querySelector('span').innerHTML = productType || 'All'
+
+    let menuElems = null
+    if(productType && productType != 'all'){
+        menuElems = document.querySelectorAll(`.${productType}LiElem`)
+    } else {
+        menuElems = document.querySelectorAll('.collectionsLiElem')
+    }
+
+    menuElems.forEach(menuElem => menuElem.classList.add('active'))
 
     await getUsersAndProductsHandler()
     await getProductsHandler(productType)
 }
+
+function filterProductsHandler(filterValue){
+    let filteredProducts = [...allProducts]
+    
+    if(filterValue === 'Default'){
+        filteredProducts.sort((a , b) => a.id - b.id)
+    } else if(filterValue == 'Cheapest'){
+        filteredProducts.sort((a , b) => a.finalPrice - b.finalPrice)
+    } else {
+        filteredProducts.sort((a , b) => b.finalPrice - a.finalPrice)
+    }
+
+    createProductsHandler(filteredProducts)
+}
+
+function filterProductsCategory(filterValue){
+    history.pushState({} , '' , `?t=${filterValue}`)
+    location.reload()
+}
+
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -136,6 +258,7 @@ function filterGroupHandler(e){
     let filterValue = e.target.tagName == 'A' ? e.target.innerHTML : e.target.firstElementChild.innerHTML
     if(e.target.tagName === 'A' || e.target.tagName === 'LI'){
         groupBtn.firstElementChild.innerHTML =  filterValue
+        filterProductsCategory(filterValue)
         toggleGroupWrapper()
     }
 }
@@ -144,6 +267,7 @@ function filterSortHandler(e){
     let filterValue = e.target.tagName == 'A' ? e.target.innerHTML : e.target.firstElementChild.innerHTML
     if(e.target.tagName === 'A' || e.target.tagName === 'LI'){
         sortBtn.firstElementChild.innerHTML =  filterValue
+        filterProductsHandler(filterValue)
         toggleSortWrapper()
     }
 }
@@ -172,14 +296,12 @@ function searchProductHandler(e){
 
     if(searchInputValue){
         filteredProducts = allProducts.filter(product => product.productName.toLowerCase().startsWith(searchInputValue))
-        console.log(filteredProducts)
     } else {
         filteredProducts = allProducts
     }
 
-    createProductsCardsHandler(filteredProducts)
+    createProductsHandler(filteredProducts)
 }
-
 
 // events
 
@@ -211,6 +333,9 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
+
+prevPageBtn.addEventListener('click' , changePageHandler)
+nextPageBtn.addEventListener('click' , changePageHandler)
 document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 searchInput.addEventListener('keyup' , searchProductHandler)
 groupWrapper.addEventListener('click' , filterGroupHandler)

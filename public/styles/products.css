@@ -1654,6 +1654,10 @@ video {
   fill: #facc15;
 }
 
+.stroke-gray-400 {
+  stroke: #9ca3af;
+}
+
 .stroke-gray-500 {
   stroke: #6b7280;
 }
@@ -1743,6 +1747,11 @@ video {
 
 .p-\[2px\] {
   padding: 2px;
+}
+
+.\!px-2 {
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
 }
 
 .px-1 {
@@ -1970,6 +1979,10 @@ video {
   font-weight: 600;
 }
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 .leading-7 {
   line-height: 1.75rem;
 }
@@ -1985,11 +1998,6 @@ video {
 .text-blue-700 {
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity));
-}
-
-.text-gray-300 {
-  --tw-text-opacity: 1;
-  color: rgb(209 213 219 / var(--tw-text-opacity));
 }
 
 .text-gray-400 {
@@ -2073,10 +2081,6 @@ video {
 
 .line-through {
   text-decoration-line: line-through;
-}
-
-.decoration-gray-300 {
-  text-decoration-color: #d1d5db;
 }
 
 .decoration-gray-400 {
@@ -2249,6 +2253,14 @@ nav ul .active::after {
 
 #menu-nav ul li:hover::after {
   width:100%;
+}
+
+#paginationBtnsWrapper .active {
+  border-radius: 0.25rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .marker\:text-lg *::marker {
@@ -2518,6 +2530,11 @@ nav ul .active::after {
   background-color: rgb(186 230 253 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-sky-400:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(56 189 248 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-sky-500:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(14 165 233 / var(--tw-bg-opacity));
@@ -2656,6 +2673,10 @@ nav ul .active::after {
 
 .group:hover .group-hover\:fill-red-500 {
   fill: #ef4444;
+}
+
+.group:hover .group-hover\:stroke-white {
+  stroke: #fff;
 }
 
 .group:hover .group-hover\:stroke-0 {
