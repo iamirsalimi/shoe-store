@@ -71,10 +71,11 @@ async function isUserInUsers(userToken){
 async function getUsersAndProductsHandler(){
     let loginAndPanelWrapper = document.querySelector('#user-register')
     let userBasketBtn = document.querySelector('#basketBtn')
+    let userObj = null
     let userToken = getCookies()
     
     if(userToken){
-        let userObj = await isUserInUsers(userToken)
+        userObj = await isUserInUsers(userToken)
         
         // If there is a user token, we must show the first child that is linked to the panels and hide the second child that is linked to the registration and login form.
         if(userObj){
@@ -92,8 +93,6 @@ async function getUsersAndProductsHandler(){
                 // Quantifying the number of products in the user's shopping cart
                 userBasketBtn.lastElementChild.innerHTML = userObj.basket || 0
             }
-
-
         } else {
             loginAndPanelWrapper.lastElementChild.classList.remove('hidden')
             loginAndPanelWrapper.lastElementChild.classList.add('flex')
@@ -101,6 +100,8 @@ async function getUsersAndProductsHandler(){
             loginAndPanelWrapper.firstElementChild.classList.add('hidden')
         }
     }
+
+    return userObj
 }
 
 export {getUsersAndProductsHandler , getCookies , isUserInUsers}

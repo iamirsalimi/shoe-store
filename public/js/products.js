@@ -1,5 +1,5 @@
 import apiData from './api.js'
-import {getUsersAndProductsHandler , getCookies , isUserInUsers} from './api.js'
+import {getUsersAndProductsHandler} from './api.js'
 
 
 let hamburger = document.getElementById('hamburger-menu')
@@ -23,6 +23,7 @@ let prevPageBtn = document.querySelector('#prevPageBtn')
 let nextPageBtn = document.querySelector('#nextPageBtn')
 
 let allProducts = null
+let filteredProducts = null
 
 let rows = 5 , 
     startIndex = null , 
@@ -33,7 +34,7 @@ let rows = 5 ,
 
 function generateBtnsHandler(i){
     let btn = document.createElement('button')
-    btn.className = '!px-2 py-1 text-gray-500 hover:text-white hover:bg-sky-400 transition-colors duration-200 cursor-pointer rounded'
+    btn.className = '!px-2 py-1 text-gray-500 hover:text-white hover:bg-sky-400 transition-colors duration-200 cursor-pointer rounded text-lg'
     btn.innerHTML = i
 
     btn.addEventListener('click' , e => {
@@ -45,8 +46,8 @@ function generateBtnsHandler(i){
 
         window.scrollTo(0,0)
         content.scrollTo(0,0)
-        createProductsHandler(allProducts)
-        setupPagination(allProducts , rows , btnsWrapper , currentPage)
+        createProductsHandler(filteredProducts)
+        setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
     })
 
     if(i == currentPage){
@@ -82,28 +83,31 @@ function setupPagination(products , rows , pagesContainer , currentPage){
 function createProductsHandler(products){
     endIndex = currentPage * rows 
     startIndex = endIndex - rows
+    let filteredProductsArray = null
 
-    let filteredProducts = products.slice(startIndex , endIndex) 
-
-    if(allProducts.length <= rows){
+    if(products.length <= rows){
         btnsWrapper.parentNode.classList.add('hidden')
+        filteredProductsArray = [...products] 
+    } else {
+        btnsWrapper.parentNode.classList.remove('hidden')
+        filteredProductsArray = products.slice(startIndex , endIndex) 
     }
 
-    createProductsCardsHandler(filteredProducts)
-    
+    createProductsCardsHandler(filteredProductsArray)
+    setupPagination(filteredProductsArray , rows , btnsWrapper , currentPage)
 }
 
 function changePageHandler(e){
     if(e.target.id == 'prevPageBtn'){
-        currentPage -=1
+        currentPage -= 1
     } else {
-        currentPage +=1
+        currentPage += 1
     }
 
     window.scrollTo(0,0)
     content.scrollTo(0,0)
-    createProductsHandler(allProducts)
-    setupPagination(allProducts , rows , btnsWrapper , currentPage)
+    createProductsHandler(filteredProducts)
+    setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
 }
 
 
@@ -151,9 +155,12 @@ async function getProductsHandler(productType){
     .then(res => res.json())
     .then(products => {
         products.sort((a , b) => a.id - b.id)
+
         allProducts = productType == 'all' ? products : products.filter(product => product.productCategory.toLowerCase() == productType)
+        filteredProducts = allProducts
+
         createProductsHandler(allProducts)
-        setupPagination(products , rows , btnsWrapper , currentPage)
+        setupPagination(allProducts , rows , btnsWrapper , currentPage)
     })
     .catch(err => {
         console.log(err)
@@ -190,17 +197,18 @@ async function getUserAndProductDetailsHandler(){
 }
 
 function filterProductsHandler(filterValue){
-    let filteredProducts = [...allProducts]
+    let filteredProductsArray = [...filteredProducts]
     
     if(filterValue === 'Default'){
-        filteredProducts.sort((a , b) => a.id - b.id)
+        filteredProductsArray.sort((a , b) => a.id - b.id)
     } else if(filterValue == 'Cheapest'){
-        filteredProducts.sort((a , b) => a.finalPrice - b.finalPrice)
+        filteredProductsArray.sort((a , b) => a.finalPrice - b.finalPrice)
     } else {
-        filteredProducts.sort((a , b) => b.finalPrice - a.finalPrice)
+        filteredProductsArray.sort((a , b) => b.finalPrice - a.finalPrice)
     }
 
-    createProductsHandler(filteredProducts)
+    createProductsHandler(filteredProductsArray)
+    setupPagination(filteredProductsArray , rows , btnsWrapper , currentPage)
 }
 
 function filterProductsCategory(filterValue){
@@ -292,7 +300,7 @@ const changeRoot = e => {
 
 function searchProductHandler(e){
     let searchInputValue = e.target.value.trim().toLowerCase()
-    let filteredProducts = null
+    // let filteredProducts = null
 
     if(searchInputValue){
         filteredProducts = allProducts.filter(product => product.productName.toLowerCase().startsWith(searchInputValue))
@@ -301,6 +309,7 @@ function searchProductHandler(e){
     }
 
     createProductsHandler(filteredProducts)
+    setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
 }
 
 // events
