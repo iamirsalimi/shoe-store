@@ -20,17 +20,21 @@ let purchaseBtn = document.getElementById('purchaseBtn')
 let loginBtn = document.getElementById('loginBtn')
 let textareaElem = document.querySelector('textarea')
 
-let newCommentObj = {reviews : []}
 let userObj = null
+let userBasket = null
+let newBasketObj = {basket : []}
+let newCommentObj = {reviews : []}
 let productObj = null
 let productReviews = null
 let starNumber = 5
 
 let starNums = 5
 
+let numberInputRegex = /^\d+$/g
 
 class Comment{
     constructor(userId , userName , starNumbers , commentText){
+        this.id = makeRandomIdNum(productReviews)
         this.userId = userId
         this.userName = userName
         this.starNumbers = starNumbers
@@ -38,6 +42,27 @@ class Comment{
         this.likes = 0
     }
 }
+
+class BasketProduct{
+    constructor(productId , productImagePath , productName , productPrice , productDiscount , finalPrice , quantity , size , color){
+        this.id = makeRandomIdNum(userBasket)
+        this.productId = productId
+        this.productImagePath = productImagePath
+        this.productName = productName
+        this.productPrice = productPrice
+        this.productDiscount = productDiscount
+        this.finalPrice = finalPrice
+        this.quantity = quantity
+        this.size = size
+        this.color = color
+        this.date = getDate()
+    }
+}
+
+const getDate = () => {
+    let now = new Date()
+    return `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`
+} 
 
 const showMenu = () => {
     let menuClass = menu.className
@@ -172,14 +197,24 @@ function showProductDetails(productObj){
     let productPrice = document.querySelector('#productPrice')
     productPrice.innerHTML = productObj.finalPrice
     
+    // We must select the first seize as default
     let productSizes = document.querySelector('#productSizes')
     productSizes.innerHTML = productObj.sizes.split(' ').map(size => `<option value="${size}">${size}</option>`).join('')
-    
+    productSizes.value = productObj.sizes.split(' ')[0]
+
+    let quantityInput = document.querySelector('#quantityInput')
+    quantityInput.value = 1
+
+    // We use the index to select the first color as default
+    let index = 2
     let productColors = document.querySelector('#productColors')
-    productColors.innerHTML = productObj.colors.split(' ').map(color => `<div>
-        <input type="radio" id="${color}" name="colors" class="hidden">
-        <label for="${color}" class="active inline-block w-3 h-3 rounded-full bg-${color}-500 ring-0 ring-${color}-500 ring-offset-2 ring-offset-gray-100 hover:scale-110 transition-all cursor-pointer border-none"></label>
-    </div>`).join('')
+    productColors.innerHTML = productObj.colors.split(' ').map(color => { 
+        index = index <= 0 ? 0 : index - 1
+        return `<div>
+            <input type="radio" id="${color}" name="colors" class="hidden" ${index == 1 ? 'checked>' : '>'}
+            <label for="${color}" class="inline-block w-3 h-3 rounded-full bg-${color}-500 ring-0 ring-${color}-500 ring-offset-2 ring-offset-gray-100 hover:scale-110 transition-all cursor-pointer border-none"></label>
+        </div>`
+    }).join('')
 
     productReviews = productObj?.reviews || []
 
@@ -247,10 +282,67 @@ function showProductDetails(productObj){
     for(let i = 0 ; i < averageRating ; i++){
         averageRatingStars[i].classList.add(`fill-yellow-400`)
     }
-
-    
 }
 
+const makeRandomIdNum = (targetArray) => {
+    let num = Math.floor(Math.random() * 999999)
+    let isNumExist = targetArray?.some(review => review.id === num)
+    if(isNumExist){
+        makeRandomIdNum()
+    } else {
+        return num
+    }
+}
+
+function showUserBasket(userBasket){
+    let basketProductWrapper = document.querySelector('#basket-wrapper #basketProductsWrapper')
+    let totalPriceElem = document.querySelector('#totalPrice')
+    let basketFragment = document.createDocumentFragment()
+
+    basketProductWrapper.innerHTML = ''
+    userBasket.forEach(product => {
+        let liElem = document.createElement('li')
+        liElem.className = 'flex items-center justify-between gap-2 py-3 border-b border-gray-200'
+
+        let imageWrapper = document.createElement('div')
+        imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden'
+
+        let imgElem = document.createElement('img')
+        imgElem.src = `./images/${product.productImagePath}`
+        imgElem.alt = 'Product Image'        
+        
+        let detailsWrapper = document.createElement('div')
+        detailsWrapper.className = 'w-2/5 flex flex-col items-start justify-between gap-2'
+
+        let productNameElem = document.createElement('h4')
+        productNameElem.className = 'font-bold'
+        productNameElem.innerHTML = product.productName
+        
+        let productRemoveBtn = document.createElement('button')
+        productRemoveBtn.className = 'bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold'
+        productRemoveBtn.innerHTML = 'Remove'
+
+        let productPriceWrapper = document.createElement('div')
+        productPriceWrapper.className = 'w-1/5 flex flex-col items-start justify-between gap-2'
+
+        let inputElem = document.createElement('input')
+        inputElem.type = 'number'
+        inputElem.className = 'w-full h-5 bg-gray-100'
+        inputElem.value = product.quantity
+
+        let priceElem = document.createElement('span')
+        priceElem.className = 'text-gray-900 font-bold text-center'
+        priceElem.innerHTML = `$${product.finalPrice}`
+
+        imageWrapper.append(imgElem)
+        detailsWrapper.append(productNameElem , productRemoveBtn)
+        productPriceWrapper.append(inputElem , priceElem)
+        liElem.append(imageWrapper , detailsWrapper , productPriceWrapper)
+        basketFragment.append(liElem)
+    })
+    basketProductWrapper.append(basketFragment)
+    totalPriceElem.innerHTML = `$${userBasket.reduce((sum , current) => sum + (current.quantity * current.finalPrice) , 0)}`
+}
 
 async function getUserAndProductDetailsHandler(){
     let productId = new URLSearchParams(location.search).get('p')
@@ -271,19 +363,19 @@ async function getUserAndProductDetailsHandler(){
     // If there is a user is users, it will return true and we don't need to disable the comments button
     if(userObj){
         addCommentBtn.removeAttribute('disabled')
-        
+        userBasket = userObj?.basket || []
+        showUserBasket(userBasket)
         if(userObj.role === 'admin'){
             addToBasketBtn.setAttribute('disabled' , 'disabled')
             purchaseBtn.setAttribute('disabled' , 'disabled')
             purchaseBtn.firstElementChild.href = '#'
         }
-
+        
     } else {
         addCommentBtn.setAttribute('disabled' , 'disabled')
         
         purchaseBtn.classList.add('hidden')
         addToBasketBtn.classList.add('hidden')
-
         // showing login btn to User that didn't login in site
         loginBtn.classList.remove('hidden')
         loginBtn.classList.add('inline-block')
@@ -365,6 +457,119 @@ async function addCommentHandler(){
 } 
 
 
+// basket{}
+async function addNewProductToBasketHandler(newBasketObj){
+    await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
+        method : 'PATCH',
+
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.updateUsersApiKey,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(newBasketObj)
+    })
+    .then(res => {
+        console.log(res)
+        if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            getUserAndProductDetailsHandler()
+            Swal.fire({
+                icon: "success",
+                title: `Product Was Added To Your Basket`,
+                showConfirmButton: false,
+                timer: 2000
+            })
+            showBasket()
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: `${res.status} Error`,
+                text: "Something went wrong! please try again later",
+                timer: 3000
+            })
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong! please try again later",
+            timer: 3000
+        });
+    })
+}
+
+async function addProductToBasket(newBasketObj){
+    if(userObj?.role !== 'admin'){
+        let quantity = document.querySelector('#quantityInput').value
+
+        if(quantity.match(numberInputRegex)){
+            await addNewProductToBasketHandler(newBasketObj)
+        } else {
+            Swal.fire({
+                icon: "info",
+                title: `Please Enter A Valid Quantity Number`,
+                showConfirmButton: false,
+                timer: 3000
+            })
+        }
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "You Can't Add Product To Your Basket",
+            showConfirmButton: false,
+            timer: 3000
+        })
+    }
+} 
+
+function isProductInBasket(basketProductObj){
+    let basketProduct = {...basketProductObj}
+    let basket = newBasketObj?.basket || []
+
+    basket.forEach(basketObj => delete basketObj.id)
+    delete basketProduct.id
+
+    
+    let isProductExist = basket?.some(basketObj => JSON.stringify(basketObj) === JSON.stringify(basketProduct))
+    return isProductExist
+}
+
+
+async function addProductToBasketHandler(e){
+    let productSize = parseInt(document.querySelector('#productSizes').value)
+    let quantity = parseInt(document.querySelector('#quantityInput').value)
+    let productColor = document.querySelector('input[type="radio"]:checked').id
+
+    let basketProductObj = new BasketProduct(productObj.id , productObj.imagePath , productObj.productName , productObj.price , productObj.discount , productObj.finalPrice , quantity , productSize , productColor) 
+            
+    // If the user's shopping cart is empty, we will add the product to it, but if the user's cart is full, we will add that product to the previous products.
+    newBasketObj.basket = userBasket || basketProductObj
+
+    // userBasket && newBasketObj.basket.push(basketProductObj)
+    let isProductExist = isProductInBasket(basketProductObj)
+
+    if(isProductExist){
+        Swal.fire({
+            icon: "info",
+            title: "This product is already in your shopping cart",
+            showConfirmButton: false,
+            timer: 3000
+        })
+        return false
+    } else {
+        userBasket && newBasketObj.basket.push(basketProductObj)
+    }
+
+    console.log(newBasketObj , e.target)
+    await addProductToBasket(newBasketObj)
+    if(e.target.id == 'purchaseBtn'){
+        location.href = 'http://127.0.0.1:5500/public/userPanel.html?t=Basket'
+    }
+}
+
 // events
 
 // when user click on darkness that placed in right of the menu menu must closed
@@ -388,6 +593,8 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
+purchaseBtn.addEventListener('click' , addProductToBasketHandler)
+addToBasketBtn.addEventListener('click' , addProductToBasketHandler)
 addCommentBtn.addEventListener('click' , addCommentHandler)
 starSelect.addEventListener('click' , starHandler)
 commentAndReviewTab.addEventListener('click' , changeTabHandler)

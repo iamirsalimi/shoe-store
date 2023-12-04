@@ -91,7 +91,7 @@ async function getUsersAndProductsHandler(){
                 userBasketBtn.classList.add('hidden')
             } else {
                 // Quantifying the number of products in the user's shopping cart
-                userBasketBtn.lastElementChild.innerHTML = userObj.basket || 0
+                userBasketBtn.lastElementChild.innerHTML = userObj.basket?.length || 0
             }
         } else {
             loginAndPanelWrapper.lastElementChild.classList.remove('hidden')
