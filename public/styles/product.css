@@ -891,6 +891,10 @@ video {
   height: 0.75rem;
 }
 
+.h-3\.5 {
+  height: 0.875rem;
+}
+
 .h-4 {
   height: 1rem;
 }
@@ -949,10 +953,6 @@ video {
   height: 100vh;
 }
 
-.h-3\.5 {
-  height: 0.875rem;
-}
-
 .max-h-12 {
   max-height: 3rem;
 }
@@ -963,6 +963,14 @@ video {
 
 .max-h-\[40rem\] {
   max-height: 40rem;
+}
+
+.max-h-\[8rem\] {
+  max-height: 8rem;
+}
+
+.max-h-\[9rem\] {
+  max-height: 9rem;
 }
 
 .min-h-\[15rem\] {
@@ -1011,6 +1019,10 @@ video {
 
 .w-3 {
   width: 0.75rem;
+}
+
+.w-3\.5 {
+  width: 0.875rem;
 }
 
 .w-3\/4 {
@@ -1089,14 +1101,6 @@ video {
 .w-max {
   width: -moz-max-content;
   width: max-content;
-}
-
-.w-1 {
-  width: 0.25rem;
-}
-
-.w-3\.5 {
-  width: 0.875rem;
 }
 
 .min-w-\[2\.5rem\] {
@@ -1662,6 +1666,14 @@ video {
   fill: #ef4444;
 }
 
+.fill-red-600 {
+  fill: #dc2626;
+}
+
+.fill-white {
+  fill: #fff;
+}
+
 .fill-yellow-400 {
   fill: #facc15;
 }
@@ -1698,6 +1710,10 @@ video {
   stroke: #ef4444;
 }
 
+.stroke-red-600 {
+  stroke: #dc2626;
+}
+
 .stroke-red-700 {
   stroke: #b91c1c;
 }
@@ -1730,6 +1746,10 @@ video {
   stroke-width: 0;
 }
 
+.stroke-1 {
+  stroke-width: 1;
+}
+
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -1759,14 +1779,6 @@ video {
 
 .p-\[2px\] {
   padding: 2px;
-}
-
-.p-px {
-  padding: 1px;
-}
-
-.p-\[3px\] {
-  padding: 3px;
 }
 
 .\!px-2 {
@@ -1966,10 +1978,6 @@ video {
   line-height: 2.5rem;
 }
 
-.text-\[0\.5rem\] {
-  font-size: 0.5rem;
-}
-
 .text-base {
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2013,26 +2021,6 @@ video {
 
 .leading-\[10px\] {
   line-height: 10px;
-}
-
-.leading-\[7px\] {
-  line-height: 7px;
-}
-
-.leading-\[9px\] {
-  line-height: 9px;
-}
-
-.leading-\[12px\] {
-  line-height: 12px;
-}
-
-.leading-\[1px\] {
-  line-height: 1px;
-}
-
-.leading-\[11px\] {
-  line-height: 11px;
 }
 
 .leading-\[8px\] {
@@ -2753,6 +2741,18 @@ nav ul .active::after {
 
 .group:hover .group-hover\:fill-red-500 {
   fill: #ef4444;
+}
+
+.group:hover .group-hover\:fill-red-600 {
+  fill: #dc2626;
+}
+
+.group:hover .group-hover\:fill-white {
+  fill: #fff;
+}
+
+.group:hover .group-hover\:stroke-red-600 {
+  stroke: #dc2626;
 }
 
 .group:hover .group-hover\:stroke-white {

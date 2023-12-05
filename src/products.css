@@ -40,6 +40,10 @@ nav ul .active::after {
     @apply text-white bg-sky-500 rounded; 
 }
 
+#products .active {
+    @apply fill-red-600 stroke-white;
+}
+
 @layer components {
     .title-text{
         @apply text-primary font-bold;

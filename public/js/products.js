@@ -24,6 +24,11 @@ let nextPageBtn = document.querySelector('#nextPageBtn')
 
 let allProducts = null
 let filteredProducts = null
+let userBasket = []
+let newWishListObj = {wishlist : []}
+let newBasketObj = {basket : []}
+let userObj = null
+let wishList = []
 
 let rows = 5 , 
     startIndex = null , 
@@ -110,6 +115,75 @@ function changePageHandler(e){
     setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
 }
 
+async function addProductToWishListHandler(productObj){
+    console.log(productObj);
+    await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
+        method : 'PATCH',
+
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.updateUsersApiKey,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(productObj)
+    })
+    .then(res => {
+        console.log(res)
+        if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            wishList = productObj.wishlist
+            createProductsHandler(filteredProducts)
+            setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
+            Swal.fire({
+                icon: "success",
+                title: `Your Wish List Was Updated`,
+                showConfirmButton: false,
+                timer: 2000
+            })
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: `${res.status} Error`,
+                text: "Something went wrong! please try again later",
+                timer: 3000
+            })
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong! please try again later",
+            timer: 3000
+        });
+    })
+}
+
+
+function isProductExistInWishList(productObj){
+    let productIndex = newWishListObj.wishlist.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
+    return productIndex  
+} 
+
+async function addProductToWishList(productObj){
+    newWishListObj.wishlist = wishList || {...productObj}
+
+    let productIndex = isProductExistInWishList(productObj) 
+
+    if(productIndex != -1){
+        newWishListObj.wishlist.splice(productIndex, 1)
+    } else {
+        wishList && newWishListObj.wishlist.push({...productObj})
+    }
+    
+    await addProductToWishListHandler(newWishListObj)
+}
+
+function isProductInUserWishList(productId){
+    let isProductInWishList = wishList?.some(product => product.id === productId)
+    return isProductInWishList
+}
 
 function createProductsCardsHandler(products){
     productsWrapper.innerHTML = ''
@@ -119,8 +193,8 @@ function createProductsCardsHandler(products){
         <div class="relative w-full !h-72 overflow-hidden rounded-md">
             <img src="./images/${product.imagePath}" class="object-cover group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
 
-            <button class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 group-hover:fill-red-500 group-hover:stroke-0 transition-colors">
+            <button data-targetId="${product.id}" class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 hover:scale-110 ${isProductInUserWishList(product.id) ? 'stroke-white fill-red-600 group-hover:fill-white group-hover:stroke-red-600' : 'fill-white stroke-red-600 group-hover:stroke-white group-hover:fill-red-600'} fill-white stroke-red-600 group-hover:stroke-white group-hover:fill-red-600 transition-all">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
                 </svg>                              
             </button>
@@ -143,6 +217,18 @@ function createProductsCardsHandler(products){
         </div>
     </div>`)
     })
+
+    let productBtns = productsWrapper.querySelectorAll('button')
+
+    productBtns.forEach(productBtn => productBtn.addEventListener('click' , e => {
+        let targetElem = e.target.tagName == 'path' ? e.target.parentNode.parentNode : e.target.tagName == 'svg' ? e.target.parentNode : e.target 
+        let productId = targetElem.dataset?.targetid
+        let targetProductObj =  filteredProducts.find(product => product.id == productId)
+        
+        if(productId && targetProductObj){
+            addProductToWishList(targetProductObj)
+        }
+    }))
 }
 
 async function getProductsHandler(productType){
@@ -171,8 +257,6 @@ async function getProductsHandler(productType){
             timer: 3000
         });    
     })
-
-
 }
 
 async function getUserAndProductDetailsHandler(){
@@ -192,9 +276,133 @@ async function getUserAndProductDetailsHandler(){
 
     menuElems.forEach(menuElem => menuElem.classList.add('active'))
 
-    await getUsersAndProductsHandler()
+    userObj = await getUsersAndProductsHandler()
+    if(userObj){
+        wishList = userObj?.wishlist || []
+        userBasket = userObj?.basket || []
+        showUserBasket(userBasket)
+
+    }
+    
     await getProductsHandler(productType)
 }
+
+async function addNewProductToBasketHandler(newBasketObj){
+    await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
+        method : 'PATCH',
+
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.updateUsersApiKey,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(newBasketObj)
+    })
+    .then(res => {
+        console.log(res)
+        if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            getUserAndProductDetailsHandler()
+            userBasket = newBasketObj.basket
+            Swal.fire({
+                icon: "success",
+                title: `product was removed from your basket`,
+                showConfirmButton: false,
+                timer: 2000
+            })
+            showBasket()
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: `${res.status} Error`,
+                text: "Something went wrong! please try again later",
+                timer: 3000
+            })
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong! please try again later",
+            timer: 3000
+        });
+    })
+}
+
+function removeProductFromBasket(productId){
+    newBasketObj.basket = userBasket.filter(product => product.id !== productId)
+    addNewProductToBasketHandler(newBasketObj)
+}
+
+function showUserBasket(userBasket){
+    let basketProductWrapper = document.querySelector('#basket-wrapper #basketProductsWrapper')
+    let totalPriceElem = document.querySelector('#totalPrice')
+    let basketFragment = document.createDocumentFragment()
+
+    basketProductWrapper.innerHTML = ''
+    userBasket.forEach(product => {
+        let liElem = document.createElement('li')
+        liElem.className = 'flex items-center justify-between gap-2 py-2 border-b border-gray-200 max-h-[9rem]'
+
+        let imageWrapper = document.createElement('div')
+        imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden max-h-[8rem]'
+
+        let imgElem = document.createElement('img')
+        imgElem.className = 'object-cover'
+        imgElem.src = `./images/${product.productImagePath}`
+        imgElem.alt = 'Product Image'        
+        
+        let detailsWrapper = document.createElement('div')
+        detailsWrapper.className = 'w-2/5 flex flex-col items-start gap-2'
+
+        let productNameElem = document.createElement('h4')
+        productNameElem.className = 'font-bold'
+        productNameElem.innerHTML = product.productName
+        
+        let productDetailsElem = document.createElement('div')
+        productDetailsElem.className = 'flex flex-col items-start gap-1 md:flex-row md:items-center'
+        
+        let sizeDetail = document.createElement('span')
+        sizeDetail.className = 'text-gray-700 font-semibold text-sm'
+        sizeDetail.innerHTML = `Size : ${product.size}`
+
+        let colorDetail = document.createElement('span')
+        colorDetail.className = 'text-gray-700 font-semibold text-sm'
+        colorDetail.innerHTML = `Color : <span class="inline-block w-2 h-2 rounded-full bg-${product.color}-500"></span>`
+
+        let productPriceWrapper = document.createElement('div')
+        productPriceWrapper.className = 'w-1/5 flex flex-col justify-between gap-2 ml-auto'
+        
+        let priceElem = document.createElement('span')
+        priceElem.className = 'text-gray-900 font-bold text-center'
+        priceElem.innerHTML = `$${product.finalPrice}`
+
+        let quantityDetail = document.createElement('span')
+        quantityDetail.className = 'text-gray-700 font-semibold text-sm text-center'
+        quantityDetail.innerHTML = `Quantity : ${product.quantity}`
+        
+        let productRemoveBtn = document.createElement('button')
+        productRemoveBtn.className = 'bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold'
+        productRemoveBtn.innerHTML = 'Remove'
+        
+        productRemoveBtn.addEventListener('click' , e => {
+            removeProductFromBasket(product.id)
+        })
+
+        imageWrapper.append(imgElem)
+        productDetailsElem.append(sizeDetail , colorDetail)
+        detailsWrapper.append(productNameElem , productDetailsElem)
+        productPriceWrapper.append(quantityDetail , priceElem , productRemoveBtn)
+        liElem.append(imageWrapper , detailsWrapper , productPriceWrapper)
+        basketFragment.append(liElem)
+    })
+    basketProductWrapper.append(basketFragment)
+    totalPriceElem.innerHTML = `$${userBasket.reduce((sum , current) => sum + (current.quantity * current.finalPrice) , 0)}`
+}
+
+
 
 function filterProductsHandler(filterValue){
     let filteredProductsArray = [...filteredProducts]
@@ -238,7 +446,7 @@ const closeMenu =  () => {
 const showBasket = () => {
     let basketClass = basket.className
     basket.parentNode.className = basket.parentNode.className.replace('invisible' , 'visible')
-    basket.parentNode.className = basket.parentNode.className.replace('z-0' , 'z-20')
+    basket.parentNode.className = basket.parentNode.className.replace('-z-10' , 'z-20')
     basket.className = basketClass.replace('-translate-x-full' , 'translate-x-0')
     basket.parentNode.className = basket.parentNode.className.replace('bg-black/0' , 'bg-black/50') 
 }
@@ -248,8 +456,10 @@ const closeBasket =  () => {
     basket.className = basketClass.replace('translate-x-0' , '-translate-x-full')
     basket.parentNode.className = basket.parentNode.className.replace('bg-black/50' , 'bg-black/0') 
     setTimeout(() => {
-        basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
-        basket.parentNode.className = basket.parentNode.className.replace('z-20' , 'z-0')
+        if(!basket.parentNode.className.includes('invisible')){
+            basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
+        }
+        basket.parentNode.className = basket.parentNode.className.replace('z-20' , '-z-10')
     } , 500)
 }
 

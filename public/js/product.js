@@ -85,7 +85,7 @@ const closeMenu =  () => {
 const showBasket = () => {
     let basketClass = basket.className
     basket.parentNode.className = basket.parentNode.className.replace('invisible' , 'visible')
-    basket.parentNode.className = basket.parentNode.className.replace('z-0' , 'z-20')
+    basket.parentNode.className = basket.parentNode.className.replace('-z-10' , 'z-20')
     basket.className = basketClass.replace('-translate-x-full' , 'translate-x-0')
     basket.parentNode.className = basket.parentNode.className.replace('bg-black/0' , 'bg-black/50') 
 }
@@ -95,9 +95,11 @@ const closeBasket =  () => {
     basket.className = basketClass.replace('translate-x-0' , '-translate-x-full')
     basket.parentNode.className = basket.parentNode.className.replace('bg-black/50' , 'bg-black/0') 
     setTimeout(() => {
-        basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
-        basket.parentNode.className = basket.parentNode.className.replace('z-20' , 'z-0')
-    } , 500) 
+        if(!basket.parentNode.className.includes('invisible')){
+            basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
+        }
+        basket.parentNode.className = basket.parentNode.className.replace('z-20' , '-z-10')
+    } , 500)
 }
 
 colors.forEach(color => {
@@ -294,6 +296,12 @@ const makeRandomIdNum = (targetArray) => {
     }
 }
 
+
+function removeProductFromBasket(productId){
+    newBasketObj.basket = userBasket.filter(product => product.id !== productId)
+    addNewProductToBasketHandler(newBasketObj)
+}
+
 function showUserBasket(userBasket){
     let basketProductWrapper = document.querySelector('#basket-wrapper #basketProductsWrapper')
     let totalPriceElem = document.querySelector('#totalPrice')
@@ -302,41 +310,57 @@ function showUserBasket(userBasket){
     basketProductWrapper.innerHTML = ''
     userBasket.forEach(product => {
         let liElem = document.createElement('li')
-        liElem.className = 'flex items-center justify-between gap-2 py-3 border-b border-gray-200'
+        liElem.className = 'flex items-center justify-between gap-2 py-2 border-b border-gray-200 max-h-[9rem]'
 
         let imageWrapper = document.createElement('div')
-        imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden'
+        imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden max-h-[8rem]'
 
         let imgElem = document.createElement('img')
+        imgElem.className = 'object-cover'
         imgElem.src = `./images/${product.productImagePath}`
         imgElem.alt = 'Product Image'        
         
         let detailsWrapper = document.createElement('div')
-        detailsWrapper.className = 'w-2/5 flex flex-col items-start justify-between gap-2'
+        detailsWrapper.className = 'w-2/5 flex flex-col items-start gap-2'
 
         let productNameElem = document.createElement('h4')
         productNameElem.className = 'font-bold'
         productNameElem.innerHTML = product.productName
         
-        let productRemoveBtn = document.createElement('button')
-        productRemoveBtn.className = 'bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold'
-        productRemoveBtn.innerHTML = 'Remove'
+        let productDetailsElem = document.createElement('div')
+        productDetailsElem.className = 'flex flex-col items-start gap-1 md:flex-row md:items-center'
+        
+        let sizeDetail = document.createElement('span')
+        sizeDetail.className = 'text-gray-700 font-semibold text-sm'
+        sizeDetail.innerHTML = `Size : ${product.size}`
+
+        let colorDetail = document.createElement('span')
+        colorDetail.className = 'text-gray-700 font-semibold text-sm'
+        colorDetail.innerHTML = `Color : <span class="inline-block w-2 h-2 rounded-full bg-${product.color}-500"></span>`
 
         let productPriceWrapper = document.createElement('div')
-        productPriceWrapper.className = 'w-1/5 flex flex-col items-start justify-between gap-2'
-
-        let inputElem = document.createElement('input')
-        inputElem.type = 'number'
-        inputElem.className = 'w-full h-5 bg-gray-100'
-        inputElem.value = product.quantity
-
+        productPriceWrapper.className = 'w-1/5 flex flex-col justify-between gap-2 ml-auto'
+        
         let priceElem = document.createElement('span')
         priceElem.className = 'text-gray-900 font-bold text-center'
         priceElem.innerHTML = `$${product.finalPrice}`
 
+        let quantityDetail = document.createElement('span')
+        quantityDetail.className = 'text-gray-700 font-semibold text-sm text-center'
+        quantityDetail.innerHTML = `Quantity : ${product.quantity}`
+        
+        let productRemoveBtn = document.createElement('button')
+        productRemoveBtn.className = 'bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold'
+        productRemoveBtn.innerHTML = 'Remove'
+        
+        productRemoveBtn.addEventListener('click' , e => {
+            removeProductFromBasket(product.id)
+        })
+
         imageWrapper.append(imgElem)
-        detailsWrapper.append(productNameElem , productRemoveBtn)
-        productPriceWrapper.append(inputElem , priceElem)
+        productDetailsElem.append(sizeDetail , colorDetail)
+        detailsWrapper.append(productNameElem , productDetailsElem)
+        productPriceWrapper.append(quantityDetail , priceElem , productRemoveBtn)
         liElem.append(imageWrapper , detailsWrapper , productPriceWrapper)
         basketFragment.append(liElem)
     })
@@ -474,9 +498,10 @@ async function addNewProductToBasketHandler(newBasketObj){
         console.log(res)
         if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
             getUserAndProductDetailsHandler()
+            userBasket = newBasketObj.basket
             Swal.fire({
                 icon: "success",
-                title: `Product Was Added To Your Basket`,
+                title: `your basket was updated`,
                 showConfirmButton: false,
                 timer: 2000
             })
@@ -527,13 +552,11 @@ async function addProductToBasket(newBasketObj){
 
 function isProductInBasket(basketProductObj){
     let basketProduct = {...basketProductObj}
-    let basket = newBasketObj?.basket || []
+    let basket = [...newBasketObj?.basket] || []
 
-    basket.forEach(basketObj => delete basketObj.id)
-    delete basketProduct.id
-
+    console.log(newBasketObj.basket == basket)
     
-    let isProductExist = basket?.some(basketObj => JSON.stringify(basketObj) === JSON.stringify(basketProduct))
+    let isProductExist = basket?.some(basketObj => basketObj.productId === basketProduct.productId && basketObj.size === basketProduct.size && basketObj.color === basketProduct.color && basketObj.quantity === basketProduct.quantity)
     return isProductExist
 }
 
@@ -548,7 +571,6 @@ async function addProductToBasketHandler(e){
     // If the user's shopping cart is empty, we will add the product to it, but if the user's cart is full, we will add that product to the previous products.
     newBasketObj.basket = userBasket || basketProductObj
 
-    // userBasket && newBasketObj.basket.push(basketProductObj)
     let isProductExist = isProductInBasket(basketProductObj)
 
     if(isProductExist){
