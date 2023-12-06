@@ -1746,10 +1746,6 @@ video {
   stroke-width: 0;
 }
 
-.stroke-1 {
-  stroke-width: 1;
-}
-
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;

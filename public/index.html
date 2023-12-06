@@ -8,6 +8,15 @@
     <title>Shoe Store | Home</title>
 </head>
 <body class="overflow-x-hidden">
+
+    <div class="loader-wrapper z-30 bg-white h-full w-full fixed top-0 left-0 flex items-center justify-center">
+        <div class="loader">
+            <div class="half"></div>
+            <div class="half"></div>
+        </div>
+    </div>
+      
+
     <div class="fixed w-full border-b bg-white py-2 xs:py-3 sm:py-4 z-10">
         <nav class="container flex items-center justify-between">
             <div class="hamburger-wrapper sm:hidden text-right">
@@ -23,7 +32,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     </svg>
-                    <span id="basketItemsNumber" class="inline-block w-fit h-auto p-[2px] rounded-full text-xs text-center leading-[10px] bg-blueLight-200 text-white absolute top-0 -right-[2px] select-none">0</span>
+                    <span id="basketItemsNumber" class="inline-block w-3.5 h-3.5 p-[2px] rounded-full text-xs text-center leading-[8px] bg-sky-500 text-white absolute top-0 -right-[2px] select-none">0</span>
                 </button>
                 <button id="darkmode" class="hidden sm:inline-block rounded-full group">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer group-hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
@@ -108,21 +117,21 @@
         </section>
     </div>
 
-    <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 z-0 w-full h-full transition-colors duration-500 invisible">
-        <section id="basket" class="w-3/4 md:w-2/4 xl:w-1/4 h-full bg-white p-4 transition-all duration-200 space-y-7 -translate-x-full">
+    <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 -z-10 w-full h-full transition-colors duration-500 invisible">
+        <section id="basket" class="w-3/4 md:w-2/4 xl:w-2/5 h-full bg-white p-4 transition-all duration-200 space-y-7 -translate-x-full">
             <div class="w-full flex justify-between items-center">
                 <button id="closeBasketBtn" class="p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <h2 class="block font-bold text-2xl xs:text-3xl sm:text-4xl">Shoe<span class="text-primary">Trends</span></h2>
+                <h2 class="block font-bold text-2xl xs:text-3xl">Shoe<span class="text-primary">Trends</span></h2>
             </div>
 
             <div class="space-y-7 mt-5">
-                <h3 class="text-gray-900 font-bold text-center text-2xl xs:text-3xl sm:text-4xl">Shopping Cart</h3>
-                <ul class="flex flex-col gap-4 items-center overflow-y-scroll h-80">
-                    <li class="flex gap-2 py-3 border-b border-gray-200">
+                <h3 class="text-gray-900 font-bold text-center text-2xl xs:text-3xl">Shopping Cart</h3>
+                <ul id="basketProductsWrapper" class="flex flex-col gap-4 items-center overflow-y-scroll h-80">
+                    <!-- <li class="flex gap-2 py-3 border-b border-gray-200">
                         <div class="w-1/5 rounded-lg overflow-hidden">
                             <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Product Image">
                         </div>
@@ -130,10 +139,10 @@
                             <h4 class="font-bold">Nike Metcon Russell</h4>
                             <button class="bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold">Remove</button>
                         </div>
-                        <div class="w-1/5">
+                        <div class="w-1/5 flex flex-col gap-2">
                             <input type="number" class="w-full h-5 bg-gray-100">
+                            <div class="text-gray-900 font-bold text-center">$90</div>
                         </div>
-                        <div class="text-gray-900 font-bold text-center">$90</div>
                     </li>
                     <li class="flex gap-2 py-3 border-b border-gray-200">
                         <div class="w-1/5 rounded-lg overflow-hidden">
@@ -147,7 +156,7 @@
                             <input type="number" class="w-full h-5 bg-gray-100">
                         </div>
                         <div class="text-gray-900 font-bold text-center">$100</div>
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 
@@ -156,7 +165,7 @@
                     <h3>Total Price :</h3>
                     <p id="totalPrice">$190</p>
                 </div>
-                <a href="userPanel.html?t=Basket" class="bg-secondary hover:bg-secondary/90 transition-all w-fit py-2 px-3 rounded-md text-white font-bold">Continue to pay</a>
+                <a href="./userPanel.html?t=Basket" class="bg-secondary hover:bg-secondary/90 transition-all w-fit py-2 px-3 rounded-md text-white font-bold">Continue to pay</a>
             </div>
         </section>
     </div>
@@ -174,9 +183,9 @@
                 </svg>
             </button>
 
-            <div class="w-full mt-20 py-10 flex flex-col xl:flex-row items-center gap-4 ">
+            <div id="mostDiscountProductsWrapper" class="w-full mt-20 py-10 flex flex-col xl:flex-row items-center gap-4 ">
 
-                <div class="w-full xl:w-1/2 h-28 p-1 flex items-center gap-4 bg-gray-100 rounded-lg shadow group hover:-translate-y-2 transition-transform duration-300">
+                <!-- <div class="relative w-full xl:w-1/2 h-28 p-1 flex items-center gap-4 bg-gray-100 rounded-lg shadow group hover:-translate-y-2 transition-transform duration-300">
                     <div class="w-2/5 h-full rounded-md overflow-hidden object-contain">
                         <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Product image" class="object-contain group-hover:scale-125 group-hover:rotate-12 duration-300">
                     </div>
@@ -210,9 +219,10 @@
                             </a>
                         </div>
                     </div>
+                    <div class="absolute left-0 top-0 bg-sky-500 text-white font-bold rounded-br-md text-sm py-px px-1">-%30 Off</div>
                 </div>
 
-                <div class="w-full xl:w-1/2 h-28 p-1 flex items-center gap-1 rounded-lg bg-gray-100 shadow group hover:-translate-y-2 transition-transform duration-300">
+                <div class="relative w-full xl:w-1/2 h-28 p-1 flex items-center gap-1 rounded-lg bg-gray-100 shadow group hover:-translate-y-2 transition-transform duration-300">
                     <div class="w-2/5 h-full rounded-lg overflow-hidden">
                         <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Product image" class="object-contain group-hover:scale-125 group-hover:rotate-12 duration-300">
                     </div>
@@ -246,7 +256,10 @@
                             </a>
                         </div>
                     </div>
-                </div>
+                    <div class="absolute left-0 top-0 bg-sky-500 text-white font-bold rounded-br-md text-sm py-px px-1">-%45 Off</div>
+                    
+                </div> -->
+
             </div>
             
         </div>
@@ -263,8 +276,8 @@
         </div>
         
         <div class="swiper my-5">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
+            <div id="sliderWrapper" class="swiper-wrapper relative">
+                <!-- <div class="swiper-slide relative p-1 rounded-lg bg-gray-200 flex flex-col gap-7 select-none">
                     <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
                     <div class="relative w-full !h-72 overflow-hidden rounded-md">
                         <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover" alt="Product Image">
@@ -392,10 +405,10 @@
 
                     </div>
 
-                </div>
+                </div> -->
             </div>
-            <!-- <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div> -->
+            <div class="swiper-button-prev !text-sky-500 hover:!-translate-y-2 transition-transform"></div>
+            <div class="swiper-button-next !text-sky-500 hover:!-translate-y-2 transition-transform"></div>
         </div>
     </section>
 
@@ -419,8 +432,8 @@
     <section class="container space-y-12 my-28">
         <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 mx-auto w-fit relative md:w-full md:mx-0">Our Best Selling <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
 
-        <div class="grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 md:grid-cols-3">
-            <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
+        <div id="productsWrapper" class="grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 md:grid-cols-3">
+            <!-- <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
                 <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
                 <div class="relative w-full !h-72 overflow-hidden rounded-md">
                     <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
@@ -575,8 +588,13 @@
 
                 </div>
 
-            </div>
+            </div> -->
         </div>
+
+        <div class="text-center mt-5">
+            <a href="./products.html" class="inline-block w-fit py-2 px-5 rounded-md bg-sky-500 text-white border border-sky-500 font-semibold hover:bg-white hover:text-sky-500 transition-colors duration-300 text-lg md:text-xl">Show More Products</a>
+        </div>
+
     </section>
 
     <footer class="mt-5 py-2 pt-7 bg-secondary relative">
@@ -646,6 +664,7 @@
         </button>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./package/swiper-bundle.min.js"></script>
     <script type="module" src="./js/main.js"></script>
 </body>
