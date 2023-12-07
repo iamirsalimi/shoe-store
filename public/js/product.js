@@ -16,14 +16,17 @@ let commentAndReviewTab = document.getElementById('commentAndReviewTab')
 let starSelect = document.getElementById('starSelect')
 let addCommentBtn = document.getElementById('addCommentBtn')
 let addToBasketBtn = document.getElementById('addToBasketBtn')
-let purchaseBtn = document.getElementById('purchaseBtn')
+let addToWishListBtn = document.getElementById('addToWishListBtn')
 let loginBtn = document.getElementById('loginBtn')
 let textareaElem = document.querySelector('textarea')
+let loader = document.querySelector('.loader-wrapper')
 
 let userObj = null
 let userBasket = null
 let newBasketObj = {basket : []}
 let newCommentObj = {reviews : []}
+let newWishListObj = {wishlist : []}
+let wishList = []
 let productObj = null
 let productReviews = null
 let starNumber = 5
@@ -39,7 +42,7 @@ class Comment{
         this.userName = userName
         this.starNumbers = starNumbers
         this.commentText = commentText
-        this.likes = 0
+        this.likes = []
     }
 }
 
@@ -186,6 +189,27 @@ async function isProductInProducts(productId){
     return targetProductObject
 }
 
+async function likeOrUnlikeReview(reviewObj){
+    if(!reviewObj.likes.length){
+        reviewObj.likes.push(userObj.id)
+    } else {
+        let userLikedId = reviewObj.likes.indexOf(userObj.id)
+        
+        if(userLikedId != -1){
+            reviewObj.likes.splice(userLikedId , 1)
+        } else {
+            reviewObj.likes.push(userObj.id)
+        }
+    }
+
+    console.log(reviewObj.likes);
+}
+
+function isUserLikedComment(likes){
+    let isUserLikedComment = likes.includes(userObj.id)
+    return isUserLikedComment
+}
+
 function showProductDetails(productObj){
     let productImageElem = document.querySelector('#productImg')
     productImageElem.src = `./images/${productObj.imagePath}`
@@ -214,61 +238,97 @@ function showProductDetails(productObj){
         index = index <= 0 ? 0 : index - 1
         return `<div>
             <input type="radio" id="${color}" name="colors" class="hidden" ${index == 1 ? 'checked>' : '>'}
-            <label for="${color}" class="inline-block w-3 h-3 rounded-full bg-${color}-500 ring-0 ring-${color}-500 ring-offset-2 ring-offset-gray-100 hover:scale-110 transition-all cursor-pointer border-none"></label>
+            <label for="${color}" class="inline-block w-3 h-3 rounded-full bg-${['black' , 'white'].includes(color) ? color : `${color}-500`} ring-0 ring-${['black' , 'white'].includes(color) ? color : `${color}-500`} ${color == 'white' ? ' border border-gray-400' : '' } ring-offset-2 ring-offset-gray-100 hover:scale-110 transition-all cursor-pointer border-none"></label>
         </div>`
     }).join('')
 
     productReviews = productObj?.reviews || []
 
     let reviewsWrapper = document.querySelector('#review').firstElementChild
+    
+    if(productReviews.length){
+        productObj.reviews?.reverse()
+        
+        let likedFlag = false
 
-    productObj.reviews?.reverse()
+        if(productObj?.reviews){
+            reviewsWrapper.innerHTML = ''
+        }
 
-    productObj.reviews?.forEach(review => {
-        reviewsWrapper.insertAdjacentHTML('beforeend' , `<div class="px-4 py-1 flex flex-col gap-2 md:flex-row">
-        <div class="w-full flex flex-col items-center gap-2 md:w-1/4">
-            <div class="bg-gray-400 rounded-full p-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 stroke-white">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>                              
+        productObj.reviews?.forEach(review => {
+            likedFlag = userObj && isUserLikedComment(review.likes)
+            
+            reviewsWrapper.insertAdjacentHTML('beforeend' , `<div class="px-4 py-1 flex flex-col gap-2 md:flex-row">
+            <div class="w-full flex flex-col items-center gap-2 md:w-1/4">
+                <div class="bg-gray-400 rounded-full p-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 stroke-white">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>                              
+                </div>
+    
+                <span class="text-xl text-gray-700 font-bold">${review.userName}</span>
             </div>
-
-            <span class="text-xl text-gray-700 font-bold">${review.userName}</span>
-        </div>
-
-        <div class="w-full space-y-3 text-center md:w-3/4 md:text-left">
-            <div class="flex items-center justify-center gap-1 md:justify-start">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0" stroke="currentColor" class="w-6 h-6 fill-yellow-400 stroke-yellow-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
+    
+            <div class="w-full space-y-3 text-center md:w-3/4 md:text-left">
+                <div class="flex items-center justify-center gap-1 md:justify-start">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0" stroke="currentColor" class="w-6 h-6 fill-yellow-400 stroke-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers >= 2 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers >= 2 ? 'fill-yellow-400' : ''} stroke-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers >= 3 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers >= 3 ? 'fill-yellow-400' : ''} stroke-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers >= 4 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers >= 4 ? 'fill-yellow-400' : ''} stroke-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+    
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers == 5 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers == 5 ? 'fill-yellow-400' : ''} stroke-yellow-400">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                    </svg>
+                      
+                </div>
                 
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers >= 2 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers >= 2 ? 'fill-yellow-400' : ''} stroke-yellow-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers >= 3 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers >= 3 ? 'fill-yellow-400' : ''} stroke-yellow-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers >= 4 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers >= 4 ? 'fill-yellow-400' : ''} stroke-yellow-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
-
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="${review.starNumbers == 5 ? '0' : '1'}" stroke="currentColor" class="w-6 h-6 ${review.starNumbers == 5 ? 'fill-yellow-400' : ''} stroke-yellow-400">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                </svg>
-                  
+                <p class="text-gray-500 md:text-justify">${review.commentText}</p>
+    
+                <button id="likeBtn" data-targetId="${review.id}" class="inline-flex items-center gap-2 ${likedFlag ? 'text-red-500' : 'text-gray-500'} bg-white font-semibold py-1 px-2 rounded-lg  hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0" stroke="currentColor" class="w-6 h-6 ${likedFlag ? 'fill-red-600' : 'fill-gray-400'} pointer-events-none">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg> Likes <span class="${likedFlag ? 'text-red-500' : 'text-gray-400'} pointer-events-none">(${review.likes.length})</span>
+                </button>
             </div>
+        </div>`)
+        })
 
-            <p class="text-gray-500 md:text-justify">${review.commentText}</p>
+        let likeBtns = reviewsWrapper.querySelectorAll('#likeBtn')
 
-            <button id="likeBtn" class="inline-flex items-center gap-2 text-white font-bold py-1 px-2 rounded-md bg-blue-500 hover:bg-blue-400">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-red-500">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg> Like <span class="text-white/70">(${review.likes})</span>
-            </button>
-        </div>
-    </div>`)
-    })
+        likeBtns.forEach(likeBtn => likeBtn.addEventListener('click' , e => {
+            if(userObj?.role == 'user'){
+                let targetElem = e.target.tagName == 'path' ? e.target.parentNode.parentNode : e.target.tagName == 'svg' ? e.target.parentNode : e.target 
+                let reviewId = targetElem.dataset?.targetid
+                let targetReviewObj =  productObj.reviews.find(review => review.id == reviewId)
+                
+                if(reviewId && targetReviewObj){
+                    likeOrUnlikeReview(targetReviewObj)
+                    addNewCommentHandler({reviews : [...productObj.reviews]} , 'like')
+                }
+            } else {
+                Swal.fire({
+                    icon: "info",
+                    title: `You Can't Add Comment ${!userObj ? ', Please Login First' : 'You Are Not a Customer'}`,
+                    showConfirmButton: false,
+                    timer: 3000
+                })
+            }
+        }))
+    } else {
+        let reviewsEmptyMessage = reviewsWrapper.lastElementChild
+        reviewsEmptyMessage.classList.remove('hidden')
+    }
+
 
     let ratingWrapper = document.querySelector('#review').lastElementChild
 
@@ -284,6 +344,70 @@ function showProductDetails(productObj){
     for(let i = 0 ; i < averageRating ; i++){
         averageRatingStars[i].classList.add(`fill-yellow-400`)
     }
+}
+
+async function addProductToWishListHandler(productObj){
+    console.log(productObj);
+    await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
+        method : 'PATCH',
+
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.updateUsersApiKey,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(productObj)
+    })
+    .then(res => {
+        console.log(res)
+        if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            wishList = productObj.wishlist
+            createProductsHandler(filteredProducts)
+            setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
+            Swal.fire({
+                icon: "success",
+                title: `Your Wish List Was Updated You Can Get Access To Your WishList in Your Panel in Wishlist Tab`,
+                showConfirmButton: false,
+                timer: 2000
+            })
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: `${res.status} Error`,
+                text: "Something went wrong! please try again later",
+                timer: 3000
+            })
+        }
+    })
+    .catch(err => {
+        console.log(err)
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Something went wrong! please try again later",
+            timer: 3000
+        });
+    })
+}
+
+function isProductExistInWishList(productObj){
+    let productIndex = newWishListObj.wishlist.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
+    return productIndex  
+} 
+
+async function addProductToWishList(productObj){
+    newWishListObj.wishlist = wishList || {...productObj}
+
+    let productIndex = isProductExistInWishList(productObj) 
+
+    if(productIndex != -1){
+        newWishListObj.wishlist.splice(productIndex, 1)
+    } else {
+        wishList && newWishListObj.wishlist.push({...productObj})
+    }
+    
+    await addProductToWishListHandler(newWishListObj)
 }
 
 const makeRandomIdNum = (targetArray) => {
@@ -369,12 +493,15 @@ function showUserBasket(userBasket){
 }
 
 async function getUserAndProductDetailsHandler(){
+    userObj = await getUsersAndProductsHandler()
+
     let productId = new URLSearchParams(location.search).get('p')
     
     if(productId){
         productObj = await isProductInProducts(productId)
         if(productObj){
             showProductDetails(productObj)
+            addToWishListBtn.addEventListener('click' , () => addProductToWishList(productObj))
         } else {
             location.href = 'http://127.0.0.1:5500/public/index.html'
         }
@@ -382,31 +509,37 @@ async function getUserAndProductDetailsHandler(){
         location.href = 'http://127.0.0.1:5500/public/index.html'
     }
     
-    userObj = await getUsersAndProductsHandler()
 
     // If there is a user is users, it will return true and we don't need to disable the comments button
     if(userObj){
         addCommentBtn.removeAttribute('disabled')
+        wishList = userObj?.wishlist || []
         userBasket = userObj?.basket || []
         showUserBasket(userBasket)
         if(userObj.role === 'admin'){
             addToBasketBtn.setAttribute('disabled' , 'disabled')
-            purchaseBtn.setAttribute('disabled' , 'disabled')
-            purchaseBtn.firstElementChild.href = '#'
+            addToWishListBtn.setAttribute('disabled' , 'disabled')
+            addToWishListBtn.firstElementChild.href = '#'
         }
         
     } else {
         addCommentBtn.setAttribute('disabled' , 'disabled')
         
-        purchaseBtn.classList.add('hidden')
+        addToWishListBtn.classList.add('hidden')
         addToBasketBtn.classList.add('hidden')
         // showing login btn to User that didn't login in site
         loginBtn.classList.remove('hidden')
         loginBtn.classList.add('inline-block')
     }
+
+    loader.classList.add('fadeOut')
+    setTimeout(() => {
+        loader.classList.remove('flex')
+        loader.classList.add('hidden')
+    },1000)
 }
 
-async function addNewCommentHandler(commentObj){
+async function addNewCommentHandler(commentObj , targetFlag){
     await fetch(`${apiData.updateProductsUrl}${productObj.id}` , {
         method : 'PATCH' ,
 
@@ -424,9 +557,9 @@ async function addNewCommentHandler(commentObj){
             getUserAndProductDetailsHandler()
             Swal.fire({
                 icon: "success",
-                title: `Your Comment Was Added`,
+                title: `${targetFlag == 'like' ? 'Comment Was Liked' : 'Comment Was Added'}`,
                 showConfirmButton: false,
-                timer: 3000
+                timer: targetFlag == 'like' ? 1500 : 3000
             })
         } else {
             Swal.fire({
@@ -459,7 +592,7 @@ async function addCommentHandler(){
 
             productReviews && newCommentObj.reviews.push(commentObj)
 
-            await addNewCommentHandler(newCommentObj)
+            await addNewCommentHandler(newCommentObj , 'add')
         } else {
             Swal.fire({
                 icon: "info",
@@ -587,9 +720,6 @@ async function addProductToBasketHandler(e){
 
     console.log(newBasketObj , e.target)
     await addProductToBasket(newBasketObj)
-    if(e.target.id == 'purchaseBtn'){
-        location.href = 'http://127.0.0.1:5500/public/userPanel.html?t=Basket'
-    }
 }
 
 // events
@@ -615,7 +745,6 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
-purchaseBtn.addEventListener('click' , addProductToBasketHandler)
 addToBasketBtn.addEventListener('click' , addProductToBasketHandler)
 addCommentBtn.addEventListener('click' , addCommentHandler)
 starSelect.addEventListener('click' , starHandler)

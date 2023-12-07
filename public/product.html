@@ -7,6 +7,14 @@
     <title>Shoe Store | product</title>
 </head>
 <body class="overflow-x-hidden">
+
+    <div class="loader-wrapper z-30 bg-white h-full w-full fixed top-0 left-0 flex items-center justify-center">
+        <div class="loader">
+            <div class="half"></div>
+            <div class="half"></div>
+        </div>
+    </div>
+
     <div class="fixed w-full border-b bg-white py-2 xs:py-3 sm:py-4 z-10">
         <nav class="container flex items-center justify-between">
             <div class="hamburger-wrapper sm:hidden text-right">
@@ -214,8 +222,8 @@
                         </div>
                     </div>
                     <div class="space-x-2 mt-2">
-                        <button id="purchaseBtn" class="rounded-md bg-blue-800 text-white font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:bg-blue-400">
-                            <a href="./userPanel.html?t=Basket" class="inline-block w-full h-full py-2 px-4 pointer-events-none">Buy Now</a>
+                        <button id="addToWishListBtn" class="rounded-md bg-blue-800 text-white font-semibold hover:bg-blue-700 transition-colors cursor-pointer disabled:bg-blue-400">
+                            <a href="#" class="inline-block w-full h-full py-2 px-4 pointer-events-none">Add To Wish List</a>
                         </button>
                         <button id="addToBasketBtn" class="py-2 px-4 rounded-md border border-gray-500 text-gray-700 font-semibold hover:bg-gray-200 transition-colors disabled:bg-gray-100 disabled:text-gray-400">Add To Basket</button>
 
@@ -310,6 +318,7 @@
                                     </button>
                                 </div>
                             </div> -->
+                            <p class="hidden text-center mt-7 text-sky-600 font-semibold text-lg md:text-xl">There are no comments for this product yet!</p>
                         </div>  
                         <div class="w-full py-4 flex flex-col items-center gap-1 md:w-1/4">
                             <span class="text-xl text-gray-700 font-bold">Average rating</span>
@@ -364,13 +373,13 @@
         </div>
     </div>
 
-    <footer class="py-2 pt-7 bg-secondary relative">
-        <div class="container w-full flex flex-col items-start gap-4 pb-4 md:flex-row">
+    <footer class="mt-5 py-2 pt-7 bg-secondary relative">
+        <div class="container flex flex-col items-start gap-4 pb-4 md:flex-row">
             <div class="space-y-2 text-white w-full md:w-1/4">
                 <h3 class="text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
                 <p class="text-lg text-center md:text-left">Shoe trends is the best nike ,adidas and reebok shoes provider and people trust on us more then 30 years.</p>
             </div>
-            <div class="space-y-4 w-full text-white text-center md:w-1/4 md:text-left">
+            <div class="space-y-4 text-white text-center ml-0 w-full md:w-1/4 md:text-left md:ml-auto">
                 <h3 class="text-2xl font-bold">Shoes</h3>
                 <ul class="space-y-2">
                     <li class="text-base text-white  hover:text-primary transition">
@@ -387,23 +396,7 @@
                     </li>
                 </ul>    
             </div>
-            <div class="space-y-4 text-white text-center w-full md:w-1/4 md:text-left">
-                <h3 class="text-2xl font-bold">Collections</h3>
-                <ul class="space-y-2 z-10">
-                    <li class="text-base text-white hover:text-primary transition">
-                        <a href="#">Air Jordan 1</a>
-                    </li>
-                    <li class="text-base text-white hover:text-primary transition">
-                        <a href="#">Metcon</a>
-                    </li>
-                    <li class="text-base text-white hover:text-primary transition">
-                        <a href="#">Air Max 270</a>
-                    </li>
-                    <li class="text-base text-white hover:text-primary transition">
-                        <a href="#">Jordan 1</a>
-                    </li>
-                </ul>    
-            </div>
+
             <div class="space-y-4 text-white text-center w-full md:w-1/4 md:text-left">
                 <h3 class="text-2xl font-bold">Contact</h3>
                 <ul class="space-y-2 z-10">
@@ -429,6 +422,7 @@
           </svg>
         </button>
     </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./js/product.js"></script>

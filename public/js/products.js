@@ -16,6 +16,7 @@ let sortBtn = document.querySelector('#sortBtn')
 let groupWrapper = document.querySelector('#groupWrapper')
 let sortWrapper = document.querySelector('#sortWrapper')
 let searchInput = document.querySelector('#searchInput input')
+let loader = document.querySelector('.loader-wrapper')
 
 let productsWrapper = document.querySelector('#products')
 let btnsWrapper = document.querySelector('#paginationBtnsWrapper')
@@ -285,6 +286,12 @@ async function getUserAndProductDetailsHandler(){
     }
     
     await getProductsHandler(productType)
+
+    loader.classList.add('fadeOut')
+    setTimeout(() => {
+        loader.classList.remove('flex')
+        loader.classList.add('hidden')
+    },1000)
 }
 
 async function addNewProductToBasketHandler(newBasketObj){

@@ -22,6 +22,7 @@ let newWishListObj = {wishlist : []}
 let wishList = []
 
 
+
 async function addNewProductToBasketHandler(newBasketObj){
     await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
         method : 'PATCH',
@@ -286,6 +287,18 @@ function createSliderProducts(products){
     </div>`)
     })
 
+    let productBtns = sliderWrapper.querySelectorAll('button')
+
+    productBtns.forEach(productBtn => productBtn.addEventListener('click' , e => {
+        let targetElem = e.target.tagName == 'path' ? e.target.parentNode.parentNode : e.target.tagName == 'svg' ? e.target.parentNode : e.target 
+        let productId = targetElem.dataset?.targetid
+        let targetProductObj =  products.find(product => product.id == productId)
+        
+        if(productId && targetProductObj){
+            addProductToWishList(targetProductObj)
+        }
+    }))
+
     let swiperSlider = new Swiper('.swiper' , {
         loop : true,
         slidePerView : 3,
@@ -354,7 +367,6 @@ function createProducts(products){
             addProductToWishList(targetProductObj)
         }
     }))
-
 }
 
 function createProductsHandler(products){
@@ -399,6 +411,12 @@ async function getUserAndProductDetailsHandler(){
     wishList = userObj?.wishlist || []
 
     showUserBasket(userBasket)
+
+    loader.classList.add('fadeOut')
+    setTimeout(() => {
+        loader.classList.remove('flex')
+        loader.classList.add('hidden')
+    },1000)
 }
 
 const showMenu = () => {
@@ -467,13 +485,6 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
-window.addEventListener('load', () => {
-    loader.classList.add('fadeOut')
-    setTimeout(() => {
-        loader.classList.remove('flex')
-        loader.classList.add('hidden')
-    },1000)
-})
 document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 hamburger.addEventListener('click' , showMenu)
 basketBtn.addEventListener('click' , showBasket)

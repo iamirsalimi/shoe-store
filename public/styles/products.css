@@ -931,10 +931,6 @@ video {
   height: 35rem;
 }
 
-.h-auto {
-  height: auto;
-}
-
 .h-fit {
   height: -moz-fit-content;
   height: fit-content;
@@ -1421,8 +1417,16 @@ video {
   border-radius: 0.375rem;
 }
 
+.rounded-bl-lg {
+  border-bottom-left-radius: 0.5rem;
+}
+
 .rounded-bl-md {
   border-bottom-left-radius: 0.375rem;
+}
+
+.rounded-br-lg {
+  border-bottom-right-radius: 0.5rem;
 }
 
 .rounded-br-md {
@@ -1666,16 +1670,16 @@ video {
   fill: #ef4444;
 }
 
+.fill-red-600 {
+  fill: #dc2626;
+}
+
 .fill-white {
   fill: #fff;
 }
 
 .fill-yellow-400 {
   fill: #facc15;
-}
-
-.fill-red-600 {
-  fill: #dc2626;
 }
 
 .stroke-gray-400 {
@@ -1787,6 +1791,11 @@ video {
   padding-right: 0.25rem;
 }
 
+.px-1\.5 {
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+}
+
 .px-10 {
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -1815,6 +1824,16 @@ video {
 .px-\[2px\] {
   padding-left: 2px;
   padding-right: 2px;
+}
+
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
 }
 
 .py-1 {
@@ -1865,6 +1884,10 @@ video {
 .py-px {
   padding-top: 1px;
   padding-bottom: 1px;
+}
+
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 
 .pb-10 {
@@ -2015,16 +2038,17 @@ video {
   line-height: 1.75rem;
 }
 
-.leading-\[10px\] {
-  line-height: 10px;
-}
-
 .leading-\[8px\] {
   line-height: 8px;
 }
 
 .tracking-wider {
   letter-spacing: 0.05em;
+}
+
+.\!text-sky-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(14 165 233 / var(--tw-text-opacity)) !important;
 }
 
 .text-blue-700 {
@@ -2300,6 +2324,135 @@ nav ul .active::after {
   stroke: #fff;
 }
 
+/* loader */
+
+.loader {
+  --uib-size: 90px;
+  --uib-color: black;
+  --uib-speed: 1.35s;
+  --uib-bg-opacity: .1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: var(--uib-size);
+  width: var(--uib-size);
+  transform: rotate(45deg);
+  animation: rotate calc(var(--uib-speed) * 2) ease-in-out infinite;
+}
+
+.fadeOut{
+  animation: fade-out 2s ease-in-out forwards;
+}
+
+.half {
+  --uib-half-size: calc(var(--uib-size) * 0.435);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--uib-half-size);
+  height: var(--uib-half-size);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.half:first-child{
+  top: 8.25%;
+  left: 8.25%;
+  border-radius: 50% 50% calc(var(--uib-size) / 15);
+}
+
+.half:last-child {
+  bottom: 8.25%;
+  right: 8.25%;
+  transform: rotate(180deg);
+  align-self: flex-end;
+  border-radius: 50% 50% calc(var(--uib-size) / 15);
+}
+
+.half:last-child::after {
+  animation-delay: calc(var(--uib-speed) * -1);
+}
+
+.half::before {
+  content: '';
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: var(--uib-bg-opacity);
+  transition: background-color 0.3s ease;
+}
+
+.half::after {
+  content: '';
+  --tw-bg-opacity: 1;
+  background-color: rgb(14 165 233 / var(--tw-bg-opacity));
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+  transform: rotate(45deg) translate(-3%, 50%) scaleX(1.2);
+  width: 100%;
+  transform-origin: bottom right;
+  border-radius: 0 0 calc(var(--uib-size) / 20) 0;
+  animation: flow calc(var(--uib-speed) * 2) linear infinite both;
+  transition: background-color 0.3s ease;
+}
+
+@keyframes flow {
+  0% {
+    transform: rotate(45deg) translate(-3%, 50%) scaleX(1.2);
+  }
+
+  30% {
+    transform: rotate(45deg) translate(115%, 50%) scaleX(1.2);
+  }
+
+  30.001%,
+    50% {
+    transform: rotate(0deg) translate(-85%, -85%) scaleX(1);
+  }
+
+  80%,
+    100% {
+    transform: rotate(0deg) translate(0%, 0%) scaleX(1);
+  }
+}
+
+@keyframes rotate {
+  0%,
+    30% {
+    transform: rotate(45deg);
+  }
+
+  50%,
+    80% {
+    transform: rotate(225deg);
+  }
+
+  100% {
+    transform: rotate(405deg);
+  }
+}
+
+@keyframes fade-out {
+  0%{
+    opacity:1;
+  }
+
+  80%{
+    opacity:0;
+  }
+
+  100% {
+    z-index :-20;
+  }
+}
+
 .marker\:text-lg *::marker {
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -2450,6 +2603,11 @@ nav ul .active::after {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.hover\:\!-translate-y-2:hover {
+  --tw-translate-y: -0.5rem !important;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+}
+
 .hover\:-translate-y-1:hover {
   --tw-translate-y: -0.25rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2592,6 +2750,11 @@ nav ul .active::after {
   background-color: rgb(7 89 133 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-white:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+}
+
 .hover\:bg-white\/90:hover {
   background-color: rgb(255 255 255 / 0.9);
 }
@@ -2614,6 +2777,11 @@ nav ul .active::after {
 .hover\:text-secondary:hover {
   --tw-text-opacity: 1;
   color: rgb(17 66 70 / var(--tw-text-opacity));
+}
+
+.hover\:text-sky-500:hover {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity));
 }
 
 .hover\:text-white:hover {
@@ -2728,11 +2896,6 @@ nav ul .active::after {
   background-color: rgb(2 132 199 / var(--tw-bg-opacity));
 }
 
-.group:hover .group-hover\:bg-white {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
 .group:hover .group-hover\:fill-red-500 {
   fill: #ef4444;
 }
@@ -2745,12 +2908,12 @@ nav ul .active::after {
   fill: #fff;
 }
 
-.group:hover .group-hover\:stroke-white {
-  stroke: #fff;
-}
-
 .group:hover .group-hover\:stroke-red-600 {
   stroke: #dc2626;
+}
+
+.group:hover .group-hover\:stroke-white {
+  stroke: #fff;
 }
 
 .group:hover .group-hover\:stroke-0 {
@@ -3177,6 +3340,11 @@ nav ul .active::after {
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
+
+  .md\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -3353,10 +3521,6 @@ nav ul .active::after {
 
   .xl\:w-1\/2 {
     width: 50%;
-  }
-
-  .xl\:w-1\/4 {
-    width: 25%;
   }
 
   .xl\:w-2\/5 {

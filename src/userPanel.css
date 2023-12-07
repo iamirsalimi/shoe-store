@@ -68,6 +68,10 @@
     @apply inline-block stroke-2;
 }
 
+#content #basketProductColors input:checked ~ label{
+    @apply ring-2;
+}
+
 #content #progress1 #basket-product #addToWishList .active{
     @apply fill-red-500 stroke-0;
 }

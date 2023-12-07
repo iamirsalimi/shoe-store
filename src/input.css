@@ -36,6 +36,8 @@ nav ul .active::after {
     width:100%;
 }
 
+/* loader */
+
     .loader {
     --uib-size: 90px;
     --uib-color: black;

@@ -70,19 +70,19 @@
                     <ul id="user-infos" class="border-t border-gray-200 space-y-3 py-1 divide-y divide-gray-100 md:py-2">
                         <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">FirstName :</span>
-                            <span class="font-semibold text-gray-600">Alex</span>
+                            <span class="userFirstNameDetail font-semibold text-gray-600"></span>
                         </li>
                         <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">LastName :</span>
-                            <span class="font-semibold text-gray-600">Green</span>
+                            <span class="userLastNameDetail font-semibold text-gray-600"></span>
                         </li>
                         <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">Email :</span>
-                            <span class="font-semibold text-gray-600">AlexGreen23@gmail.com</span>
+                            <span class="userEmailDetail font-semibold text-gray-600"></span>
                         </li>
                         <li class="flex flex-col items-start justify-between py-1 px-2 xs:flex-row xs:items-center">
                             <span class="font-bold text-gray-800">UserName :</span>
-                            <span class="font-semibold text-gray-600">AlexGreen29</span>
+                            <span class="usernameDetail font-semibold text-gray-600"></span>
                         </li>
                     </ul>
                 </div>
@@ -95,8 +95,8 @@
                             </svg>  
                         </button>
                     </div>
-                    <div class="flex flex-col gap-2 py-1">
-                        <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
+                    <div class="basketShortcutTable min-h-[12rem] flex flex-col gap-2 py-1">
+                        <!-- <div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
                             <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
                                 <img src="./images/usama-akram-g3CMh2nqj_w-unsplash.jpg" alt="Purchased product image" class="object-cover">
                             </div>
@@ -125,11 +125,11 @@
                                 <h3 class="font-bold text-gray-500 text-sm line-clamp-1 xs:text-base">women Training Shoe</h3>
                             </div>
                             <div class="font-bold text-gray-800">$120</div>
-                        </div>
-                        
-                        <!-- <div class="h-full flex flex-col items-center justify-center gap-2">
-                            <p class="text-blue-700 text-2xl font-bold">basket is empty!</p>
                         </div> -->
+                        
+                        <div class="h-52 hidden flex-col items-center justify-center gap-2">
+                            <p class="text-blue-700 text-2xl font-bold">basket is empty!</p>
+                        </div>
                     </div>
                 </div>
                 <div id="recent-purchases" class="flex flex-col gap-2 sahdow-md bg-white rounded-md py-1 px-2 md:row-start-1 md:row-end-3 lg:col-start-1 lg:col-end-3">
@@ -148,8 +148,8 @@
                             <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Price</h3>
                             <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Date</h3>
                         </div>
-                        <div class="flex flex-col gap-1 lg:mt-2">
-                            <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+                        <div class="purchases-shortcut-table flex flex-col gap-1 lg:mt-2">
+                            <!-- <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">1</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">Nike Dunk 1</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">$120</span>
@@ -172,9 +172,9 @@
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">Nike Dunk 1</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">$120</span>
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">11 dec</span>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="h-full hidden flex-col items-center justify-center gap-3">
+                        <div class="mt-36 hidden flex-col items-center justify-center gap-3">
                             <h2 class="text-xl text-blue-700 font-bold text-center xs:text-2xl">You have not made a purchase yet!</h2>
                             <a href="./products.html?t=men" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Purchase</a>
                         </div>
@@ -215,7 +215,7 @@
                     <div id="progress1" class="show w-full hidden flex-col items-center gap-4 md:items-start">
                         <h2 class="text-gray-800 font-bold px-2 text-2xl md:text-3xl">Shopping Cart</h2>
                         <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 lg:grid-cols-3">
-                            <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 lg:col-start-1 lg:col-end-3">
+                            <div class="userBasketWrapper p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 lg:col-start-1 lg:col-end-3">
                                 <div id="basket-product" class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
                                     <div class="w-[20%] h-20 overflow-hidden">
                                         <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
@@ -816,9 +816,9 @@
                         </svg>
                     </div>
                 </div>
-                <div class="flex flex-col">
-                    <div id="WishListProducts" class="py-4 pb-28 lg:pb-12 grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 lg:grid-cols-3 content-center">
-                            <div class="relative p-1 hover:-translate-y-2 transition-transform ease-in-out duration-200 rounded-lg bg-white flex flex-col gap-1 select-none group">
+                <div class="w-full flex flex-col">
+                    <div id="WishListProducts" class="w-full py-4 pb-28 lg:pb-12 grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 lg:grid-cols-3 content-center">
+                            <!-- <div class="relative p-1 hover:-translate-y-2 transition-transform ease-in-out duration-200 rounded-lg bg-white flex flex-col gap-1 select-none group">
                                 <span class="z-20 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-primary text-xs font-semibold hidden">-<span></span>Off</span>
                                 <div class="relative w-full !h-72 overflow-hidden rounded-md">
                                     <img src="./images/ryan-plomp-PGTO_A0eLt4-unsplash.jpg" class="object-cover group-hover:scale-150 group-hover:rotate-12 transitoin-transform duration-200" alt="Product Image">
@@ -917,9 +917,12 @@
                                     </div>
                 
                                 </div>
-                            </div>
-                    </div>
-                    <p class="text-center mt-28 w-full text-3xl font-bold text-blue-700 hidden">Wish List is Empty!</p>
+                            </div> -->
+                        </div>
+                        <div class="w-full h-52 mx-auto bg-white rounded-lg py-2 px-5 hidden flex-col items-center justify-center gap-5">
+                            <p class="text-blue-700 text-center text-2xl font-bold">There is no product stored in your wishList</p>
+                            <a href="./products.html?t=all" class="bg-blue-700 hover:bg-blue-800 transition-colors text-white font-bold rounded-lg py-2 px-5 ">Explore Products</a>
+                        </div>
                 </div>
             </section>
             
@@ -930,7 +933,7 @@
         </div>
     </div>
     
-
-    <script src="./js/userPanel.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="module" src="./js/userPanel.js"></script>
 </body>
 </html>
