@@ -174,7 +174,7 @@
                                 <span class="text-gray-800 rounded font-semibold lg:text-lg">11 dec</span>
                             </div> -->
                         </div>
-                        <div class="mt-36 hidden flex-col items-center justify-center gap-3">
+                        <div class="my-36 hidden flex-col items-center justify-center gap-3">
                             <h2 class="text-xl text-blue-700 font-bold text-center xs:text-2xl">You have not made a purchase yet!</h2>
                             <a href="./products.html?t=men" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Purchase</a>
                         </div>
@@ -374,15 +374,15 @@
                                 <div class="flex flex-col gap-2 py-2">
                                     <span class="text-gray-600 font-semibold flex itesm-center justify-between">
                                         <span>Subtotal :</span>
-                                        <span id="subtotal" class="text-gray-800 font-bold">$250</span>
+                                        <span id="subtotal1" class="font-bold">$250</span>
                                     </span>
                                     <span class="text-gray-600 font-semibold flex itesm-center justify-between">
                                         <span>Tax (9%) :</span>
-                                        <span id="subtotal" class="text-gray-800 font-bold">$12</span>
+                                        <span id="tax1" class="font-bold">$12</span>
                                     </span>
                                     <span class="text-gray-600 font-semibold flex itesm-center justify-between">
                                         <span>Total Price :</span>
-                                        <span id="subtotal" class="text-gray-800 font-bold">$262</span>
+                                        <span id="totalPrice1" class="text-gray-800 font-bold">$262</span>
                                     </span>
                                     <button data-target="2" id="checkoutBtn" class="w-full bg-sky-500 hover:bg-sky-700 transition-colors text-white font-bold py-2 rounded-lg">Check Out</button>
                                 </div>
@@ -398,8 +398,8 @@
                     <div id="progress2" class="w-full hidden flex-col items-center gap-4 md:items-start">
                         <h2 class="text-gray-800 font-bold px-2 text-2xl md:text-3xl">Delivery</h2>
                         <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 xl:grid-cols-3">
-                            <div class="w-full h-fit grid grid-cols-2 gap-x-2 gap-y-4 md:col-start-1 md:col-end-2 xl:col-start-1 xl:col-end-3">
-                                <select name="" id="country" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
+                            <form class="w-full h-fit grid grid-cols-2 gap-x-2 gap-y-4 md:col-start-1 md:col-end-2 xl:col-start-1 xl:col-end-3">
+                                <select name="" id="countrySelectBox" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
                                     <option value="Country">Country</option>
                                     <option value="Iran">Iran</option>
                                     <option value="USA">USA</option>
@@ -407,19 +407,19 @@
                                     <option value="Britain">Britain</option>
                                 </select>
                                 
-                                <input type="text" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="First Name">
+                                <input type="text" id="firstNameInput" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="First Name">
                                 
-                                <input type="text" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Last Name">
+                                <input type="text" id="lastNameInput" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Last Name">
                                 
-                                <select name="" id="City" class="p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
+                                <select name="" id="citySelectBox" class="p-2 rounded border border-gray-400 text-gray-500 cursor-pointer">
                                     <option value="Country">City</option>
                                 </select>
                                 
-                                <input type="text" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Postal Code">
+                                <input type="text" id="postalCodeInput" class="p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Postal Code">
 
-                                <input type="text" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Address">
+                                <input type="text" id="addressInput" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Address">
                                 
-                                <input type="text" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Phone Number">
+                                <input type="text" id="phoneNumberInput" class="col-start-1 col-end-3 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Phone Number">
 
                                 <textarea name="" class="col-start-1 col-end-3 resize-none h-28 p-2 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Add description..." id="" cols="10" rows="10"></textarea>
 
@@ -458,13 +458,13 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
 
                             <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 h-fit">
                                 <h2 class="text-gray-900 font-bold text-xl sm:text-2xl">Items : <span id="basket-items">3</span></h2>
                                 <div class="flex flex-col gap-2 py-4">
-                                    <div class="flex flex-col gap-2 md:gap-5">
-                                        <div class="flex items-start justify-between gap-2">
+                                    <div id="progressTwoBasketWrapper" class="flex flex-col gap-2 md:gap-5">
+                                        <!-- <div class="flex items-start justify-between gap-2">
                                             <div class="flex gap-2 w-2/3">
                                                 <div class="w-[30%] h-20 overflow-hidden md:w-[25%]">
                                                     <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
@@ -546,25 +546,25 @@
                                                     <span id="quantity">1</span>
                                                 </span>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
 
                                     <div class="flex flex-col gap-2 py-1">
                                         <span class="text-gray-600 font-semibold flex itesm-center justify-between">
                                             <span>Subtotal :</span>
-                                            <span id="subtotal" class="text-gray-600 font-bold">$250</span>
+                                            <span id="subtotal2" class="text-gray-600 font-bold">$250</span>
                                         </span>
                                         <span class="text-gray-600 font-semibold flex itesm-center justify-between">
                                             <span>Tax (9%) :</span>
-                                            <span id="subtotal" class="text-gray-600 font-bold">$12</span>
+                                            <span id="tax2" class="text-gray-600 font-bold">$12</span>
                                         </span>
                                         <span class="text-gray-600 font-semibold flex itesm-center justify-between">
                                             <span>Delivery :</span>
-                                            <span id="Delivery" class="text-gray-600 font-bold">$7</span>
+                                            <span id="delivery2" class="text-gray-600 font-bold">$7</span>
                                         </span>
                                         <span class="text-gray-800 font-semibold flex itesm-center justify-between">
                                             <span>Total Price :</span>
-                                            <span id="subtotal" class="text-gray-800 font-bold">$262</span>
+                                            <span id="totalPrice2" class="text-gray-800 font-bold">$262</span>
                                         </span>
                                         
                                         <div class="mt-5 grid grid-cols-1 gap-2 xs:grid-cols-2 lg:grid-cols-1">
@@ -582,7 +582,7 @@
                         <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 h-fit">
                             <div class="bg-sky-700 text-white text-center font-bold text-lg rounded-md py-5 px-10">Please check all the information so that you don't face problems when receiving the product later</div>
                             <div class="flex flex-col gap-2 py-4 md:flex-row md:gap-4">
-                                <div class="flex flex-col gap-2 md:gap-5 md:basis-2/3">
+                                <div id="productsWrapper3" class="flex flex-col gap-2 md:gap-5 md:basis-2/3">
                                     <div class="flex items-start justify-between gap-2">
                                         <div class="flex gap-2 w-2/3">
                                             <div class="w-[30%] h-20 overflow-hidden md:w-[25%]">
@@ -673,49 +673,49 @@
                                     <div class="flex flex-col gap-2 pb-4 border-b border-gray-500">
                                         <span class="text-gray-600 font-semibold flex items-center justify-between">
                                             <span>Full Name :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold">Alex Green</span>
+                                            <span id="fullName-receipt" class="text-gray-700 font-bold">Alex Green</span>
                                         </span>
                                         <span class="text-gray-600 font-semibold flex items-center justify-between">
                                             <span>Phone Number :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold">+9811221212</span>
+                                            <span id="phoneNumber-receipt" class="text-gray-700 font-bold">+9811221212</span>
                                         </span>
                                         <span class="text-gray-600 font-semibold flex items-center justify-between">
                                             <span>Country :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold text-justify">Germany</span>
+                                            <span id="country-receipt" class="text-gray-700 font-bold text-justify">Germany</span>
                                         </span>    
                                         <span class="text-gray-600 font-semibold flex items-center justify-between">
                                             <span>City :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold text-justify">Frankfort</span>
+                                            <span id="city-receipt" class="text-gray-700 font-bold text-justify">Frankfort</span>
                                         </span>    
                                         <span class="text-gray-600 font-semibold flex items-center justify-between">
                                             <span>PostalCode :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold text-justify">225</span>
+                                            <span id="postalCode-receipt" class="text-gray-700 font-bold text-justify">225</span>
                                         </span>    
                                         <span class="text-gray-600 font-semibold flex flex-col items-start justify-between">
                                             <span>Address :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, quisquam!</span>
+                                            <span id="address-receipt" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, quisquam!</span>
                                         </span>    
                                         <span class="text-gray-600 font-semibold flex flex-col items-start justify-between">
                                             <span>Description :</span>
-                                            <span id="fullName" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor sit amet.</span>
+                                            <span id="desc-receipt" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor sit amet.</span>
                                         </span>    
                                     </div>
 
                                     <span class="text-gray-600 font-semibold flex items-center justify-between">
                                         <span>Subtotal :</span>
-                                        <span id="subtotal" class="text-gray-600 font-bold">$250</span>
+                                        <span id="subtotal3" class="text-gray-600 font-bold">$250</span>
                                     </span>
                                     <span class="text-gray-600 font-semibold flex items-center justify-between">
                                         <span>Tax (9%) :</span>
-                                        <span id="subtotal" class="text-gray-600 font-bold">$12</span>
+                                        <span id="tax3" class="text-gray-600 font-bold">$12</span>
                                     </span>
                                     <span class="text-gray-600 font-semibold flex items-center justify-between">
                                         <span>Delivery :</span>
-                                        <span id="Delivery" class="text-gray-600 font-bold">$7</span>
+                                        <span id="delivery3" class="text-gray-600 font-bold">$7</span>
                                     </span>
                                     <span class="text-gray-900 text-lg font-bold flex items-center justify-between">
                                         <span>Total Price :</span>
-                                        <span id="subtotal" class="text-gray-800 font-bold">$262</span>
+                                        <span id="totalPrice3" class="text-gray-800 font-bold">$262</span>
                                     </span>
                                     
                                     <div class="mt-5 grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-1">

@@ -20,15 +20,49 @@ let backToProgressBtn1 = document.getElementById('backToProgress2')
 let wishListWrapper = document.querySelector('#WishListProducts')
 let userBasketWrapper = document.querySelector('.userBasketWrapper')
 
+let countrySelectBox = document.querySelector('#countrySelectBox')
+let citySelectBox = document.querySelector('#citySelectBox')
+let deliveryRadioBtns = document.querySelectorAll('#progress2 input[type="radio"]')
 
 let shortCutBtns = document.querySelectorAll('.shortcut-btn')
 
+let countryObj = {
+    Iran : ['Tehran' , 'Isfahan' , 'Ahwaz' , 'Shiraz'],
+    USA : ['NewYork' , 'Chicago' , 'LosAngeles' , 'Texas'],
+    Germany : ['Berlin' , 'Munich' , 'Frankfort'],
+    Britain : ['London' , 'Manchester'],
+}
+
+let progressTarget = 1
 let userObj = null
 let productsObj = null
 let targetElem = null
 let currentTab = null
+let subtotalPrice = null
+let tax = null
+let totalPrice = null
+let delivery = 7
 let currentProgress = 1
+let userBasket = []
+let newOrder = {orders : []}
+let orders = null
 
+class Order {
+    constructor(products  , country, fullName , city , postalCode  , address , phoneNumber , description , delivery , subtotal , tax , finalPrice){
+        this.products = products
+        this.country = country
+        this.fullName = fullName
+        this.city = city
+        this.postalCode = postalCode
+        this.address = address
+        this.phoneNumber = phoneNumber
+        this.description = description
+        this.delivery = delivery
+        this.subtotal = subtotal
+        this.tax = tax
+        this.finalPrice = finalPrice
+    }
+}
 
 function toggleMenu(){
     menu.classList.toggle('unshow')
@@ -66,8 +100,137 @@ document.addEventListener('DOMContentLoaded' , () => {
 })
 
 // basket section
+function getProgressTwoDetails(){
+    let productsWrapper = document.querySelector('#progressTwoBasketWrapper')
+    let basketItemsElem = document.querySelector('#basket-items')
+    
+    basketItemsElem.innerHTML = userBasket.length
+    productsWrapper.innerHTML = ''
+
+    let targetProduct = null
+    userBasket.forEach(product => {
+        targetProduct = getProductObject(product.productId)
+        productsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-2">
+        <div class="flex gap-2 w-2/3">
+            <div class="w-[30%] h-20 overflow-hidden rounded md:w-[25%]">
+                <img src="./images/${targetProduct.imagePath}" class="object-cover object-center" alt="Product Image">
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-800 font-bold">${product.productName}</h3>
+                <p class="text-gray-500 font-semibold line-clamp-1">${targetProduct.productSummary}</p>
+                
+                <div class="flex items-center gap-1 text-gray-500 font-semibold">Color :
+                    <span>
+                        <span class="inline-block w-3 h-3 rounded-full bg-${product.color}-500"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-end gap-1">
+            <h3 class="text-gray-800 font-semibold text-lg tracking-wider">$${product.finalPrice}</h3>
+            <div id="sizes" class="flex items-center gap-2 text-gray-500 font-semibold sm:text-base">
+                <h3>Size : </h3>
+                <span>${product.size}</span>
+            </div>
+            <span class="flex items-center gap-1 text-gray-500 font-semibold">Quantity : 
+                <span>${product.quantity}</span>
+            </span>
+        </div>
+        
+    </div>`)
+    })
+
+    calcTotalPrice(true) 
+}
+
+function showReceiptDetails(orders){
+    let productsWrapper = document.querySelector('#productsWrapper3')
+    
+    productsWrapper.innerHTML = ''
+    let targetProduct = null
+    userBasket.forEach(product => {
+        targetProduct = getProductObject(product.productId)
+        productsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-2">
+        <div class="flex gap-2 w-2/3">
+            <div class="w-[30%] h-28 overflow-hidden rounded md:w-[25%]">
+                <img src="./images/${targetProduct.imagePath}" class="object-cover object-center" alt="Product Image">
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-800 font-bold">${product.productName}</h3>
+                <p class="text-gray-500 font-semibold line-clamp-1">${targetProduct.productSummary}</p>
+                
+                <div class="flex items-center gap-1 text-gray-500 font-semibold">Color :
+                    <span>
+                        <span class="inline-block w-3 h-3 rounded-full bg-${product.color}-500"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-end gap-1">
+            <h3 class="text-gray-800 font-semibold text-lg tracking-wider">$${product.finalPrice}</h3>
+            <div id="sizes" class="flex items-center gap-2 text-gray-500 font-semibold sm:text-base">
+                <h3>Size : </h3>
+                <span>${product.size}</span>
+            </div>
+            <span class="flex items-center gap-1 text-gray-500 font-semibold">Quantity : 
+                <span>${product.quantity}</span>
+            </span>
+        </div>
+        
+    </div>`)
+    })
+
+    let progressWrapper = document.querySelector('#progress3')
+
+    let fullNameElem = progressWrapper.querySelector('#fullName-receipt')
+    let phoneNumberElem = progressWrapper.querySelector('#phoneNumber-receipt')
+    let countryElem = progressWrapper.querySelector('#country-receipt')
+    let cityElem = progressWrapper.querySelector('#city-receipt')
+    let postalCodeElem = progressWrapper.querySelector('#postalCode-receipt')
+    let addressElem = progressWrapper.querySelector('#address-receipt')
+    let descElem = progressWrapper.querySelector('#desc-receipt')
+
+    fullNameElem.innerHTML = orders.fullName
+    phoneNumberElem.innerHTML = orders.phoneNumber
+    countryElem.innerHTML = orders.country
+    cityElem.innerHTML = orders.city
+    postalCodeElem.innerHTML = orders.postalCode
+    addressElem.innerHTML = orders.address
+    descElem.innerHTML = orders.description
+
+    calcTotalPrice(true)
+}
+
+function getPurchaseReceiptDetails(){
+    let progressWrapper = document.querySelector('#progress2')
+
+    let firstNameInput = progressWrapper.querySelector('#firstNameInput')
+    let lastNameInput = progressWrapper.querySelector('#lastNameInput')
+    let postalCodeInput = progressWrapper.querySelector('#postalCodeInput')
+    let AddressInput = progressWrapper.querySelector('#addressInput')
+    let phoneNumberInput = progressWrapper.querySelector('#phoneNumberInput')
+    let description = progressWrapper.querySelector('textarea')
+
+    let newOrderObj = new Order(userBasket , countrySelectBox.value , `${firstNameInput.value.trim()} ${lastNameInput.value.trim()}` , citySelectBox.value ,postalCodeInput.value.trim()
+    , AddressInput.value.trim() , phoneNumberInput.value.trim() , description.value.trim() , delivery , subtotalPrice , tax , totalPrice)
+    newOrder.orders = orders || {...newOrderObj}
+
+
+    orders && newOrder.orders.push({...newOrderObj})
+
+    showReceiptDetails(newOrderObj)
+}
+
 function changePurchaseProgress(e){
-    let progressTarget = parseInt(e.target.dataset.target)
+    progressTarget = parseInt(e.target.dataset.target)
+
+    if(progressTarget == 2){
+        getProgressTwoDetails()
+    } else if(progressTarget == 3){
+        getPurchaseReceiptDetails()
+    }
 
     if(progressTarget > currentProgress){
         // hide prev progress section and visible next progress section by adding and removing show class
@@ -94,6 +257,7 @@ function changePurchaseProgress(e){
             progressLine = document.getElementById(`progress-line-${i}`)
             progressLine.classList.add('progress-completed')
         }
+
     } else {
         // hide prev progress section and visible next progress section by adding and removing show class
         let currentProgressWrapper = document.getElementById(`progress${currentProgress}`)
@@ -119,34 +283,96 @@ function changePurchaseProgress(e){
 }
 
 // progress 1 shopping cart
+function calcProductTax(price){
+    let tax = (price * 9) / 100
+    return tax
+}
 
-function changeProductCount(e){
+function calcTotalPrice(deliveryId){
+    let subtotalElem = document.querySelector(`#subtotal${progressTarget}`)
+    let taxElem = document.querySelector(`#tax${progressTarget}`)
+    let totalPriceElem = document.querySelector(`#totalPrice${progressTarget}`)
+
+    
+    subtotalPrice = userBasket.reduce((sum , product) => sum + (product.quantity * product.finalPrice) , 0)
+    tax = calcProductTax(subtotalPrice)
+    totalPrice = subtotalPrice + tax
+    
+    if(deliveryId){
+        let deliveryElem = document.querySelector(`#delivery${progressTarget}`)
+        deliveryElem.innerHTML = delivery.toFixed(2)
+        totalPrice += delivery
+    }
+    
+    subtotalElem.innerHTML = `$${subtotalPrice.toFixed(1)}`
+    taxElem.innerHTML = `$${tax.toFixed(1)}`
+    totalPriceElem.innerHTML = `$${totalPrice.toFixed(1)}`
+}
+
+function changeProductCount(e , targetId){
     let targetElem = e.target.tagName === 'path' ? e.target.parentNode.parentNode: e.target.tagName === 'svg' ? e.target.parentNode : e.target
 
     let productCountElem = null
 
     if(targetElem.id === 'increase-count'){
         productCountElem = targetElem.previousElementSibling
-        increaseProductCount(productCountElem)
+        increaseProductCount(productCountElem , targetId)
     } else {
         productCountElem = targetElem.nextElementSibling
-        decreaseProductCount(productCountElem)
+        decreaseProductCount(productCountElem , targetId)
     }
+
+    calcTotalPrice()
 }
 
-function increaseProductCount(countElem){
+function increaseProductCount(countElem , targetId){
     let productCount = parseInt(countElem.innerHTML)
+    
+    userBasket.forEach(product => {
+        if(product.id == targetId){
+            product.quantity = productCount + 1
+        }
+    })  
     
     countElem.innerHTML = productCount + 1
 }
 
-function decreaseProductCount(countElem){
+function decreaseProductCount(countElem , targetId){
     let productCount = parseInt(countElem.innerHTML)
     if(productCount == 1){
         return false
     }
 
-    countElem.innerHTML -= 1
+    userBasket.forEach(product => {
+        if(product.id == targetId){
+            product.quantity = productCount - 1
+        }
+    })  
+    
+    countElem.innerHTML = productCount - 1
+}
+
+function changeCityInputValue(e){
+    let country = e.target.value
+    let targetCities = countryObj[country]
+
+    let citiesElem = `<option value="City">City</option>`
+    
+    if(targetCities){
+        citiesElem += targetCities.map(city => `<option value="${city}">${city}</option>`).join('')
+    }
+    
+    citySelectBox.innerHTML = citiesElem 
+}
+
+function changeProductDelivery(e){
+    if(e.target.id == 'Standard'){
+        delivery = 7
+    } else {
+        delivery = 11
+    }
+
+    calcTotalPrice(true)
 }
 
 function showUserInfos(userObj){
@@ -252,7 +478,7 @@ function showWishListProducts(wishList){
             
                     <div class="w-full flex justify-between items-center">
                         <div class="font-bold text-gray-800"><span class="line-through decoration-gray-400 text-gray-400 ${product.discount ? '' : 'hidden'}">$${product.price}</span> $${product.finalPrice}</div>
-                        <a  href="./product.html?p=1" class="inline-block py-2 px-4 text-white font-semibold bg-sky-500 hover:bg-sky-600 transition-colors rounded-md">Buy Now</a>
+                        <a  href="./product.html?p=${product.id}" class="inline-block py-2 px-4 text-white font-semibold bg-sky-500 hover:bg-sky-600 transition-colors rounded-md">Buy Now</a>
                     </div>
                 </div>
             
@@ -262,20 +488,37 @@ function showWishListProducts(wishList){
     }
 }
 
+function changeProductColor(e , targetId){
+    userBasket.forEach(product => {
+        if(product.id == targetId){
+            product.color = e.target.dataset.color
+        }
+    })
+}
+function changeProductSize(e , targetId){
+    userBasket.forEach(product => {
+        if(product.id == targetId){
+            product.size = e.target.value
+        }
+    })
+}
+
 function showUserBasket(basket){
     userBasketWrapper.innerHTML = ''
     let basketFragment = document.createDocumentFragment()
     let product = null
     let index = 1
+    // We need a presentation to update the products when they change, and finally, after clicking on payment, we will merge the amount with the user's shopping cart.
+    userBasket = [...basket]
+
     basket.forEach(targetProduct => {
         product = getProductObject(targetProduct.productId)
 
         let divElem = document.createElement('div')
         divElem.className = 'py-5 first:py-0 last:pb-0 flex gap-2 items-center rounded'
 
-        
         let imageWrapper =document.createElement('div')
-        imageWrapper.className = 'w-[20%] h-20 rounded overflow-hidden'
+        imageWrapper.className = 'w-[30%] h-32 rounded overflow-hidden'
 
         let productImg = document.createElement('img')
         productImg.className = 'object-cover object-center'
@@ -283,7 +526,7 @@ function showUserBasket(basket){
         productImg.src = `./images/${product.imagePath}`
 
         let productDetailsWrapper =document.createElement('div')
-        productDetailsWrapper.className = 'w-[60%] h-full flex flex-col items-start justify-between font-semibold'
+        productDetailsWrapper.className = 'w-[50%] h-full flex flex-col items-start justify-start gap-2 font-semibold'
 
         let productName = document.createElement('h3')
         productName.className = 'text-gray-800 font-bold'
@@ -306,25 +549,40 @@ function showUserBasket(basket){
         </svg>
         Remove`
 
-        let priceWrapper =document.createElement('div')
-        priceWrapper.className = 'ml-auto flex flex-col items-end justify-center gap-1 h-full'
-
-        let priceElem = document.createElement('h3')
-        priceElem.className = 'text-gray-800 font-semibold text-xl tracking-wider'
-        priceElem.innerHTML = `$${product.finalPrice}`
 
         let colorsWrapper = document.createElement('div')
-        colorsWrapper.className = 'flex items-center gap-[10px]'
+        colorsWrapper.className = 'px-1 flex items-center gap-[10px]'
         colorsWrapper.id = 'basketProductColors'
 
-        
         product.colors.split(' ').forEach(color => {
             colorsWrapper.insertAdjacentHTML('beforeend' , `<div>
-            <input type="radio" id="${color}${index}" name="colors${index}" class="hidden" ${targetProduct.color == color ? 'checked>' : '>'}
+            <input type="radio" id="${color}${index}" data-color="${color}" name="colors${index}" class="hidden" ${targetProduct.color == color ? 'checked>' : '>'}
             <label for="${color}${index}" class="inline-block w-3 h-3 rounded-full bg-${['black' , 'white'].includes(color) ? color : `${color}-500`} ring-0 ring-${['black' , 'white'].includes(color) ? color : `${color}-500`} ring-offset-2 ring-offset-${color == 'white' ? 'gray-500' : 'gray-200' } hover:scale-110 transition-all cursor-pointer"></label>
         </div>`)
         })
         index++
+
+        colorsWrapper.querySelectorAll('input').forEach(input => {
+            input.addEventListener('click' , e => {
+                changeProductColor(e , targetProduct.id)
+            })
+        })
+
+        let priceWrapper =document.createElement('div')
+        priceWrapper.className = 'ml-auto flex flex-col items-end justify-center gap-1 h-full'
+
+        
+        let productSizes = document.createElement('select')
+        productSizes.className = 'w-20 py-1 px-2 bg-gray-200 rounded-md border border-gray-800 text-gray-800 cursor-pointer' 
+        productSizes.innerHTML = product.sizes.split(' ').map(size => `<option value="${size}">${size}</option>`).join('')
+        productSizes.value = targetProduct.size
+        productSizes.addEventListener('input' , e => {
+            changeProductSize(e , targetProduct.id)
+        })
+
+        let priceElem = document.createElement('h3')
+        priceElem.className = 'text-gray-800 font-semibold text-xl tracking-wider'
+        priceElem.innerHTML = `$${product.finalPrice}`
 
         let numberWrapper = document.createElement('div')
         numberWrapper.className = 'flex items-center gap-2'
@@ -335,7 +593,9 @@ function showUserBasket(basket){
         minusBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" />
         </svg>`
-        minusBtn.addEventListener('click' , changeProductCount)
+        minusBtn.addEventListener('click' , e => {
+            changeProductCount(e , targetProduct.id)
+        })
         
         let quantityElem = document.createElement('span')
         quantityElem.className = 'text-gray-700 font-semibold'
@@ -347,16 +607,19 @@ function showUserBasket(basket){
         plusBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 group-hover:text-white group-hover:stroke-2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>`
-        plusBtn.addEventListener('click' , changeProductCount)
+        plusBtn.addEventListener('click' , e => {
+            changeProductCount(e , targetProduct.id)
+        })
 
         imageWrapper.append(productImg)
         btnsWrapper.append(addProductToWishListBtn , removeProductBtn)
-        productDetailsWrapper.append(productName , btnsWrapper)
+        productDetailsWrapper.append(productName ,  colorsWrapper , btnsWrapper)
         numberWrapper.append(minusBtn , quantityElem , plusBtn)
-        priceWrapper.append(priceElem , colorsWrapper , numberWrapper)
+        priceWrapper.append(productSizes , priceElem , numberWrapper)
         divElem.append(imageWrapper , productDetailsWrapper , priceWrapper)
         basketFragment.append(divElem)
     })
+    calcTotalPrice()
     userBasketWrapper.append(basketFragment)
 }
 
@@ -386,6 +649,7 @@ async function getUsersAndProductsDetailsHandler(){
 
     if(userObj){
         if(userObj?.role === 'user'){
+            orders = userObj?.orders || []
             // let purchasesTable = document.querySelector('#PurchasesTable') 
             showUserInfos(userObj)
             showUserBasket(userObj.basket)
@@ -416,19 +680,17 @@ function changeContent(e){
 
 // events
 
-increaseCountBtns.forEach(increaseCountBtn => {
-    increaseCountBtn.addEventListener('click' , changeProductCount)
-})
-
-decreaseCountBtns.forEach(decreaseCountBtn => {
-    decreaseCountBtn.addEventListener('click' , changeProductCount)
+deliveryRadioBtns.forEach(deliveryRadioBtn => {
+    deliveryRadioBtn.addEventListener('click' , changeProductDelivery)
 })
 
 shortCutBtns.forEach(shortCutBtn => {
     shortCutBtn.addEventListener('click' , changeContent)
 })
 
+
 document.addEventListener('DOMContentLoaded' , getUsersAndProductsDetailsHandler)
+countrySelectBox.addEventListener('input' , changeCityInputValue)
 backToProgressBtn1.addEventListener('click' , changePurchaseProgress)
 backToProgressBtn.addEventListener('click' , changePurchaseProgress)
 payNowBtn.addEventListener('click' , changePurchaseProgress)
