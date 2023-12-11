@@ -26,11 +26,11 @@ let apiData = {
     postProductsApiData : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdneXZtemp2bmhpbndwdG9oY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE1MTEwNzksImV4cCI6MjAwNzA4NzA3OX0.6wZXdw6rDjT_BvSUX_KwCqTRQiC-vvrpeYrraNed7NY',
     
     // purchases
-    getPurchasesUrl : "https://ggyvmzjvnhinwptohcap.supabase.co/rest/v1/PurchasesTable?select=*",
-    getPurchasesApiKey : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdneXZtemp2bmhpbndwdG9oY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE1MTEwNzksImV4cCI6MjAwNzA4NzA3OX0.6wZXdw6rDjT_BvSUX_KwCqTRQiC-vvrpeYrraNed7NY",
+    getPurchasesUrl : "https://ggyvmzjvnhinwptohcap.supabase.co/rest/v1/purchases?select=*",
+    getPurchasesApiKey : "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdneXZtemp2bmhpbndwdG9oY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE1MTEwNzksImV4cCI6MjAwNzA4NzA3OX0.6wZXdw6rDjT_BvSUX_KwCqTRQiC-vvrpeYrraNed7NY",
     
-    postPurchasesUrl : 'https://ggyvmzjvnhinwptohcap.supabase.co/rest/v1/PurchasesTable',
-    postPurchasesApiData : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdneXZtemp2bmhpbndwdG9oY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE1MTEwNzksImV4cCI6MjAwNzA4NzA3OX0.6wZXdw6rDjT_BvSUX_KwCqTRQiC-vvrpeYrraNed7NY',
+    postPurchasesUrl : 'https://ggyvmzjvnhinwptohcap.supabase.co/rest/v1/purchases',
+    postPurchasesApiKey : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdneXZtemp2bmhpbndwdG9oY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE1MTEwNzksImV4cCI6MjAwNzA4NzA3OX0.6wZXdw6rDjT_BvSUX_KwCqTRQiC-vvrpeYrraNed7NY',
 
     authorization : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdneXZtemp2bmhpbndwdG9oY2FwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTE1MTEwNzksImV4cCI6MjAwNzA4NzA3OX0.6wZXdw6rDjT_BvSUX_KwCqTRQiC-vvrpeYrraNed7NY'
 }

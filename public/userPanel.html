@@ -9,7 +9,7 @@
 <body class="overflow-x-hidden bg-gray-200">
   
     <div class="relative flex flex-col-reverse gap-3 w-full h-secreen select-none lg:flex-row">
-        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 flex flex-col justify-between bg-white shadow lg:gap-10 lg:h-screen lg:relative lg:w-fit lg:px-5 lg:rounded-r-lg">
+        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 flex flex-col justify-between bg-white shadow lg:gap-10 lg:h-screen lg:relative lg:w-fit lg:px-5 lg:rounded-r-lg lg:w-[10%]">
             <h2 class="hidden w-full text-center lg:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>
             <ul class="flex items-center justify-around gap-3 lg:flex-col lg:h-full lg:gap-5 lg:justify-start lg:items-start">
                 <li data-target="Dashboard" title="Dashboard" id="DashboardMenu" class="active hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-2 md:order-1 cursor-pointer">
@@ -59,7 +59,7 @@
                   </svg>                  
             </span>
         </div>
-        <div id="content" class="relative w-full pt-10 pb-20 px-2 lg:overflow-y-auto h-screen lg:pt-9">
+        <div id="content" class="relative w-full pt-10 pb-20 px-2 lg:overflow-y-auto h-screen lg:pt-9 lg:w-[90%]">
             <section id="Dashboard" class="mt-5 pb-32 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 lg:pb-12">
                 <div id="user-info" class="flex flex-col gap-2 px-2 py-1 rounded-lg bg-white sahdow-md">
                     <div class="bg-gray-500 rounded-full p-1 mx-auto mt-2">
@@ -216,7 +216,7 @@
                         <h2 class="text-gray-800 font-bold px-2 text-2xl md:text-3xl">Shopping Cart</h2>
                         <div class="grid grid-cols-1 gap-5 px-2 md:grid-cols-2 lg:grid-cols-3">
                             <div class="userBasketWrapper p-4 border border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 lg:col-start-1 lg:col-end-3">
-                                <div id="basket-product" class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
+                                <!-- <div id="basket-product" class="py-5 first:py-0 last:pb-0 flex gap-2 items-center">
                                     <div class="w-[20%] h-20 overflow-hidden">
                                         <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
                                     </div>
@@ -367,7 +367,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="p-4 border w-full border-gray-400 rounded-md flex flex-col gap-4 divide-y-[1px] divide-gray-400 h-fit">
                                 <h2 class="text-gray-900 font-semibold text-xl">Summary</h2>
@@ -384,7 +384,7 @@
                                         <span>Total Price :</span>
                                         <span id="totalPrice1" class="text-gray-800 font-bold">$262</span>
                                     </span>
-                                    <button data-target="2" id="checkoutBtn" class="w-full bg-sky-500 hover:bg-sky-700 transition-colors text-white font-bold py-2 rounded-lg">Check Out</button>
+                                    <button data-target="2" id="checkoutBtn" class="w-full bg-sky-500 hover:bg-sky-700 transition-colors text-white font-bold py-2 rounded-lg">Update Basket And Check Out</button>
                                 </div>
                             </div>
                         </div>
@@ -582,8 +582,8 @@
                         <div class="p-4 border border-gray-400 rounded-md flex flex-col gap-4 h-fit">
                             <div class="bg-sky-700 text-white text-center font-bold text-lg rounded-md py-5 px-10">Please check all the information so that you don't face problems when receiving the product later</div>
                             <div class="flex flex-col gap-2 py-4 md:flex-row md:gap-4">
-                                <div id="productsWrapper3" class="flex flex-col gap-2 md:gap-5 md:basis-2/3">
-                                    <div class="flex items-start justify-between gap-2">
+                                <div id="productsWrapper3" class="flex flex-col gap-2 md:gap-5 md:basis-2/3 md:max-w-[66%]">
+                                    <!-- <div class="flex items-start justify-between gap-2">
                                         <div class="flex gap-2 w-2/3">
                                             <div class="w-[30%] h-20 overflow-hidden md:w-[25%]">
                                                 <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover" alt="Product Image">
@@ -665,10 +665,10 @@
                                                 <span id="quantity">1</span>
                                             </span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
 
-                                <div class="md:ml-auto flex flex-col gap-2 py-1 md:basis-1/3 md:border-l md:border-gray-400 md:px-4">
+                                <div class="md:ml-auto flex flex-col gap-2 py-1 md:basis-1/3 md:max-w-[33%] md:border-l md:border-gray-400 md:px-4">
 
                                     <div class="flex flex-col gap-2 pb-4 border-b border-gray-500">
                                         <span class="text-gray-600 font-semibold flex items-center justify-between">
@@ -695,7 +695,7 @@
                                             <span>Address :</span>
                                             <span id="address-receipt" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Labore, quisquam!</span>
                                         </span>    
-                                        <span class="text-gray-600 font-semibold flex flex-col items-start justify-between">
+                                        <span class="text-gray-600 font-semibold flex flex-col items-start justify-between max-w-min">
                                             <span>Description :</span>
                                             <span id="desc-receipt" class="text-gray-700 font-bold text-justify">Lorem ipsum dolor sit amet.</span>
                                         </span>    
@@ -720,7 +720,7 @@
                                     
                                     <div class="mt-5 grid grid-cols-1 gap-2 xs:grid-cols-2 md:grid-cols-1">
                                         <button data-target="2" id="backToProgress2" class="border-2 border-sky-500 p-2 rounded-md text-sky-600  font-bold hover:bg-sky-200 transition-colors">Back</button>
-                                        <button data-target="final" id="payNowBtn" class="bg-sky-500 p-2 rounded-md text-white font-bold hover:bg-sky-600 transition-colors">Pay Now</button>
+                                        <button id="payOrderBtn" class="bg-sky-500 p-2 rounded-md text-white font-bold hover:bg-sky-600 transition-colors">Pay Now</button>
                                     </div>
                                 </div>
                             </div>
@@ -728,9 +728,9 @@
                     </div>
                 </div>
                 
-                <div class="mt-20 hidden flex-col items-center gap-5">
+                <div id="basketEmptyMessage" class="mt-20 hidden flex-col items-center gap-5">
                     <p class="text-3xl text-center text-blue-700 font-bold">Basket Is Empty</p>
-                    <a href="./products.html" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Explore Products</a>
+                    <a href="./products.html?t=all" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Explore Products</a>
                 </div>
 
             </section>
