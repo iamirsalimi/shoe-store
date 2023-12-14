@@ -31,6 +31,8 @@ let countryObj = {
     Britain : ['London' , 'Manchester'],
 }
 
+let month = ['Jan' , 'Feb' , 'Mar' , 'Apr' , 'May' , 'Jun' , 'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec']
+
 let progressTarget = 1
 let userObj = null
 let productsObj = null
@@ -60,10 +62,16 @@ class Order {
         this.phoneNumber = phoneNumber
         this.description = description
         this.delivery = delivery
+        this.date = getDate()
         this.subtotal = subtotal
         this.tax = tax
         this.finalPrice = finalPrice
     }
+}
+
+function getDate(){
+    let now  = new Date()
+    return `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`
 }
 
 async function getOrdersHandler(){
@@ -375,6 +383,120 @@ function changePurchaseProgress(e){
     currentProgress = progressTarget
 }
 
+function showOrderDetailsHandler(orderObj){
+    window.scrollTo(0,0)
+    content.scrollTo(0,0)
+
+    let orderDetailWrapper = document.querySelector('#ordersDetailWrapper')
+    
+    orderDetailWrapper.nextElementSibling.classList.add('hidden')
+    orderDetailWrapper.classList.remove('hidden')
+    orderDetailWrapper.classList.add('flex')
+
+    let orderProductsWrapper = orderDetailWrapper.querySelector('.orderProductsWrapper')
+    let orderIdDetail = orderDetailWrapper.querySelector('.orderIdDetail')
+    let orderCustomerFullNameDetail = orderDetailWrapper.querySelector('.orderCustomerFullNameDetail')
+    let numberOfProductsDetail = orderDetailWrapper.querySelector('.numberOfProductsDetail')
+    let orderDateDetail = orderDetailWrapper.querySelector('.orderDateDetail')
+    let orderPhoneNumberDetail = orderDetailWrapper.querySelector('.orderPhoneNumberDetail')
+    let orderCountryAndCityDetail = orderDetailWrapper.querySelector('.orderCountryAndCityDetail')
+    let orderPostalCodeDetail = orderDetailWrapper.querySelector('.orderPostalCodeDetail')
+    let orderDeliveryDetail = orderDetailWrapper.querySelector('.orderDeliveryDetail')
+    let orderAddressDetail = orderDetailWrapper.querySelector('.orderAddressDetail')
+    let orderDescDetail = orderDetailWrapper.querySelector('.orderDescDetail')
+    let orderSubtotalPriceDetail = orderDetailWrapper.querySelector('.orderSubtotalPriceDetail')
+    let orderTaxDetail = orderDetailWrapper.querySelector('.orderTaxDetail')
+    let totalPriceOrderDetail = orderDetailWrapper.querySelector('.totalPriceOrderDetail')
+
+    let orderedProducts = orderObj.products
+    
+    orderProductsWrapper.innerHTML = ''
+    orderedProducts.forEach(product => {
+        orderProductsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-1">
+        <div class="flex gap-2 w-2/3">
+            <div class="relative w-[30%] h-20 overflow-hidden rounded-md md:w-[25%] md:h-28">
+                <img src="./images/${product.productImagePath}" class="object-cover object-center" alt="Product Image">
+                <span class="${product.productDiscount? '' : 'hidden'} absolute top-0 left-0 bg-blue-500 text-white font-bold rounded-br-md py-0.5 px-1 text-xs sm:text-sm">-%<span>${product.productDiscount}</span> Off</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-800 font-bold text-sm md:text-base">${product.productName}</h3>
+                <div class="flex items-center gap-1 text-gray-500 font-semibold text-sm md:text-base">
+                    <h3>Size : </h3>
+                    <span>${product.size}</span>
+                </div>
+                
+                <div class="flex items-center gap-1 text-gray-500 font-semibold text-sm md:text-base">Color :
+                    <span class="inline-block w-2 h-2 rounded-full bg-${['black' , 'white'].includes(product.color) ? product.color : `${product.color}-500`} ${product.color == 'white' ? 'border border-gray-400' : ''}"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-end gap-1">
+            <h3 class="text-gray-800 font-semibold tracking-wider text-base md:text-lg"><span class="${product.productDiscount ? '' : 'hidden'} line-through decoration-gray-400 text-gray-400">$${product.productPrice}</span> $${product.finalPrice}</h3>
+            <span class="flex items-center gap-1 text-gray-500 font-semibold">Quantity : 
+                <span id="quantity">${product.quantity}</span>
+            </span>
+        </div>
+        
+    </div>`)
+    })
+
+    orderIdDetail.firstElementChild.innerHTML = `${orderObj.orderId}`
+    numberOfProductsDetail.innerHTML = `${orderObj.products.length}`
+    orderCustomerFullNameDetail.innerHTML = orderObj.fullName
+    orderDateDetail.innerHTML = `${orderObj.date}`
+    orderPhoneNumberDetail.innerHTML = `${orderObj.phoneNumber}`
+    orderCountryAndCityDetail.firstElementChild.innerHTML = `${orderObj.country}`
+    orderCountryAndCityDetail.lastElementChild.innerHTML = `${orderObj.city}`
+    orderPostalCodeDetail.innerHTML = `${orderObj.postalCode}`
+    orderDeliveryDetail.innerHTML = `${orderObj.delivery == 7 ? 'Standard - ' : 'Fast - '}${orderObj.delivery.toFixed(2)}`
+    orderAddressDetail.innerHTML = `${orderObj.address}`
+    orderDescDetail.innerHTML = `${orderObj.description}`
+    orderSubtotalPriceDetail.innerHTML = `$${orderObj.subtotal.toFixed(1)}`
+    orderTaxDetail.innerHTML = `$${orderObj.tax.toFixed(1)}`
+    totalPriceOrderDetail.innerHTML = `$${orderObj.finalPrice.toFixed(1)}`
+}
+
+
+function showUserOrdersHandler(orders){
+    let ordersTable = document.querySelector('#ordersTable')
+    let userTableMessage = ordersTable.parentNode.nextElementSibling 
+    if(!orders.length){
+        userTableMessage.classList.remove('hidden')
+        userTableMessage.classList.add('inline-block')
+    } else {
+        userTableMessage.classList.remove('inline-block')
+        userTableMessage.classList.add('hidden')
+        
+        ordersTable.innerHTML = ''
+        orders.forEach(order => {
+            ordersTable.insertAdjacentHTML('beforeend' , `<tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+                <td class="OrderId px-[2px] text-center text-gray-500">#${order.orderId}</td>
+                <td class="text-center text-gray-800">${order.products.length}</td>
+                <td class="px-[2px] text-center text-gray-800">${order.fullName}</td>
+                <td class="CustomerId px-[2px] text-center text-gray-800">$${order.finalPrice}</td>
+                <td class="px-[2px] text-center text-gray-800">${order.date}</td>
+                <td class="text-center">
+                    <button data-target="${order.orderId}" class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
+                </td>
+            </tr>`)
+        })
+
+        let viewOrderBtns = document.querySelectorAll('.showOrderDetailsBtn')
+        console.log(viewOrderBtns)
+        viewOrderBtns.forEach(viewOrderBtn => {
+            viewOrderBtn.addEventListener('click', e => {
+                let targetOrderId = e.target.dataset?.target
+                let orderObj = orders.find(order => order.orderId == targetOrderId)
+                if(orderObj){
+                    showOrderDetailsHandler(orderObj)
+                }
+            })
+        })
+
+    }
+}
+
 async function addOrderToUserOrders(orders){
     await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
         method : 'PATCH',
@@ -398,7 +520,7 @@ async function addOrderToUserOrders(orders){
             
             Swal.fire({
                 icon: "success",
-                title: `Your Basket Was Updated`,
+                title: `Order Was Added To Orders`,
                 showConfirmButton: false,
                 timer: 2000
             })
@@ -469,6 +591,7 @@ function payOrderHandler(){
     newOrderObject.customerId = userObj.id
     newOrderObject.customerUsername  = userObj.userName
     addOrderToPurchases(newOrderObject)
+    showUserOrdersHandler(newOrder)
 }
 
 // progress 1 shopping cart
@@ -567,6 +690,11 @@ function changeProductDelivery(e){
     calcTotalPrice(true)
 }
 
+function getShortDate(date){
+    let orderMonth = parseInt(date.split('/')[1])
+    return `${date.split('/')[0]} ${month[orderMonth - 1]}`
+}
+
 function showUserInfos(userObj){
     let userInfo = document.getElementById('user-info')
     let purchasesShortCutTable = document.querySelector('.purchases-shortcut-table')
@@ -590,6 +718,15 @@ function showUserInfos(userObj){
     } else {
         purchasesShortCutTable.nextElementSibling.classList.remove('flex')
         purchasesShortCutTable.nextElementSibling.classList.add('hidden')
+
+        orders.forEach(order => {
+            purchasesShortCutTable.insertAdjacentHTML('beforeend' , `<div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">${order.orderId}</span>
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">${order.products.length}</span>
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">$${order.finalPrice}</span>
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">${getShortDate(order.date)}</span>
+        </div>`)
+        })
     }
 
     if(!userBasket.length){
@@ -951,6 +1088,7 @@ async function getUsersAndProductsDetailsHandler(){
             // let purchasesTable = document.querySelector('#PurchasesTable') 
             showUserInfos(userObj)
             showUserBasket()
+            showUserOrdersHandler(orders)
             showWishListProducts(userObj.wishlist)
         } else {
             location.href = 'http://127.0.0.1:5500/public/adminPanel.html'

@@ -143,10 +143,10 @@
                     </div>
                     <div class="h-full flex flex-col gap-2 py-1 min-h-[15rem]">
                         <div class="flex items-center justify-between rounded-md px-1">
-                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">id</h3>
-                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">productName</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">orderId</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Products</h3>
                             <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Price</h3>
-                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Date</h3>
+                            <h3 class="text-gray-700 font-bold text-sm xs:text-base lg:text-lg">Order Date</h3>
                         </div>
                         <div class="purchases-shortcut-table flex flex-col gap-1 lg:mt-2">
                             <!-- <div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1  rounded lg:py-2 lg:px-4">
@@ -736,72 +736,136 @@
             </section>
             
             <section id="Purchases" class="notActive pb-32 mt-5 flex flex-col gap-5 md:gap-3 lg:pb-12">
-                <div class="w-full flex flex-col justify-between gap-4 md:flex-row">
-                    <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Purchases</h2>
-                    <div class="w-full relative md:w-1/2 lg:w-1/3">
-                        <input id="searchInput" type="text" class="w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Oder Id">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-6 h-6 stroke-gray-500">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                        </svg>
+                <div id="ordersDetailWrapper" class="hidden flex-col items-center gap-10 bg-white rounded-lg p-1 md:flex-row md:items-start md:divide-x-2 md:divide-x-gray-200 md:gap-5">
+                    <div class="orderProductsWrapper w-full max-h-[35rem] flex flex-col gap-3">
+                        <!-- <div class="flex items-start justify-between gap-2">
+                            <div class="flex gap-2 w-2/3">
+                                <div class="w-[30%] h-20 overflow-hidden md:w-[25%] rounded-md">
+                                    <img src="./images/1.jpg" class="object-cover object-center" alt="Product Image">
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <h3 class="text-gray-800 font-bold">Dunk Low 1</h3>
+                                    <p class="text-gray-500 font-semibold line-clamp-1">Men Training Shoe</p>
+                                    
+                                    <div class="flex items-center gap-1 text-gray-500 font-semibold">Color :
+                                        <span class="inline-block w-3 h-3 rounded-full bg-red-500"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-col items-end gap-1">
+                                <h3 class="text-gray-800 font-semibold text-lg tracking-wider">$120</h3>
+                                <div id="sizes" class="flex items-center gap-2 text-gray-500 font-semibold sm:text-base">
+                                    <h3>Size : </h3>
+                                    <span>41</span>
+                                </div>
+                                <span class="flex items-center gap-1 text-gray-500 font-semibold">Quantity : 
+                                    <span id="quantity">2</span>
+                                </span>
+                            </div>
+                            
+                        </div> -->
+                        
                     </div>
+                    <div class="w-full h-full flex flex-col p-2 gap-3">
+                        <h2 class="text-gray-900 font-bold text-xl md:text-2xl">Order Details</h2>
+                        <ul class="!h-full w-full flex flex-col justify-around gap-2 py-1 text-gray-700 divide-y divide-gray-100">
+                            <li class="flex items-center justify-between font-bold">
+                                <span>order Id :</span>
+                                <span class="orderIdDetail text-gray-400">#<span class="text-sky-500">1234</span></span>
+                            </li>
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Number Of Orders :</span>
+                                <span class="numberOfProductsDetail text-gray-500">2</span>
+                            </li>
+
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Purchase Date :</span>
+                                <span class="orderDateDetail text-gray-500">05/07/2023</span>
+                            </li>
+
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Customer FullName :</span>
+                                <span class="orderCustomerFullNameDetail text-gray-500">Alex Green</span>
+                            </li>
+
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Phone Number :</span>
+                                <span class="orderPhoneNumberDetail text-gray-500">+9111111111</span>
+                            </li>
+
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Country / City :</span>
+                                <div class="orderCountryAndCityDetail text-gray-500">
+                                    <span id="countryDetail">Germany</span> / <span class="cityDetail">Frankfort</span>
+                                </div>
+                            </li>
+
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Postal Code :</span>
+                                <span class="orderPostalCodeDetail text-gray-500">235</span>
+                            </li>
+                            
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Delivery Type :</span>
+                                <span class="orderDeliveryDetail text-sky-500">Fast - $11.00</span>
+                            </li>
+
+                            <li class="flex flex-col gap-1 font-bold">
+                                <span>Address :</span>
+                                <span class="orderAddressDetail text-gray-500">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit, pariatur!</span>
+                            </li>
+
+                            <li class="flex flex-col gap-1 font-bold">
+                                <span>Description :</span>
+                                <span class="orderDescDetail text-gray-500">Lorem ipsum dolor sit amet.</span>
+                            </li>
+                            
+                            <li class="flex items-center justify-between font-bold">
+                                <span>subtotal Price :</span>
+                                <span class="orderSubtotalPriceDetail text-gray-500">$100</span>
+                            </li>
+
+                            <li class="flex items-center justify-between font-bold">
+                                <span>Tax (9%) :</span>
+                                <span class="orderTaxDetail text-gray-500">$100</span>
+                            </li>
+
+                            <li class="!border-gray-200 pt-2 flex items-center justify-between font-bold text-lg">
+                                <span>Total Price :</span>
+                                <span class="totalPriceOrderDetail text-gray-700">$150</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <h2 id="OrderDetails" class="hidden text-sky-600 font-bold text-3xl py-2">Order Details</h2>
                 </div>
-                <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-x-auto">
-                    <table class="w-full space-y-2 xs:px-2">
-                        <thead>
-                            <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
-                                <th>Id</th>
-                                <th>Product Name</th>
-                                <th>Order Id</th>
-                                <th>Quantity</th>
-                                <th>Size and Colors</th>
-                                <th>Price</th>
-                                <th>order date</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base">
-                            <tr class="even:bg-white odd:bg-gray-100">
-                                <td class="px-[2px] text-gray-500 text-center">1</td>
-                                <td class="flex flex-col items-center gap-[2px] px-[2px]">
-                                    <span class="text-gray-800">Nike Dunk 5</span>
-                                    <span class="text-gray-500 line-clamp-1">Training Shoes</span>
-                                </td>
-                                <td class="px-[2px] text-center text-gray-500">#1234</td>
-                                <td class="px-[2px] text-center">1</td>
-                                <td class="flex items-center justify-center gap-[2px] px-[2px]">
-                                    <span class="flex flex-col items-center justify-center flex-wrap gap-[2px] text-gray-800">
-                                        <span>42</span>    
-                                        <span class="inline-block w-2 h-2 rounded-full bg-red-500"></span>
-                                    </span>
-                                </td>
-                                <td class="px-[2px] text-center">$120</td>
-                                <td class="px-[2px] text-center">11/12/2023</td>
-                            </tr>
-                            <tr class="even:bg-white odd:bg-gray-100">
-                                <td class="px-[2px] text-gray-500 text-center">2</td>
-                                <td class="flex flex-col items-center gap-[2px] px-[2px]">
-                                    <span class="text-gray-800">Nike Dunk 1</span>
-                                    <span class="text-gray-500 line-clamp-1">Mens Training Shoes</span>
-                                </td>
-                                <td class="px-[2px] text-center text-gray-500">#1345</td>
-                                <td class="px-[2px] text-center">2</td>
-                                <td class="flex items-center justify-center gap-[2px] px-[2px]">
-                                    <span class="flex flex-col items-center justify-center flex-wrap gap-[2px] text-gray-800">
-                                        <span>41</span>
-                                        <span class="inline-block w-2 h-2 rounded-full bg-sky-500"></span>
-                                    </span>
-                                    <span class="flex flex-col items-center justify-center flex-wrap gap-[2px] text-gray-800">
-                                        <span>42</span>    
-                                        <span class="inline-block w-2 h-2 rounded-full bg-green-500"></span>
-                                    </span>
-                                </td>
-                                <td class="px-[2px] text-center">$230</td>
-                                <td class="px-[2px] text-center">07/05/2023</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div class="h-full hidden flex-col items-center justify-center gap-3">
-                        <h2 class="text-xl text-blue-700 font-bold text-center xs:text-2xl">You have not made a purchase yet!</h2>
-                        <a href="./products.html?t=men" class="bg-blue-700 hover:bg-blue-800 transtition-colors rounded-md py-2 px-4 text-white font-bold">Purchase</a>
+                <div id="orderInfoMessage" class="w-full bg-white text-sky-500 font-bold rounded py-5 text-center text-2xl">Order Info</div>
+
+                <div class="flex flex-col gap-5 md:gap-3 md:mt-10">
+                    <div class="w-full flex flex-col justify-between gap-4 lg:flex-row">
+                        <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Orders</h2>
+                        <div class="w-full relative lg:w-1/2">
+                            <input data-searchTarget="CustomerId" type="text" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Product Name">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-6 h-6 stroke-gray-500">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="w-full min-h-[75vh] flex flex-col items-center gap-28 bg-white rounded-md py-1 overflow-x-auto">
+                        <table class="w-full space-y-2 xs:px-2">
+                            <thead>
+                                <tr class="text-gray-400 font-semibold text-xs xs:text-sm sm:text-base">
+                                    <th>Order Id</th>
+                                    <th>Number of products</th>
+                                    <th>Customer name</th>
+                                    <th>Price</th>
+                                    <th>Order date</th>
+                                    <th>Show Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ordersTable" class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base"></tbody>
+                        </table>
+                        <h2 class="h-full hidden text-xl text-blue-700 font-bold text-center xs:text-2xl">No purchases have been registered yet!</h2>
                     </div>
                 </div>
             </section>

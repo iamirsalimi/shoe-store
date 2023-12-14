@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    scroll-behavior:smooth;
+}
+
 #menu ul li::after{
     @apply w-0 origin-center transition-all;
 }
@@ -107,4 +111,8 @@
     display: block;
     line-height: 0.5rem;
     color: transparent;
+}
+
+#content .searchInput:focus ~ svg{
+    @apply stroke-gray-800;
 }

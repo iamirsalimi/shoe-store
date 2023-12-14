@@ -951,6 +951,22 @@ video {
   height: 100vh;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
+.h-\[\] {
+  height: ;
+}
+
+.h-\[6\.5rem\] {
+  height: 6.5rem;
+}
+
+.h-\[7rem\] {
+  height: 7rem;
+}
+
 .max-h-12 {
   max-height: 3rem;
 }
@@ -1448,6 +1464,10 @@ video {
   border-bottom-right-radius: 0.375rem;
 }
 
+.rounded-br {
+  border-bottom-right-radius: 0.25rem;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1636,11 +1656,6 @@ video {
 .bg-red-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.bg-red-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(185 28 28 / var(--tw-bg-opacity));
 }
 
 .bg-secondary {
@@ -2304,6 +2319,10 @@ video {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
+*{
+  scroll-behavior:smooth;
+}
+
 #menu ul li::after {
   width: 0px;
   transform-origin: center;
@@ -2452,6 +2471,10 @@ video {
   display: block;
   line-height: 0.5rem;
   color: transparent;
+}
+
+#content .searchInput:focus ~ svg {
+  stroke: #1f2937;
 }
 
 .marker\:text-lg *::marker {
@@ -2914,8 +2937,8 @@ video {
   fill: #fff;
 }
 
-.group:hover .group-hover\:stroke-gray-500 {
-  stroke: #6b7280;
+.group:hover .group-hover\:stroke-gray-700 {
+  stroke: #374151;
 }
 
 .group:hover .group-hover\:stroke-red-600 {
@@ -2924,10 +2947,6 @@ video {
 
 .group:hover .group-hover\:stroke-white {
   stroke: #fff;
-}
-
-.group:hover .group-hover\:stroke-gray-700 {
-  stroke: #374151;
 }
 
 .group:hover .group-hover\:stroke-0 {
@@ -3077,6 +3096,11 @@ video {
     font-size: 1rem;
     line-height: 1.5rem;
   }
+
+  .sm\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -3135,6 +3159,10 @@ video {
 
   .md\:h-7 {
     height: 1.75rem;
+  }
+
+  .md\:h-28 {
+    height: 7rem;
   }
 
   .md\:w-1\/2 {
@@ -3270,6 +3298,12 @@ video {
     gap: 1.25rem;
   }
 
+  .md\:divide-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-divide-x-reverse: 0;
+    border-right-width: calc(2px * var(--tw-divide-x-reverse));
+    border-left-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
+  }
+
   .md\:rounded-lg {
     border-radius: 0.5rem;
   }
@@ -3348,6 +3382,11 @@ video {
     text-align: justify;
   }
 
+  .md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -3366,6 +3405,11 @@ video {
   .md\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
   }
 }
 
