@@ -11,6 +11,7 @@ let searchInputs = document.querySelectorAll('.searchInput')
 let shortCutBtns = document.querySelectorAll('.shortcut-btn')
 let logoutModal = document.getElementById('logoutModal')
 let logoutBtn = document.querySelector('#logoutModal #logoutBtn')
+let loader = document.querySelector('.loader-wrapper')
 
 
 // purchases section elems
@@ -30,6 +31,8 @@ let updateUserBtn = document.getElementById('updateUserBtn')
 let removeUserBtn = document.getElementById('removeUserBtn')
 let userRoleSelect = document.getElementById('userRoleSelect')
 
+let month = ['Jan' , 'Feb' , 'Mar' , 'Apr' , 'May' , 'Jun' , 'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec']
+
 let targetElem = null
 let currentTab = 'Dashboard'
 let searchTarget = 'Customer Id'
@@ -40,6 +43,7 @@ let usersTableFragment = document.createDocumentFragment()
 let targetProductObj = null
 let targetUserObj = null
 let deleteModalTarget = null
+let orders = null
 
 function toggleMenu(){
     menu.classList.toggle('unshow')
@@ -301,10 +305,9 @@ function showOrderDetail(targetDetailsWrapper , targetObj){
         showProductDetailsHandler(targetObj)
     } else if(targetDetailsWrapper == 'user'){
         showUserDetailsHandler(targetObj)
-    } 
-    // else if(targetDetailsWrapper == 'purchases'){
-    //     showPurchasesDetailsHandler(targetObj)
-    // }
+    } else if(targetDetailsWrapper == 'purchases'){
+        showOrderDetailsHandler(targetObj)
+    }
 }
 
 
@@ -725,7 +728,7 @@ function createUsersRowHandler(users){
         userNameSpan.innerHTML = user.userName
         
         let userRoleSpan = document.createElement('span')
-        userRoleSpan.className = 'text-gray-800 rounded font-semibold lg:text-lg'
+        userRoleSpan.className = `rounded font-semibold ${user.role == 'admin' ? 'text-blue-700' : 'text-gray-800'} lg:text-lg`
         userRoleSpan.innerHTML = user.role
 
         divElem.append(userIdSpan , userFullNameSpan , userNameSpan , userRoleSpan)
@@ -752,7 +755,7 @@ function createUsersRowHandler(users){
         userEmailTdElem.innerHTML = user.email
         
         let userRoleTdElem = document.createElement('td')
-        userRoleTdElem.className = 'px-[2px] text-center text-gray-800'
+        userRoleTdElem.className = `px-[2px] text-center ${user.role == 'admin' ? 'text-blue-700' : 'text-gray-800'}`
         userRoleTdElem.innerHTML = user.role
 
         let viewUserDetailsTdWrapper = document.createElement('td')
@@ -802,7 +805,7 @@ function createProductsRowHandler(products){
         productIdTdElem.innerHTML = product.id
 
         let productNameTdElem = document.createElement('td')
-        productNameTdElem.className = 'text-center text-gray-800'
+        productNameTdElem.className = 'ProductName text-center text-gray-800'
         productNameTdElem.innerHTML = product.productName
         
         let orderNumbersTdElem = document.createElement('td')
@@ -908,6 +911,156 @@ function showUserInfos(userObj){
     userName.innerHTML = userObj.userName
 }
 
+
+function getShortDate(date){
+    let orderMonth = parseInt(date.split('/')[1])
+    return `${date.split('/')[0]} ${month[orderMonth - 1]}`
+}
+
+function showOrderDetailsHandler(orderObj){
+    let orderDetailWrapper = document.querySelector('#ordersDetailWrapper')
+    
+
+    orderDetailWrapper.nextElementSibling.classList.add('hidden')
+    orderDetailWrapper.classList.remove('hidden')
+    orderDetailWrapper.classList.add('flex')
+
+    let orderProductsWrapper = orderDetailWrapper.querySelector('.orderProductsWrapper')
+    let orderIdDetail = orderDetailWrapper.querySelector('.orderIdDetail')
+    let orderCustomerIdDetail = orderDetailWrapper.querySelector('.orderCustomerIdDetail')
+    let orderCustomerUsernameDetail = orderDetailWrapper.querySelector('.orderCustomerUserNameDetail')
+    let orderCustomerFullNameDetail = orderDetailWrapper.querySelector('.orderCustomerFullNameDetail')
+    let numberOfProductsDetail = orderDetailWrapper.querySelector('.numberOfProductsDetail')
+    let orderDateDetail = orderDetailWrapper.querySelector('.orderDateDetail')
+    let orderPhoneNumberDetail = orderDetailWrapper.querySelector('.orderPhoneNumberDetail')
+    let orderCountryAndCityDetail = orderDetailWrapper.querySelector('.orderCountryAndCityDetail')
+    let orderPostalCodeDetail = orderDetailWrapper.querySelector('.orderPostalCodeDetail')
+    let orderDeliveryDetail = orderDetailWrapper.querySelector('.orderDeliveryDetail')
+    let orderAddressDetail = orderDetailWrapper.querySelector('.orderAddressDetail')
+    let orderDescDetail = orderDetailWrapper.querySelector('.orderDescDetail')
+    let orderSubtotalPriceDetail = orderDetailWrapper.querySelector('.orderSubtotalPriceDetail')
+    let orderTaxDetail = orderDetailWrapper.querySelector('.orderTaxDetail')
+    let totalPriceOrderDetail = orderDetailWrapper.querySelector('.totalPriceOrderDetail')
+
+    let orderedProducts = orderObj.products
+    
+    orderProductsWrapper.innerHTML = ''
+    orderedProducts.forEach(product => {
+        orderProductsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-1">
+        <div class="flex gap-2 w-2/3">
+            <div class="relative w-[30%] h-20 overflow-hidden rounded-md md:w-[25%] md:h-28">
+                <img src="./images/${product.productImagePath}" class="object-cover object-center" alt="Product Image">
+                <span class="${product.productDiscount? '' : 'hidden'} absolute top-0 left-0 bg-blue-500 text-white font-bold rounded-br-md py-0.5 px-1 text-xs sm:text-sm">-%<span>${product.productDiscount}</span> Off</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-800 font-bold text-sm md:text-base">${product.productName}</h3>
+                <div class="flex items-center gap-1 text-gray-500 font-semibold text-sm md:text-base">
+                    <h3>Size : </h3>
+                    <span>${product.size}</span>
+                </div>
+                
+                <div class="flex items-center gap-1 text-gray-500 font-semibold text-sm md:text-base">Color :
+                    <span class="inline-block w-2 h-2 rounded-full bg-${['black' , 'white'].includes(product.color) ? product.color : `${product.color}-500`} ${product.color == 'white' ? 'border border-gray-400' : ''}"></span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex flex-col items-end gap-1">
+            <h3 class="text-gray-800 font-semibold tracking-wider text-base md:text-lg"><span class="${product.productDiscount ? '' : 'hidden'} line-through decoration-gray-400 text-gray-400">$${product.productPrice}</span> $${product.finalPrice}</h3>
+            <span class="flex items-center gap-1 text-gray-500 font-semibold">Quantity : 
+                <span id="quantity">${product.quantity}</span>
+            </span>
+        </div>
+        
+    </div>`)
+    })
+
+    orderIdDetail.firstElementChild.innerHTML = `${orderObj.orderId}`
+    numberOfProductsDetail.innerHTML = `${orderObj.products.length}`
+    orderCustomerIdDetail.innerHTML = orderObj.customerId
+    orderCustomerUsernameDetail.innerHTML = orderObj.customerUsername
+    orderCustomerFullNameDetail.innerHTML = orderObj.fullName
+    orderDateDetail.innerHTML = `${orderObj.date}`
+    orderPhoneNumberDetail.innerHTML = `${orderObj.phoneNumber}`
+    orderCountryAndCityDetail.firstElementChild.innerHTML = `${orderObj.country}`
+    orderCountryAndCityDetail.lastElementChild.innerHTML = `${orderObj.city}`
+    orderPostalCodeDetail.innerHTML = `${orderObj.postalCode}`
+    orderDeliveryDetail.innerHTML = `${orderObj.delivery == 7 ? 'Standard - ' : 'Fast - '}${orderObj.delivery.toFixed(2)}`
+    orderAddressDetail.innerHTML = `${orderObj.address}`
+    orderDescDetail.innerHTML = `${orderObj.description}`
+    orderSubtotalPriceDetail.innerHTML = `$${orderObj.subtotal.toFixed(1)}`
+    orderTaxDetail.innerHTML = `$${orderObj.tax.toFixed(1)}`
+    totalPriceOrderDetail.innerHTML = `$${orderObj.finalPrice.toFixed(1)}`
+}
+
+function createPurchasesRowHandler(orders){
+    let purchasesTable = document.querySelector('#PurchasesTable')
+    let purchasesShortCutTable = document.querySelector('#purchasesTableShortCut #purchasesShortCutWrapper')
+
+    let filteredOrders = orders.length > 5 ? orders.slice(0,5) : [...orders]
+
+    if(!filteredOrders.length){
+        purchasesShortCutTable.lastElementChild.classList.remove('hidden')
+    } else {
+        purchasesShortCutTable.lastElementChild.classList.add('hidden')
+
+        purchasesShortCutTable.innerHTML = ''
+        filteredOrders.forEach(order => {
+            purchasesShortCutTable.insertAdjacentHTML('beforeend' , `<div class="flex items-center justify-between  bg-gray-100 even:bg-white px-1 py-0.5 rounded lg:py-1 lg:px-2">
+            <span class="text-gray-500 rounded font-semibold lg:text-lg">#<span class="text-sky-400">${order.orderId}</span></span>
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">${order.products.length}</span>
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">$${Math.round(parseInt(order.finalPrice))}</span>
+            <span class="text-gray-800 rounded font-semibold lg:text-lg">${getShortDate(order.date)}</span>
+        </div>`)
+        })
+    }
+
+    if(!orders.length){
+        purchasesTable.parentNode.nextElementSibling.classList.remove('hidden')
+    } else {
+        purchasesTable.innerHTML = ''
+        orders.forEach(order => {
+            purchasesTable.insertAdjacentHTML('beforeend' , `<tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
+            <td class="OrderId px-[2px] text-center text-gray-500">#${order.orderId}</td>
+            <td class="text-center text-gray-800">${order.products.length}</td>
+            <td class="CustomerId px-[2px] text-center text-gray-800">${order.customerId}</td>
+            <td class="px-[2px] text-center text-gray-800">$${order.finalPrice}</td>
+            <td class="px-[2px] text-center text-gray-800">${order.date}</td>
+            <td class="text-center">
+                <button data-target="${order.orderId}" class="showOrderDetailsBtn w-full py-1 px-2 rounded-md  text-sky-500 hover:bg-sky-500 hover:text-white transition-colors font-bold text-center cursor-pointer">View</button>
+            </td>
+        </tr>`)
+        })
+    
+        let viewOrderBtns = document.querySelectorAll('.showOrderDetailsBtn')
+        viewOrderBtns.forEach(viewOrderBtn => {
+            viewOrderBtn.addEventListener('click', e => {
+                let targetOrderId = e.target.dataset?.target
+                let orderObj = orders.find(order => order.orderId == targetOrderId)
+                if(orderObj){
+                    showOrderDetail('purchases' , orderObj)
+                }
+            })
+        })
+    }
+}
+
+async function getPurchasesHandler(){
+    await fetch(apiData.getPurchasesUrl , {
+        headers : {
+            'apikey' : apiData.getPurchasesApiKey,
+            'authorization' : apiData.authorization
+        }
+    })
+    .then(res => res.json())
+    .then(ordersArray => {
+        orders = [...ordersArray]
+        orders.reverse()
+        createPurchasesRowHandler(orders)
+    })
+    .catch(err => console.log(err))
+}
+
 async function getInfosHandler(){
     clearInputs()
 
@@ -916,11 +1069,11 @@ async function getInfosHandler(){
     // if user wasn't admin we must redirect him/her to home page
     
     if(userObj?.role === 'admin'){
-        // let purchasesTable = document.querySelector('#PurchasesTable')  
         showUserInfos(userObj)
         try{
             await getUsersHandler()
             await getProductsHandler()
+            await getPurchasesHandler()
 
         } catch(err){
             Swal.fire({
@@ -930,6 +1083,12 @@ async function getInfosHandler(){
                 timer: 5000
             });
         }
+
+        loader.classList.add('fadeOut')
+        setTimeout(() => {
+            loader.classList.remove('flex')
+            loader.classList.add('hidden')
+        },1000)
     } else {
         location.href = 'http://127.0.0.1:5500/public/index.html'
     }
