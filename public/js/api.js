@@ -94,11 +94,14 @@ async function getUsersAndProductsHandler(){
                 userBasketBtn.lastElementChild.innerHTML = userObj.basket?.length || 0
             }
         } else {
+            userBasketBtn.classList.add('hidden')
             loginAndPanelWrapper.lastElementChild.classList.remove('hidden')
             loginAndPanelWrapper.lastElementChild.classList.add('flex')
             loginAndPanelWrapper.firstElementChild.classList.remove('flex')
             loginAndPanelWrapper.firstElementChild.classList.add('hidden')
         }
+    } else {
+        userBasketBtn.classList.add('hidden')
     }
 
     return userObj

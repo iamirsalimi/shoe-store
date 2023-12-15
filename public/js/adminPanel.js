@@ -8,8 +8,10 @@ let currentPage = document.getElementById('currentPage')
 let content = document.getElementById('content')
 
 let searchInputs = document.querySelectorAll('.searchInput')
-
 let shortCutBtns = document.querySelectorAll('.shortcut-btn')
+let logoutModal = document.getElementById('logoutModal')
+let logoutBtn = document.querySelector('#logoutModal #logoutBtn')
+
 
 // purchases section elems
 let changeSearchTargetCheckBox = document.getElementById('changeSearchTargetCheckBox')
@@ -50,20 +52,24 @@ function changeMenu(e){
         return false
     }
 
-    let prevActiveTab = menu.querySelector('.active')
-    prevActiveTab.classList.remove('active')
-    targetElem.classList.add('active')
-
-    let prevActiveContent = document.getElementById(currentTab)
-    prevActiveContent.classList.add('notActive')
-
-    let targetElemWrapper = document.getElementById(e.target.dataset.target)
-    targetElemWrapper.classList.remove('notActive')
-
-    currentTab = targetElem.dataset.target
-    window.scrollTo(0,0)
-    content.scrollTo(0,0)
-    changeCurrentPageHandler(targetElem.dataset.target)
+    if(targetElem.id == 'logout-btn'){
+        showLogoutModalHandler()
+    } else {
+        let prevActiveTab = menu.querySelector('.active')
+        prevActiveTab.classList.remove('active')
+        targetElem.classList.add('active')
+    
+        let prevActiveContent = document.getElementById(currentTab)
+        prevActiveContent.classList.add('notActive')
+    
+        let targetElemWrapper = document.getElementById(e.target.dataset.target)
+        targetElemWrapper.classList.remove('notActive')
+    
+        currentTab = targetElem.dataset.target
+        window.scrollTo(0,0)
+        content.scrollTo(0,0)
+        changeCurrentPageHandler(targetElem.dataset.target)
+    }
 }
 
 // change page title and current location link
@@ -937,6 +943,44 @@ function deleteHandler(){
     }
 }
 
+function closeLogoutModalHandler(){
+    let modalWrapperClass = logoutModal.className
+    let modalClass = logoutModal.firstElementChild.className
+    
+    modalWrapperClass = modalWrapperClass.replace('z-30' , '-z-10')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/50' , 'bg-black/0')
+    
+    modalClass = modalClass.replace('opacity-100' , 'opacity-0')
+    
+    logoutModal.className = modalWrapperClass
+    logoutModal.firstElementChild.className = modalClass 
+}
+
+function showLogoutModalHandler(){
+    let modalWrapperClass = logoutModal.className
+    let modalClass = logoutModal.firstElementChild.className
+
+    modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
+    
+    modalClass = modalClass.replace('opacity-0' , 'opacity-100')
+    
+    logoutModal.className = modalWrapperClass
+    logoutModal.firstElementChild.className = modalClass
+}
+
+function logoutUserHandler(){
+    let cookieValue = `${userObj.id}-${userObj.userName}`
+    let now = new Date()
+
+    now.setTime(now.getTime() - (2 * 24 * 60 * 60 * 1000))
+
+    console.log(cookieValue , now)
+    document.cookie = `userToken=${cookieValue};path=/;Expires='${now}`
+    location.reload() 
+}
+
+
 // events
 
 shortCutBtns.forEach(shortCutBtn => {
@@ -960,6 +1004,13 @@ removeProductModal.addEventListener('click' , e => {
     }
 })
 
+logoutModal.addEventListener('click' , e => {
+    if(e.target.id === 'logoutModal' || e.target.id === 'closeLogoutModalBtn'){
+        closeLogoutModalHandler()
+    }
+})
+
+logoutBtn.addEventListener('click' , logoutUserHandler)
 updateUserBtn.addEventListener('click' , updateUserRoleHandler)
 removeUserBtn.addEventListener('click' , showRemoveProductModalHandler)
 removeProductBtn.addEventListener('click' , deleteHandler)

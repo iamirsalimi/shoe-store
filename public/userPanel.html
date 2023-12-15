@@ -8,8 +8,15 @@
 </head>
 <body class="overflow-x-hidden bg-gray-200">
   
+    <div class="loader-wrapper z-30 bg-white h-full w-full fixed top-0 left-0 flex items-center justify-center">
+        <div class="loader">
+            <div class="half"></div>
+            <div class="half"></div>
+        </div>
+    </div>
+
     <div class="relative flex flex-col-reverse gap-3 w-full h-secreen select-none lg:flex-row">
-        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 flex flex-col justify-between bg-white shadow lg:gap-10 lg:h-screen lg:relative lg:w-fit lg:px-5 lg:rounded-r-lg lg:w-[10%]">
+        <div id="menu" class="fixed z-20 bottom-0 w-full px-1 py-2 flex flex-col justify-between bg-white shadow lg:gap-10 lg:h-screen lg:relative  lg:px-5 lg:rounded-r-lg lg:w-[10%]">
             <h2 class="hidden w-full text-center lg:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>
             <ul class="flex items-center justify-around gap-3 lg:flex-col lg:h-full lg:gap-5 lg:justify-start lg:items-start">
                 <li data-target="Dashboard" title="Dashboard" id="DashboardMenu" class="active hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-gray-900 order-2 md:order-1 cursor-pointer">
@@ -44,8 +51,8 @@
                         <span class="hidden xs:inline-block">WishList</span>
                     </a>
                 </li>
-                <li id="logout-btn" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-red-700  lg:mt-auto order-3">
-                    <a href="#" class="flex flex-col items-center justify-center gap-1 lg:flex-row ">
+                <li id="logout-btn" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-red-700 cursor-pointer order-3 lg:mt-auto">
+                    <a href="#" class="flex flex-col items-center justify-center gap-1 lg:flex-row pointer-events-none">
                         <svg lg:flex-row lg:w-full lg:gap-1 xmlns="w3.org/2000 lg:justify-start/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-red-700 w-7 h-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                         </svg>
@@ -845,7 +852,7 @@
                     <div class="w-full flex flex-col justify-between gap-4 lg:flex-row">
                         <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Orders</h2>
                         <div class="w-full relative lg:w-1/2">
-                            <input data-searchTarget="CustomerId" type="text" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Product Name">
+                            <input data-searchTarget="orderId" type="text" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Order Id">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-6 h-6 stroke-gray-500">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
@@ -863,7 +870,7 @@
                                     <th>Show Details</th>
                                 </tr>
                             </thead>
-                            <tbody id="ordersTable" class="text-gray-700 font-semibold text-xs xs:p-2 xs:text-sm sm:text-base"></tbody>
+                            <tbody id="ordersTable" class="text-gray-700 font-semibold text-xs transition-colors xs:p-2 xs:text-sm sm:text-base"></tbody>
                         </table>
                         <h2 class="h-full hidden text-xl text-blue-700 font-bold text-center xs:text-2xl">No purchases have been registered yet!</h2>
                     </div>
@@ -874,7 +881,7 @@
                 <div class="w-full px-2 flex flex-col justify-between items-center gap-4 md:flex-row">
                     <h2 class="text-gray-800 font-bold text-2xl md:text-3xl">Wish List</h2>
                     <div class="w-full relative md:w-1/2 lg:w-1/3">
-                        <input id="searchInput" type="text" class="w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="product Name">
+                        <input data-searchTarget="productName" type="text" class="searchInput w-full p-2 pr-9 rounded border border-gray-400 outline-none bg-gray-200 placeholder:text-gray-500 focus:border-gray-900 focus:border transition-all" placeholder="Product Name">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-6 h-6 stroke-gray-500">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
@@ -997,6 +1004,16 @@
         </div>
     </div>
     
+    <div id="logoutModal" class="fixed pt-20 bottom-0 left-0 top-0 -z-10 w-full h-full bg-black/0 px-2 flex items-center justify-center overflow-y-scroll transition-all duration-500 md:pt-0">
+        <div class="bg-white w-full rounded-md flex flex-col gap-5 py-7 px-4 md:max-w-[50vw] opacity-0 transition-all duration-300">
+            <h2 class="text-red-500 text-center text-xl font-bold">Are you sure you want to log out from your account ?</h2>
+            <div class="w-full flex items-center gap-2">
+                <button id="logoutBtn" class="w-full bg-red-500 hover:bg-red-600 transition-colors text-white font-bold py-2 rounded-md">Log Out</button>    
+                <button id="closeLogoutModalBtn" class="w-full border border-sky-500 hover:bg-sky-600 text-sky-500 hover:text-white transition-colors font-bold py-2 rounded-md">Cancel</button>    
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./js/userPanel.js"></script>
 </body>

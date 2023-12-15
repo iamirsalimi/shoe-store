@@ -11,6 +11,7 @@ let progresses = document.querySelectorAll('#progress div')
 let checkoutBtn = document.getElementById('checkoutBtn')
 let payNowBtn = document.getElementById('payNowBtn')
 let payOrderBtn = document.getElementById('payOrderBtn')
+let loader = document.querySelector('.loader-wrapper')
  
 let backToProgressBtn = document.getElementById('backToProgress1')
 let backToProgressBtn1 = document.getElementById('backToProgress2')
@@ -22,7 +23,12 @@ let countrySelectBox = document.querySelector('#countrySelectBox')
 let citySelectBox = document.querySelector('#citySelectBox')
 let deliveryRadioBtns = document.querySelectorAll('#progress2 input[type="radio"]')
 
+let searchInputs = document.querySelectorAll('.searchInput')
 let shortCutBtns = document.querySelectorAll('.shortcut-btn')
+
+let logoutModal = document.getElementById('logoutModal')
+let logoutBtn = document.querySelector('#logoutModal #logoutBtn')
+let showLogoutModalBtn = document.querySelector('#logout-btn')
 
 let countryObj = {
     Iran : ['Tehran' , 'Isfahan' , 'Ahwaz' , 'Shiraz'],
@@ -49,6 +55,7 @@ let newOrderObj = null
 let orders = []
 let newWishListObj = {wishlist : []}
 let wishList = null
+let filteredWishList = null
 
 class Order {
     constructor(products  , country, fullName , city , postalCode  , address , phoneNumber , description , delivery , subtotal , tax , finalPrice){
@@ -71,7 +78,7 @@ class Order {
 
 function getDate(){
     let now  = new Date()
-    return `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`
+    return `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`
 }
 
 async function getOrdersHandler(){
@@ -119,18 +126,22 @@ function changeMenu(e){
         return false
     }
 
-    let prevActiveTab = menu.querySelector('.active')
-    prevActiveTab.classList.remove('active')
-    targetElem.classList.add('active')
-
-    let prevActiveContent = document.getElementById(currentTab)
-    prevActiveContent.classList.add('notActive')
-
-    let targetElemWrapper = document.getElementById(e.target.dataset.target)
-    targetElemWrapper.classList.remove('notActive')
-
-    currentTab = targetElem.dataset.target
-    changeCurrentPageHandler(targetElem.dataset.target)
+    if(targetElem.id == 'logout-btn'){
+        showLogoutModalHandler()
+    } else {
+        let prevActiveTab = menu.querySelector('.active')
+        prevActiveTab.classList.remove('active')
+        targetElem.classList.add('active')
+    
+        let prevActiveContent = document.getElementById(currentTab)
+        prevActiveContent.classList.add('notActive')
+    
+        let targetElemWrapper = document.getElementById(e.target.dataset.target)
+        targetElemWrapper.classList.remove('notActive')
+    
+        currentTab = targetElem.dataset.target
+        changeCurrentPageHandler(targetElem.dataset.target)
+    }
 }
 
 // change page title and current location link
@@ -471,7 +482,7 @@ function showUserOrdersHandler(orders){
         ordersTable.innerHTML = ''
         orders.forEach(order => {
             ordersTable.insertAdjacentHTML('beforeend' , `<tr class="even:bg-white odd:bg-gray-100 hover:bg-gray-200 transition-colors">
-                <td class="OrderId px-[2px] text-center text-gray-500">#${order.orderId}</td>
+                <td class="orderId px-[2px] text-center text-gray-500">#${order.orderId}</td>
                 <td class="text-center text-gray-800">${order.products.length}</td>
                 <td class="px-[2px] text-center text-gray-800">${order.fullName}</td>
                 <td class="CustomerId px-[2px] text-center text-gray-800">$${order.finalPrice}</td>
@@ -483,7 +494,6 @@ function showUserOrdersHandler(orders){
         })
 
         let viewOrderBtns = document.querySelectorAll('.showOrderDetailsBtn')
-        console.log(viewOrderBtns)
         viewOrderBtns.forEach(viewOrderBtn => {
             viewOrderBtn.addEventListener('click', e => {
                 let targetOrderId = e.target.dataset?.target
@@ -782,13 +792,13 @@ async function getProductsHandler(){
 }
 
 function showWishListProducts(){
-    if(!wishList){
+    if(!filteredWishList){
         wishListWrapper.nextElementSibling.classList.remove('hidden')
         wishListWrapper.nextElementSibling.classList.add('flex')
     } else {
         wishListWrapper.innerHTML = ''
-        wishList.forEach(product => {
-            wishListWrapper.insertAdjacentHTML('beforeend' , `<div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-white flex flex-col gap-1 select-none overflow-hidden group">
+        filteredWishList.forEach(product => {
+            wishListWrapper.insertAdjacentHTML('beforeend' , `<div class="product relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-white flex flex-col gap-1 select-none overflow-hidden group">
                 <div class="relative w-full !h-72 overflow-hidden rounded-md">
                     <img src="./images/${product.imagePath}" class="object-cover group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
             
@@ -801,7 +811,7 @@ function showWishListProducts(){
             
                 <div class="space-y-2 py-1 px-2">
                     <div class="space-y-[2px]">
-                        <h3 class="font-bold text-gray-800">${product.productName}</h3>
+                        <h3 class="productName font-bold text-gray-800">${product.productName}</h3>
                         <p class="text-gray-400">${product.productSummary}</p>
                     </div>
             
@@ -855,7 +865,7 @@ function changeProductSize(e , targetId){
 
 // wishList
 function isProductExistInWishList(productObj){
-    let productIndex = wishList.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
+    let productIndex = filteredWishList.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
     return productIndex  
 } 
 
@@ -878,6 +888,7 @@ async function addProductToWishListHandler(productObj){
             wishList = productObj.wishlist
             showUserBasket()
             showWishListProducts()
+            searchProductHandler(searchInputs[1].value.trim())
             Swal.fire({
                 icon: "success",
                 title: `Your Wish List Was Updated`,
@@ -1085,6 +1096,7 @@ async function getUsersAndProductsDetailsHandler(){
             userBasket = userObj?.basket || []
             orders = userObj?.orders || []
             wishList = userObj?.wishlist || []
+            filteredWishList = [...wishList]
             // let purchasesTable = document.querySelector('#PurchasesTable') 
             showUserInfos(userObj)
             showUserBasket()
@@ -1096,6 +1108,12 @@ async function getUsersAndProductsDetailsHandler(){
     } else {
         location.href = 'http://127.0.0.1:5500/public/index.html'
     }
+
+    loader.classList.add('fadeOut')
+    setTimeout(() => {
+        loader.classList.remove('flex')
+        loader.classList.add('hidden')
+    },1000)
 }
 
 
@@ -1116,6 +1134,92 @@ function changeContent(e){
 
 // events
 
+function searchHandler(e){
+    let searchValue = e.target.value.trim()
+    let searchTarget = e.target.dataset.searchtarget
+    if(searchTarget == 'orderId'){
+        searchOrderHandler(searchValue)
+    } else {
+        searchProductHandler(searchValue)
+    }
+}
+
+function searchOrderHandler(searchValue){
+    let targetTable = document.getElementById(`ordersTable`)
+    if(searchValue){
+        let searchTargetElem = null
+        targetTable.classList.add('searched')
+
+        searchValue = searchValue.startsWith('#') ? searchValue : '#' + searchValue
+
+        let trElems = targetTable.querySelectorAll('tr')
+        trElems.forEach(trElem => {
+            searchTargetElem = trElem.querySelector('.orderId')
+            if(searchTargetElem.innerHTML.toLowerCase().startsWith(searchValue.toLowerCase())){
+                trElem.style.display = 'table-row'
+            } else {
+                trElem.style.display = 'none'
+            }
+        })
+    } else {
+        targetTable.classList.remove('searched')
+
+        let trElems = targetTable.querySelectorAll('tr')
+        trElems.forEach(trElem => {
+            trElem.style.display = 'table-row'
+        })
+    }
+}
+
+function searchProductHandler(searchValue){
+    if(searchValue){
+        filteredWishList = wishList.filter(product => product.productName.toLowerCase().startsWith(searchValue.toLowerCase()))
+    } else {
+        filteredWishList = [...wishList]
+    }
+
+    showWishListProducts()
+}
+
+function closeLogoutModalHandler(){
+    let modalWrapperClass = logoutModal.className
+    let modalClass = logoutModal.firstElementChild.className
+    
+    modalWrapperClass = modalWrapperClass.replace('z-30' , '-z-10')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/50' , 'bg-black/0')
+    
+    modalClass = modalClass.replace('opacity-100' , 'opacity-0')
+    
+    logoutModal.className = modalWrapperClass
+    logoutModal.firstElementChild.className = modalClass 
+}
+
+function showLogoutModalHandler(){
+    let modalWrapperClass = logoutModal.className
+    let modalClass = logoutModal.firstElementChild.className
+
+    modalWrapperClass = modalWrapperClass.replace('-z-10' , 'z-30')
+    modalWrapperClass = modalWrapperClass.replace('bg-black/0' , 'bg-black/50')
+    
+    modalClass = modalClass.replace('opacity-0' , 'opacity-100')
+    
+    logoutModal.className = modalWrapperClass
+    logoutModal.firstElementChild.className = modalClass
+}
+
+function logoutUserHandler(){
+    let cookieValue = `${userObj.id}-${userObj.userName}`
+    let now = new Date()
+
+    now.setTime(now.getTime() - (2 * 24 * 60 * 60 * 1000))
+
+    console.log(cookieValue , now)
+    document.cookie = `userToken=${cookieValue};path=/;Expires='${now}`
+    location.reload() 
+}
+
+// events
+
 deliveryRadioBtns.forEach(deliveryRadioBtn => {
     deliveryRadioBtn.addEventListener('click' , changeProductDelivery)
 })
@@ -1124,8 +1228,18 @@ shortCutBtns.forEach(shortCutBtn => {
     shortCutBtn.addEventListener('click' , changeContent)
 })
 
+searchInputs.forEach(searchInput => {
+    searchInput.addEventListener('keyup' , searchHandler)
+})
+
+logoutModal.addEventListener('click' , e => {
+    if(e.target.id === 'logoutModal' || e.target.id === 'closeLogoutModalBtn'){
+        closeLogoutModalHandler()
+    }
+})
 
 document.addEventListener('DOMContentLoaded' , getUsersAndProductsDetailsHandler)
+logoutBtn.addEventListener('click' , logoutUserHandler)
 countrySelectBox.addEventListener('input' , changeCityInputValue)
 backToProgressBtn1.addEventListener('click' , changePurchaseProgress)
 backToProgressBtn.addEventListener('click' , changePurchaseProgress)

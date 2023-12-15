@@ -44,8 +44,8 @@
                         <span class="hidden xs:inline-block">Products</span>
                     </a>
                 </li>
-                <li id="logout-btn" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-red-700  lg:mt-auto order-3">
-                    <a href="#" class="flex flex-col items-center justify-center gap-1 lg:flex-row ">
+                <li id="logout-btn" class="hover:-translate-y-1 transition-all ease-out relative after:absolute after:-bottom-1 after:h-[2px] after:rounded-md after:bg-red-700 cursor-pointer order-3 lg:mt-auto">
+                    <a href="#" class="flex flex-col items-center justify-center gap-1 lg:flex-row pointer-events-none">
                         <svg lg:flex-row lg:w-full lg:gap-1 xmlns="w3.org/2000 lg:justify-start/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-red-700 w-7 h-7">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                         </svg>
@@ -709,9 +709,15 @@
     </div>
 
 
-
-
-    
+    <div id="logoutModal" class="fixed pt-20 bottom-0 left-0 top-0 -z-10 w-full h-full bg-black/0 px-2 flex items-center justify-center overflow-y-scroll transition-all duration-500 md:pt-0">
+        <div class="bg-white w-full rounded-md flex flex-col gap-5 py-7 px-4 md:max-w-[50vw] opacity-0 transition-all duration-300">
+            <h2 class="text-red-500 text-center text-xl font-bold">Are you sure you want to log out from your account ?</h2>
+            <div class="w-full flex items-center gap-2">
+                <button id="logoutBtn" class="w-full bg-red-500 hover:bg-red-600 transition-colors text-white font-bold py-2 rounded-md">Log Out</button>    
+                <button id="closeLogoutModalBtn" class="w-full border border-sky-500 hover:bg-sky-600 text-sky-500 hover:text-white transition-colors font-bold py-2 rounded-md">Cancel</button>    
+            </div>
+        </div>
+    </div>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="module" src="./js/adminPanel.js"></script>

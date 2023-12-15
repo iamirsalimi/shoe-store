@@ -83,7 +83,6 @@
     @apply hidden;
 }
 
-
 @layer components{
     .changeBtn{
         @apply py-1 px-4 bg-sky-500 hover:bg-sky-600 transition-colors text-white font-bold rounded-md;
