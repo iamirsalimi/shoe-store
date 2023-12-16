@@ -210,7 +210,7 @@ function createProductsCardsHandler(products){
 
             <div class="w-full flex justify-between items-center">
                 <div class="font-bold text-gray-800 dark:text-white"><span class="line-through decoration-gray-400 text-gray-400 ${product.discount ? '' : 'hidden'}">$${product.price}</span> $${product.finalPrice}</div>
-                <a  href="./product.html?p=1" class="inline-block py-2 px-4 text-white dark:text-slate-800 font-semibold bg-sky-500 hover:bg-sky-600 transition-colors rounded-md">Buy Now</a>
+                <a  href="./product.html?p=${product.id}" class="inline-block py-2 px-4 text-white dark:text-slate-800 font-semibold bg-sky-500 hover:bg-sky-600 transition-colors rounded-md">Buy Now</a>
             </div>
         </div>
 
