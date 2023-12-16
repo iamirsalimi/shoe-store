@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./public/*.html' , './public/**/*.js'],
+  darkMode : 'class',
   theme: {
     screens : {
       'xs': '480px',

@@ -20,6 +20,7 @@ let addToWishListBtn = document.getElementById('addToWishListBtn')
 let loginBtn = document.getElementById('loginBtn')
 let textareaElem = document.querySelector('textarea')
 let loader = document.querySelector('.loader-wrapper')
+let darkModeBtns = document.querySelectorAll('.darkmodeBtn')
 
 let userObj = null
 let userBasket = null
@@ -30,6 +31,7 @@ let wishList = []
 let productObj = null
 let productReviews = null
 let starNumber = 5
+let darkModeFlag = false
 
 let starNums = 5
 
@@ -238,7 +240,7 @@ function showProductDetails(productObj){
         index = index <= 0 ? 0 : index - 1
         return `<div>
             <input type="radio" id="${color}" name="colors" class="hidden" ${index == 1 ? 'checked>' : '>'}
-            <label for="${color}" class="inline-block w-3 h-3 rounded-full bg-${['black' , 'white'].includes(color) ? color : `${color}-500`} ring-0 ring-${['black' , 'white'].includes(color) ? color : `${color}-500`} ${color == 'white' ? ' border border-gray-400' : '' } ring-offset-2 ring-offset-gray-100 hover:scale-110 transition-all cursor-pointer border-none"></label>
+            <label for="${color}" class="inline-block w-3 h-3 rounded-full bg-${['black' , 'white'].includes(color) ? color : `${color}-500`} ring-0 ring-${['black' , 'white'].includes(color) ? color : `${color}-500`} ${color == 'white' ? ' border border-gray-400' : '' } ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-700 hover:scale-110 transition-all cursor-pointer border-none"></label>
         </div>`
     }).join('')
 
@@ -260,13 +262,13 @@ function showProductDetails(productObj){
             
             reviewsWrapper.insertAdjacentHTML('beforeend' , `<div class="px-4 py-1 flex flex-col gap-2 md:flex-row">
             <div class="w-full flex flex-col items-center gap-2 md:w-1/4">
-                <div class="bg-gray-400 rounded-full p-2">
+                <div class="bg-gray-400 dark:bg-slate-600 rounded-full p-2">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 stroke-white">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>                              
                 </div>
     
-                <span class="text-xl text-gray-700 font-bold">${review.userName}</span>
+                <span class="text-xl text-gray-700 dark:text-gray-300 font-bold">${review.userName}</span>
             </div>
     
             <div class="w-full space-y-3 text-center md:w-3/4 md:text-left">
@@ -293,11 +295,11 @@ function showProductDetails(productObj){
                       
                 </div>
                 
-                <p class="text-gray-500 md:text-justify">${review.commentText}</p>
+                <p class="text-gray-500 dark:text-gray-400 md:text-justify">${review.commentText}</p>
     
-                <button id="likeBtn" data-targetId="${review.id}" class="inline-flex items-center gap-2 ${likedFlag ? 'text-red-500' : 'text-gray-500'} bg-white font-semibold py-1 px-2 rounded-lg  hover:scale-110 transition-transform">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0" stroke="currentColor" class="w-6 h-6 ${likedFlag ? 'fill-red-600' : 'fill-gray-400'} pointer-events-none">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg> Likes <span class="${likedFlag ? 'text-red-500' : 'text-gray-400'} pointer-events-none">(${review.likes.length})</span>
+                <button id="likeBtn" data-targetId="${review.id}" class="inline-flex items-center gap-2 ${likedFlag ? 'text-red-500 dark:text-red-600' : 'text-gray-500 dark:text-gray-300'} bg-white dark:bg-slate-800 font-semibold py-1 px-2 rounded-lg  hover:scale-110 transition-transform">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="0" stroke="currentColor" class="w-6 h-6 ${likedFlag ? 'fill-red-600' : 'fill-gray-400 dark:fill-gray-300'} pointer-events-none">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></svg> Likes <span class="${likedFlag ? 'text-red-500 dark:text-red-600' : 'text-gray-400 dark:text-gray-300'} pointer-events-none">(${review.likes.length})</span>
                 </button>
             </div>
         </div>`)
@@ -448,29 +450,29 @@ function showUserBasket(userBasket){
         detailsWrapper.className = 'w-2/5 flex flex-col items-start gap-2'
 
         let productNameElem = document.createElement('h4')
-        productNameElem.className = 'font-bold'
+        productNameElem.className = 'font-bold dark:text-white'
         productNameElem.innerHTML = product.productName
         
         let productDetailsElem = document.createElement('div')
         productDetailsElem.className = 'flex flex-col items-start gap-1 md:flex-row md:items-center'
         
         let sizeDetail = document.createElement('span')
-        sizeDetail.className = 'text-gray-700 font-semibold text-sm'
+        sizeDetail.className = 'text-gray-700 dark:text-white dark:text-white font-semibold text-sm'
         sizeDetail.innerHTML = `Size : ${product.size}`
 
         let colorDetail = document.createElement('span')
-        colorDetail.className = 'text-gray-700 font-semibold text-sm'
+        colorDetail.className = 'text-gray-700 dark:text-white font-semibold text-sm'
         colorDetail.innerHTML = `Color : <span class="inline-block w-2 h-2 rounded-full bg-${product.color}-500"></span>`
 
         let productPriceWrapper = document.createElement('div')
         productPriceWrapper.className = 'w-1/5 flex flex-col justify-between gap-2 ml-auto'
         
         let priceElem = document.createElement('span')
-        priceElem.className = 'text-gray-900 font-bold text-center'
+        priceElem.className = 'text-gray-900 dark:text-white font-bold text-center'
         priceElem.innerHTML = `$${product.finalPrice}`
 
         let quantityDetail = document.createElement('span')
-        quantityDetail.className = 'text-gray-700 font-semibold text-sm text-center'
+        quantityDetail.className = 'text-gray-700 dark:text-white font-semibold text-sm text-center'
         quantityDetail.innerHTML = `Quantity : ${product.quantity}`
         
         let productRemoveBtn = document.createElement('button')
@@ -493,6 +495,17 @@ function showUserBasket(userBasket){
 }
 
 async function getUserAndProductDetailsHandler(){
+    darkModeFlag = localStorage.getItem('theme') == 'dark' ? true : false
+    
+    if(darkModeFlag){
+        document.documentElement.classList.add('dark')
+
+        darkModeBtns.forEach(darkModeBtn => {
+            darkModeBtn.firstElementChild.classList.add('hidden')
+            darkModeBtn.lastElementChild.classList.remove('hidden')
+        })
+    }
+
     userObj = await getUsersAndProductsHandler()
 
     let productId = new URLSearchParams(location.search).get('p')
@@ -722,6 +735,25 @@ async function addProductToBasketHandler(e){
     await addProductToBasket(newBasketObj)
 }
 
+// dark mode 
+function changeThemeHandler(e){
+    document.documentElement.classList.toggle('dark')
+
+    darkModeFlag = document.documentElement.className.includes('dark') ? true : false
+
+
+    if(darkModeFlag){
+        e.target.firstElementChild.classList.add('hidden')
+        e.target.lastElementChild.classList.remove('hidden')
+    } else {
+        e.target.lastElementChild.classList.add('hidden')
+        e.target.firstElementChild.classList.remove('hidden')
+    }
+
+    localStorage.setItem('theme' , darkModeFlag ? 'dark' : 'light')
+}
+
+
 // events
 
 // when user click on darkness that placed in right of the menu menu must closed
@@ -745,11 +777,15 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
+darkModeBtns.forEach(darkModeBtn => {
+    darkModeBtn.addEventListener('click' , changeThemeHandler)
+})
+
+document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 addToBasketBtn.addEventListener('click' , addProductToBasketHandler)
 addCommentBtn.addEventListener('click' , addCommentHandler)
 starSelect.addEventListener('click' , starHandler)
 commentAndReviewTab.addEventListener('click' , changeTabHandler)
-document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 hamburger.addEventListener('click' , showMenu)
 basketBtn.addEventListener('click' , showBasket)
 closeModalBtn.addEventListener('click' , closeMenu)

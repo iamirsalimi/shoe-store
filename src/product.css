@@ -13,19 +13,19 @@ body{
 }
 
 nav ul .active {
-    @apply text-secondary;
+    @apply text-secondary dark:text-white;
 }
 
 nav ul .active::after {
     @apply inline-block;
 }
 
-#menu-nav ul .active {
-    @apply text-secondary;
+#menu-nav ul .active{
+  @apply text-secondary dark:text-white;
 }
 
 #menu-nav ul .active::after {
-    @apply inline-block w-full;
+  @apply inline-block w-full dark:bg-white;
 }
 
 #menu-nav ul li::after {
@@ -41,7 +41,7 @@ nav ul .active::after {
 }
 
 #content #reviewsAndComment ul .active{
-    @apply text-blue-700;
+    @apply text-blue-700 dark:text-blue-600;
 }
 
 #content #reviewsAndComment ul .active::after{

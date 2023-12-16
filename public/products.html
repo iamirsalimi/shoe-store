@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./styles/products.css">
     <title>Shoe Store | products</title>
 </head>
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-white dark:bg-slate-800">
 
-    <div class="loader-wrapper z-30 bg-white h-full w-full fixed top-0 left-0 flex items-center justify-center">
+    <div class="loader-wrapper z-30 bg-white dark:bg-slate-800 h-full w-full fixed top-0 left-0 flex items-center justify-center">
         <div class="loader">
             <div class="half"></div>
             <div class="half"></div>
@@ -16,37 +16,40 @@
     </div>
       
 
-    <div class="fixed w-full border-b bg-white py-2 xs:py-3 sm:py-4 z-20">
+    <div class="fixed w-full border-b bg-white dark:bg-slate-900 dark:border-slate-900 py-2 xs:py-3 sm:py-4 z-10">
         <nav class="container flex items-center justify-between">
             <div class="hamburger-wrapper sm:hidden text-right">
                 <button id="hamburger-menu" class="relative inline-bolck  w-12 h-9 rounded-md p-2">
-                    <span class="inline-block absolute top-2 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
-                    <span class="inline-block absolute top-4 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
-                    <span class="inline-block absolute top-6 left-1 bg-secondary w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                    <span class="inline-block absolute top-2 left-1 bg-secondary dark:bg-white w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                    <span class="inline-block absolute top-4 left-1 bg-secondary dark:bg-white w-[calc(100%-10px)] h-[2px] rounded-full"></span>
+                    <span class="inline-block absolute top-6 left-1 bg-secondary dark:bg-white w-[calc(100%-10px)] h-[2px] rounded-full"></span>
                 </button>
             </div>
 
             <div class="flex items-center space-x-5 xs:space-x-7">
                 <button id="basketBtn" class="relative">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-105 transition-transform duration-75 stroke-gray-700 dark:stroke-white w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                     </svg>
                     <span id="basketItemsNumber" class="inline-block w-3.5 h-3.5 p-[2px] rounded-full text-xs text-center leading-[8px] bg-sky-500 text-white absolute top-0 -right-[2px] select-none">0</span>
                 </button>
-                <button id="darkmode" class="hidden sm:inline-block rounded-full group">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer group-hover:scale-105 transition-transform duration-75 stroke-gray-700 w-6 h-6">
+                <button class="darkmodeBtn hidden sm:inline-block rounded-full group cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="light group-hover:scale-105 transition-transform duration-75 stroke-gray-700 dark:stroke-white pointer-events-none w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                     </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="dark hidden  group-hover:scale-105 transition-transform duration-75 stroke-gray-700 dark:stroke-white pointer-events-none w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg> 
                 </button>
                 <button id="user-register">
                     <a href="./userPanel.html" class="hidden items-center gap-1 cursor-pointer hover:scale-105 transition-transform duration-150 text-gray-700 text-sm font-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-110 transition-transform duration-150  stroke-gray-700 w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="cursor-pointer hover:scale-110 transition-transform duration-150  stroke-gray-700 dark:stroke-white w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        <span class="hidden md:inline-block">UserPanel</span>
+                        <span class="hidden md:inline-block dark:text-white">UserPanel</span>
                     </a>
-                    <a href="./form.html" class="flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform duration-150 text-gray-700 text-sm font-bold">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-700 w-6 h-6">
+                    <a href="./form.html" class="flex items-center gap-1 cursor-pointer hover:scale-105 transition-transform duration-150 text-gray-700 dark:text-white text-sm font-bold">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-gray-700 dark:stroke-white w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                       </svg>Login
                     </a>
@@ -55,63 +58,64 @@
             </div>
             
             <ul class="basis-2/5 hidden sm:flex sm:basis-1/2 md:basis-2/5 justify-evenly items-center text-base">
-                <li class="relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inlit-block hover:text-secondary transition-colors duration-200 hover:texet-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                <li class="relative font-bold text-gray-500 dark:text-gray-400 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary dark:hover:text-white transition-colors duration-200 hover:texet-secondary after:w-1 after:h-1 after:rounded-md after:bg-secondary dark:after:bg-gray-100 after:hidden">
                     <a href="./index.html">Home</a>
                 </li>
-                <li class="menLiElem relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                <li class="menLiElem relative font-bold text-gray-500 dark:text-gray-400 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary dark:hover:text-white transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary dark:after:bg-gray-100 after:hidden">
                     <a href="./products.html?t=men">Men</a>
                 </li>
-                <li class="womenLiElem relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                <li class="womenLiElem relative font-bold text-gray-500 dark:text-gray-400 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary dark:hover:text-white transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary dark:after:bg-gray-100 after:hidden">
                     <a href="./products.html?t=women">Women</a>
                 </li>
-                <li class="kidsLiElem relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                <li class="kidsLiElem relative font-bold text-gray-500 dark:text-gray-400 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary dark:hover:text-white transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary dark:after:bg-gray-100 after:hidden">
                     <a href="./products.html?t=kids">Kids</a>
                 </li>
-                <li class="collectionsLiElem relative font-bold text-gray-500 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary after:hidden">
+                <li class="allLiElem relative font-bold text-gray-500 dark:text-gray-400 after:absolute after:left-1/2 after:-bottom-2 after:-translate-1/2 hover:after:inline-block hover:text-secondary dark:hover:text-white transition-colors duration-200 after:w-1 after:h-1 after:rounded-md after:bg-secondary dark:after:bg-gray-100 after:hidden">
                     <a href="./products.html?t=all">Collections</a>
                 </li>
             </ul>
             
-            <h2 class="hidden md:block font-bold text-xl">Shoe<span class="text-primary">Trends</span></h2>    
+            <h2 class="hidden md:block font-bold text-xl dark:text-white">Shoe<span class="text-primary">Trends</span></h2>    
         </nav>
     </div>
 
-    
-
     <div id="menu-wrapper" class="sm:hidden bg-black/0 fixed top-0 right-0 botton-0 z-0 w-full h-full transition-colors duration-500 invisible">
-        <section id="menu" class="w-3/4 h-full bg-white p-4  transition-all duration-200 space-y-7 -translate-x-full">
+        <section id="menu" class="w-3/4 h-full bg-white dark:bg-slate-800 p-4  transition-all duration-200 space-y-7 -translate-x-full">
             <div class="w-full flex justify-between items-center">
                 <button id="closeModalBtn" class="p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary w-7 h-7">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary dark:stroke-white w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
                 
-                <button id="darkmode" class="p-1 rounded-full bg-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary w-6 h-6">
+                <button class="darkmodeBtn p-1 rounded-full bg-gray-200 dark:bg-slate-700 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="light group-hover:scale-105 transition-transform duration-75 stroke-gray-700 dark:stroke-white pointer-events-none w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                     </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="dark hidden  group-hover:scale-105 transition-transform duration-75 stroke-gray-700 dark:stroke-white pointer-events-none w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+                    </svg> 
                 </button>
             </div>
 
-            <h2 class="text-center w-full block font-bold text-2xl xs:text-3xl sm:text-4xl pt-7">Shoe<span class="text-primary">Trends</span></h2>
+            <h2 class="text-center w-full block font-bold text-2xl dark:text-white xs:text-3xl sm:text-4xl pt-7">Shoe<span class="text-primary">Trends</span></h2>
 
             <nav id="menu-nav" class="pt-9">
                 <ul class="space-y-7 flex flex-col items-start">
-                    <li class="font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:w-0 after:origin-left after:inline-block  after:-bottom-2 after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
+                    <li class="font-semibold text-gray-500 dark:text-gray-400 text-lg relative after:absolute after:left-0 after:w-0 after:origin-left after:inline-block  after:-bottom-2 after:h-[2px] after:bg-secondary dark:after:bg-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-100">
                         <a href="index.html">Home</a>
                     </li>
-                    <li id="men" class="menLiElem font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
+                    <li class="menLiElem font-semibold text-gray-500 dark:text-gray-400 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary dark:after:bg-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-100">
                         <a href="products.html?t=men">Men</a>
                     </li>
-                    <li id="women" class="womenLiElem font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
+                    <li class="womenLiElem font-semibold text-gray-500 dark:text-gray-400 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary dark:after:bg-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-100">
                         <a href="products.html?t=women">Women</a>
                     </li>
-                    <li id="kids" class="kidsLiElem font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
+                    <li class="kidsLiElem font-semibold text-gray-500 dark:text-gray-400 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary dark:after:bg-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-100">
                         <a href="products.html?t=kids">Kids</a>
                     </li>
-                    <li class="collectionsLiElem font-semibold text-gray-500 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary hover:text-secondary transition-colors duration-100">
-                        <a href="./products.html?t=all">Collections</a>
+                    <li class="allLiElem font-semibold text-gray-500 dark:text-gray-400 text-lg relative after:absolute after:left-0 after:origin-left after:inline-block after:-bottom-2 after:w-0  after:h-[2px] after:bg-secondary dark:after:bg-gray-400 hover:text-secondary dark:hover:text-white transition-colors duration-100">
+                        <a href="products.html?t=all">Collections</a>
                     </li>
                 </ul>
             </nav>
@@ -119,18 +123,18 @@
     </div>
 
     <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 -z-10 w-full h-full transition-colors duration-500 invisible">
-        <section id="basket" class="w-3/4 md:w-2/4 xl:w-2/5 h-full bg-white p-4 transition-all duration-200 space-y-7 -translate-x-full">
+        <section id="basket" class="w-3/4 md:w-2/4 xl:w-2/5 h-full bg-white dark:bg-slate-800 p-4 transition-all duration-200 space-y-7 -translate-x-full">
             <div class="w-full flex justify-between items-center">
                 <button id="closeBasketBtn" class="p-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary w-7 h-7">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary dark:stroke-white w-7 h-7">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
-                <h2 class="block font-bold text-2xl xs:text-3xl">Shoe<span class="text-primary">Trends</span></h2>
+                <h2 class="block font-bold text-2xl xs:text-3xl dark:text-white">Shoe<span class="text-primary">Trends</span></h2>
             </div>
 
             <div class="space-y-7 mt-5">
-                <h3 class="text-gray-900 font-bold text-center text-2xl xs:text-3xl">Shopping Cart</h3>
+                <h3 class="text-gray-900 dark:text-white font-bold text-center text-2xl xs:text-3xl">Shopping Cart</h3>
                 <ul id="basketProductsWrapper" class="flex flex-col gap-4 items-center overflow-y-scroll h-80">
                     <!-- <li class="flex gap-2 py-3 border-b border-gray-200">
                         <div class="w-1/5 rounded-lg overflow-hidden">
@@ -162,7 +166,7 @@
             </div>
 
             <div class="flex flex-col gap-4">
-                <div class="text-gray-900 inline-flex font-bold text-center items-start">
+                <div class="text-gray-900 dark:text-white inline-flex font-bold text-center items-start">
                     <h3>Total Price :</h3>
                     <p id="totalPrice">$190</p>
                 </div>
@@ -172,22 +176,22 @@
     </div>
 
     <div id="content" class="container py-28 flex flex-col items-center gap-7">
-        <div class="w-full flex flex-col items-center gap-4 border-b border-gray-300 pb-4 md:flex-row-reverse">
+        <div class="w-full flex flex-col items-center gap-4 border-b border-gray-300 dark:bg-slate-800 pb-4 md:flex-row-reverse">
             <div class="w-full flex items-center gap-2 py-2 md:w-1/3">
                 <div id="sort" class="w-1/2 relative">
-                    <div id="sortBtn" class="flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer  select-none text-gray-700 hover:text-gray-900 capitalize"> <span>Sorting</span> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <div id="sortBtn" class="flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors cursor-pointer  select-none text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white capitalize"> <span>Sorting</span> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75" />
                         </svg>
                     </div>
-                    <div id="sortWrapper" class="flex w-full bg-gray-100 shadow absolute z-[15] top-[120%] flex-col rounded-md invisible overflow-hidden">
+                    <div id="sortWrapper" class="flex w-full bg-gray-100 dark:bg-slate-700 shadow absolute z-[15] top-[120%] flex-col rounded-md invisible overflow-hidden">
                         <ul class="text-center">
-                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="border-b py-2 px-1  border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#">Default</a>
                             </li>
-                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="border-b py-2 px-1  border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#">Most Expensive</a>
                             </li>
-                            <li class="border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="border-b py-2 px-1  border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#">Cheapest</a>
                             </li>
                         </ul>
@@ -195,22 +199,22 @@
                 </div>
                 
                 <div id="group" class="w-1/2 relative">
-                    <div id="groupBtn" class="flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 hover:bg-gray-200 transition-colors cursor-pointer select-none text-gray-700 hover:text-gray-900 capitalize"> <span>All</span> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <div id="groupBtn" class="flex items-center justify-center gap-2 py-3 px-5 rounded-md bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors cursor-pointer select-none text-gray-700 dark:text-white hover:text-gray-900 dark:hover:text-slate-800 capitalize"> <span>All</span> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 7.125C2.25 6.504 2.754 6 3.375 6h6c.621 0 1.125.504 1.125 1.125v3.75c0 .621-.504 1.125-1.125 1.125h-6a1.125 1.125 0 01-1.125-1.125v-3.75zM14.25 8.625c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v8.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-8.25zM3.75 16.125c0-.621.504-1.125 1.125-1.125h5.25c.621 0 1.125.504 1.125 1.125v2.25c0 .621-.504 1.125-1.125 1.125h-5.25a1.125 1.125 0 01-1.125-1.125v-2.25z" />
                         </svg>
                     </div>
-                    <div id="groupWrapper" class="flex w-full bg-gray-100 shadow absolute z-[15] top-[120%] flex-col rounded-md invisible overflow-hidden">
+                    <div id="groupWrapper" class="flex w-full bg-gray-100 dark:bg-slate-700 shadow absolute z-[15] top-[120%] flex-col rounded-md invisible overflow-hidden">
                         <ul class="text-center">
-                            <li class="w-full border-b py-2 px-1 border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="w-full border-b py-2 px-1 border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#" class="pointer-events-none">All</a>
                             </li>
-                            <li class="w-full border-b py-2 px-1 border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="w-full border-b py-2 px-1 border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#" class="pointer-events-none">Men</a>
                             </li>
-                            <li class="w-full border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="w-full border-b py-2 px-1  border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#" class="pointer-events-none">Women</a>
                             </li>
-                            <li class="w-full border-b py-2 px-1  border-gray-500 last:border-b-0 cursor-pointer text-center text-gray-700 hover:bg-blueLight-100 transition-colors">
+                            <li class="w-full border-b py-2 px-1  border-gray-500 dark:border-gray-400 last:border-b-0 cursor-pointer text-center text-gray-700 dark:text-white hover:bg-blueLight-100 dark:hover:bg-sky-500 transition-colors">
                                 <a href="#" class="pointer-events-none">Kids</a>
                             </li>
                         </ul>
@@ -218,11 +222,10 @@
                 </div>
             </div>
             <div id="searchInput" class="relative w-full md:w-2/3">
-                <input type="text" class="w-full text-gray-700 text-lg rounded-md bg-gray-100 py-2 px-2 pl-12  outline-none border-0 border-gray-500 focus:border-2">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-6 stroke-gray-700 inline-block pr-2 border-r border-gray-400 absolute left-2 top-3">
+                <input type="text" class="w-full text-gray-700 dark:text-white text-lg rounded-md bg-gray-100 dark:bg-slate-700 py-2 px-2 pl-12  outline-none border-0 border-gray-500 dark:border-gray-300 focus:border-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-9 h-6 stroke-gray-700 dark:stroke-white inline-block pr-2 border-r border-gray-400 absolute left-2 top-3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                  
             </div>
         </div>
         <div id="products" class="py-4 grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 lg:grid-cols-3 content-center">
@@ -330,7 +333,7 @@
 
         <div id="paginationBtns" class="flex items-center gap-1 flex-wrap">
             <button id="prevPageBtn" class="p-1 rounded hover:bg-sky-500 transition-colors duration-200 group">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none w-6 h-6 stroke-gray-400 group-hover:stroke-white transition-colors md:w-7 md:h-7">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none w-6 h-6 stroke-gray-400 dark:stroke-gray-200 group-hover:stroke-white transition-colors md:w-7 md:h-7">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                 </svg>                  
             </button>
@@ -344,7 +347,7 @@
             </ul>
 
             <button id="nextPageBtn" class="p-1 rounded hover:bg-sky-500 transition-colors duration-200 group">     
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none w-6 h-6 stroke-gray-400 group-hover:stroke-white transition-colors md:w-7 md:h-7">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="pointer-events-none w-6 h-6 stroke-gray-400 dark:stroke-gray-200 group-hover:stroke-white transition-colors md:w-7 md:h-7">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                 </svg>
             </button>
@@ -352,7 +355,7 @@
 
     </div>
 
-    <footer class="mt-5 py-2 pt-7 bg-secondary relative">
+    <footer class="mt-5 py-2 pt-7 bg-secondary dark:bg-slate-900 relative">
         <div class="container flex flex-col items-start gap-4 pb-4 md:flex-row">
             <div class="space-y-2 text-white w-full md:w-1/4">
                 <h3 class="text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
@@ -396,9 +399,10 @@
             © Designed By <a class="text-primary hover:underline" href="https://dribbble.com/malikhaider">UI_Haider</a> and Developed By <a class="text-primary hover:underline" href="https://github.com/iamirsalimi">Amir Salimi</a>
         </div>
 
-        <button id="gotoupBtn" class="bg-white rounded-full p-2 absolute -top-5 left-1/2 -translate-x-1/2"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
-          </svg>
+        <button id="gotoupBtn" class="bg-white dark:bg-slate-800 rounded-full p-2 absolute -top-5 left-1/2 -translate-x-1/2">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-gray-800 dark:stroke-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75L12 3m0 0l3.75 3.75M12 3v18" />
+            </svg>
         </button>
     </footer>
 

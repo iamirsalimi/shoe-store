@@ -16,6 +16,7 @@ let sortBtn = document.querySelector('#sortBtn')
 let groupWrapper = document.querySelector('#groupWrapper')
 let sortWrapper = document.querySelector('#sortWrapper')
 let searchInput = document.querySelector('#searchInput input')
+let darkModeBtns = document.querySelectorAll('.darkmodeBtn')
 let loader = document.querySelector('.loader-wrapper')
 
 let productsWrapper = document.querySelector('#products')
@@ -30,6 +31,7 @@ let newWishListObj = {wishlist : []}
 let newBasketObj = {basket : []}
 let userObj = null
 let wishList = []
+let darkModeFlag = false
 
 let rows = 5 , 
     startIndex = null , 
@@ -189,33 +191,30 @@ function isProductInUserWishList(productId){
 function createProductsCardsHandler(products){
     productsWrapper.innerHTML = ''
     products.forEach(product => {
-        productsWrapper.insertAdjacentHTML('beforeend' , `<div class="relative p-1 hover:-translate-y-2 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none overflow-hidden group">
-        <span class="${product.discount != 0 ? '' : 'hidden '}z-10 py-1 px-2 absolute top-0 left-0 rounded-br-md bg-sky-500 text-white text-xs font-bold">-%<span>${product.discount}</span> Off</span>
+        productsWrapper.insertAdjacentHTML('beforeend' , `<div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 dark:bg-slate-700 flex flex-col gap-7 select-none overflow-hidden group">
         <div class="relative w-full !h-72 overflow-hidden rounded-md">
             <img src="./images/${product.imagePath}" class="object-cover group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
 
-            <button data-targetId="${product.id}" class="p-1 absolute top-1 right-1 bg-gray-100 fill-gray-100 stroke-gray-800 rounded-full hover:scale-110 transition-transform group">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 hover:scale-110 ${isProductInUserWishList(product.id) ? 'stroke-white fill-red-600 group-hover:fill-white group-hover:stroke-red-600' : 'fill-white stroke-red-600 group-hover:stroke-white group-hover:fill-red-600'} transition-all">
+            <button data-targetId="${product.id}" class="p-1 absolute top-1 right-1 bg-white dark:bg-slate-800 rounded-full hover:scale-110 transition-transform group">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 hover:scale-110 ${isProductInUserWishList(product.id) ? 'stroke-white dark:stroke-red-500 fill-red-600 dark:fill-red-500 group-hover:fill-white group-hover:stroke-red-600  dark:group-hover:stroke-white' : 'fill-white stroke-red-600 dark:stroke-white group-hover:stroke-white group-hover:fill-red-600 dark:group-hover:stroke-red-500'}  transition-all">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                </svg>                              
+                </svg>                             
             </button>
         </div>
 
         <div class="space-y-2 py-1 px-2">
             <div class="space-y-[2px]">
-                <h3 class="productName font-bold text-gray-800">${product.productName}</h3>
-                <p class="text-gray-500">${product.productSummary}</p>
+                <h3 class="font-bold text-gray-800 dark:text-white">${product.productName}</h3>
+                <p class="text-gray-400">${product.productSummary}</p>
             </div>
 
             <div class="w-full flex justify-between items-center">
-                <div class="font-bold text-gray-800 flex items-center gap-2">
-                    <span class="${product.discount != 0 ? 'line-through decoration-gray-400 text-gray-400' : 'hidden'}">$${product.price}</span>
-                    <span>$${product.finalPrice}</span>
-                </div>
-                <a  href="./product.html?p=${product.id}" id="buyProductBtn" class="inline-block py-2 px-4 bg-sky-500 hover:bg-sky-600 transition-colors text-white font-bold rounded-md">Buy Now</a>
+                <div class="font-bold text-gray-800 dark:text-white"><span class="line-through decoration-gray-400 text-gray-400 ${product.discount ? '' : 'hidden'}">$${product.price}</span> $${product.finalPrice}</div>
+                <a  href="./product.html?p=1" class="inline-block py-2 px-4 text-white dark:text-slate-800 font-semibold bg-sky-500 hover:bg-sky-600 transition-colors rounded-md">Buy Now</a>
             </div>
-
         </div>
+
+        <div class="absolute ${product.discount ? '' : 'hidden'} left-0 top-0 bg-sky-500 text-white dark:text-slate-800 font-bold rounded-br-lg text-sm py-0.5 px-1.5">-%${product.discount} Off</div>
     </div>`)
     })
 
@@ -261,6 +260,17 @@ async function getProductsHandler(productType){
 }
 
 async function getUserAndProductDetailsHandler(){
+    darkModeFlag = localStorage.getItem('theme') == 'dark' ? true : false
+    
+    if(darkModeFlag){
+        document.documentElement.classList.add('dark')
+
+        darkModeBtns.forEach(darkModeBtn => {
+            darkModeBtn.firstElementChild.classList.add('hidden')
+            darkModeBtn.lastElementChild.classList.remove('hidden')
+        })
+    }
+
     let locationElems = new URLSearchParams(location.search)
     let productType = !locationElems.size ? 'all' : 
                     ['all' , 'men' , 'women' , 'kids'].includes(locationElems.get('t').toLowerCase()) ? locationElems.get('t').toLowerCase() : null
@@ -270,9 +280,9 @@ async function getUserAndProductDetailsHandler(){
 
     let menuElems = null
     if(productType && productType != 'all'){
-        menuElems = document.querySelectorAll(`.${productType}LiElem`)
+        menuElems = document.querySelectorAll(`.${productType.toLowerCase()}LiElem`)
     } else {
-        menuElems = document.querySelectorAll('.collectionsLiElem')
+        menuElems = document.querySelectorAll('.allLiElem')
     }
 
     menuElems.forEach(menuElem => menuElem.classList.add('active'))
@@ -365,29 +375,29 @@ function showUserBasket(userBasket){
         detailsWrapper.className = 'w-2/5 flex flex-col items-start gap-2'
 
         let productNameElem = document.createElement('h4')
-        productNameElem.className = 'font-bold'
+        productNameElem.className = 'font-bold dark:text-white'
         productNameElem.innerHTML = product.productName
         
         let productDetailsElem = document.createElement('div')
         productDetailsElem.className = 'flex flex-col items-start gap-1 md:flex-row md:items-center'
         
         let sizeDetail = document.createElement('span')
-        sizeDetail.className = 'text-gray-700 font-semibold text-sm'
+        sizeDetail.className = 'text-gray-700 dark:text-white dark:text-white font-semibold text-sm'
         sizeDetail.innerHTML = `Size : ${product.size}`
 
         let colorDetail = document.createElement('span')
-        colorDetail.className = 'text-gray-700 font-semibold text-sm'
+        colorDetail.className = 'text-gray-700 dark:text-white font-semibold text-sm'
         colorDetail.innerHTML = `Color : <span class="inline-block w-2 h-2 rounded-full bg-${product.color}-500"></span>`
 
         let productPriceWrapper = document.createElement('div')
         productPriceWrapper.className = 'w-1/5 flex flex-col justify-between gap-2 ml-auto'
         
         let priceElem = document.createElement('span')
-        priceElem.className = 'text-gray-900 font-bold text-center'
+        priceElem.className = 'text-gray-900 dark:text-white font-bold text-center'
         priceElem.innerHTML = `$${product.finalPrice}`
 
         let quantityDetail = document.createElement('span')
-        quantityDetail.className = 'text-gray-700 font-semibold text-sm text-center'
+        quantityDetail.className = 'text-gray-700 dark:text-white font-semibold text-sm text-center'
         quantityDetail.innerHTML = `Quantity : ${product.quantity}`
         
         let productRemoveBtn = document.createElement('button')
@@ -504,6 +514,24 @@ function toggleSortWrapper(){
     }
 }
 
+// dark mode 
+function changeThemeHandler(e){
+    document.documentElement.classList.toggle('dark')
+
+    darkModeFlag = document.documentElement.className.includes('dark') ? true : false
+
+
+    if(darkModeFlag){
+        e.target.firstElementChild.classList.add('hidden')
+        e.target.lastElementChild.classList.remove('hidden')
+    } else {
+        e.target.lastElementChild.classList.add('hidden')
+        e.target.firstElementChild.classList.remove('hidden')
+    }
+
+    localStorage.setItem('theme' , darkModeFlag ? 'dark' : 'light')
+}
+
 // changing root and active class to Element
 const changeRoot = e => {
     if(e.target.tagName == "A"){
@@ -557,10 +585,13 @@ navElems.forEach(nav => {
     nav.addEventListener('click' , changeRoot)
 })
 
+darkModeBtns.forEach(darkModeBtn => {
+    darkModeBtn.addEventListener('click' , changeThemeHandler)
+})
 
+document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 prevPageBtn.addEventListener('click' , changePageHandler)
 nextPageBtn.addEventListener('click' , changePageHandler)
-document.addEventListener('DOMContentLoaded' , getUserAndProductDetailsHandler)
 searchInput.addEventListener('keyup' , searchProductHandler)
 groupWrapper.addEventListener('click' , filterGroupHandler)
 sortWrapper.addEventListener('click' , filterSortHandler)

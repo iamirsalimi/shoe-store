@@ -13,19 +13,19 @@ body{
 }
 
 nav ul .active {
-    @apply text-secondary;
+    @apply text-secondary dark:text-white;
 }
 
 nav ul .active::after {
     @apply inline-block;
 }
 
-#menu-nav ul .active {
-    @apply text-secondary;
+#menu-nav ul .active{
+    @apply text-secondary dark:text-white;
 }
 
 #menu-nav ul .active::after {
-    @apply inline-block w-full;
+    @apply inline-block w-full dark:bg-white;
 }
 
 #menu-nav ul li::after {
@@ -165,7 +165,7 @@ nav ul .active::after {
 
 @layer components {
     .title-text{
-        @apply text-primary font-bold;
+        @apply text-primary font-bold dark:shadow-gray-300;
         text-shadow: -3px 1px 0 #000;
     }
 }

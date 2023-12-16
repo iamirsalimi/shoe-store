@@ -33,6 +33,7 @@ let userRoleSelect = document.getElementById('userRoleSelect')
 
 let month = ['Jan' , 'Feb' , 'Mar' , 'Apr' , 'May' , 'Jun' , 'Jul' , 'Aug' , 'Sep' , 'Oct' , 'Nov' , 'Dec']
 
+let userObj = null
 let targetElem = null
 let currentTab = 'Dashboard'
 let searchTarget = 'Customer Id'
@@ -953,7 +954,7 @@ function showOrderDetailsHandler(orderObj){
                 <span class="${product.productDiscount? '' : 'hidden'} absolute top-0 left-0 bg-blue-500 text-white font-bold rounded-br-md py-0.5 px-1 text-xs sm:text-sm">-%<span>${product.productDiscount}</span> Off</span>
             </div>
             <div class="flex flex-col gap-1">
-                <h3 class="text-gray-800 font-bold text-sm md:text-base">${product.productName}</h3>
+                <h3 class="text-gray-800 font-bold text-sm md:text-base">${product.productName} <span class="text-gray-500 text-sm">(productId : ${product.productId})</span></h3>
                 <div class="flex items-center gap-1 text-gray-500 font-semibold text-sm md:text-base">
                     <h3>Size : </h3>
                     <span>${product.size}</span>
@@ -1065,7 +1066,7 @@ async function getInfosHandler(){
     clearInputs()
 
     let userToken = getCookies()
-    let userObj = await isUserInUsers(userToken) 
+    userObj = await isUserInUsers(userToken) 
     // if user wasn't admin we must redirect him/her to home page
     
     if(userObj?.role === 'admin'){
@@ -1169,11 +1170,11 @@ logoutModal.addEventListener('click' , e => {
     }
 })
 
+document.addEventListener('DOMContentLoaded', getInfosHandler)
 logoutBtn.addEventListener('click' , logoutUserHandler)
 updateUserBtn.addEventListener('click' , updateUserRoleHandler)
 removeUserBtn.addEventListener('click' , showRemoveProductModalHandler)
 removeProductBtn.addEventListener('click' , deleteHandler)
-document.addEventListener('DOMContentLoaded', getInfosHandler)
 addAndEditProductForm.addEventListener('submit' ,  addAndEditProductHandler)
 addNewProductBtn.addEventListener('click' , showAddAndEditModalHandler)
 changeSearchTargetLabel.addEventListener('click' , changeSearchTargetHandler)

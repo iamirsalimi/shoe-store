@@ -41,6 +41,7 @@ let month = ['Jan' , 'Feb' , 'Mar' , 'Apr' , 'May' , 'Jun' , 'Jul' , 'Aug' , 'Se
 
 let progressTarget = 1
 let userObj = null
+let allProducts = null
 let productsObj = null
 let targetElem = null
 let currentTab = null
@@ -507,6 +508,54 @@ function showUserOrdersHandler(orders){
     }
 }
 
+async function updateProductOrderNumbers(product){
+    let orderNumbers = {orderNumbers : product.orderNumbers}
+
+    await fetch(`${apiData.updateProductsUrl}${product.id}` , {
+        method : 'PATCH',
+
+        headers : {
+            'Content-Type': 'application/json',
+            'apikey' : apiData.updateProductsApiKey,
+            'authorization' : apiData.authorization
+        },
+
+        body : JSON.stringify(orderNumbers)
+    })
+    .then(res => {
+        if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            console.log(res)
+        } else {
+            console.log(`${res.status} Error`)
+        }
+    })
+    .catch(err => {
+        console.log(err)
+    })
+}
+
+function getProductIdAndOrderHandler(productObj){
+    let targetProductObj = {id : null , orderNumbers : 0}
+    
+    let targetProduct = allProducts.find(product => product.id == productObj.productId) 
+
+    targetProductObj.id = targetProduct.id 
+    targetProductObj.orderNumbers = parseInt(targetProduct.orderNumbers) + parseInt(productObj.quantity)
+
+    return targetProductObj
+}
+
+function changeProductsOrderNumbers(products){
+    console.log(products);
+    let targetObj = null
+
+    // To update the number of orders at the same time as registering the product in purchases, we need to update each product separately.
+    products.forEach(product => {
+        targetObj = getProductIdAndOrderHandler(product)
+        updateProductOrderNumbers(targetObj)
+    })
+}
+
 async function addOrderToUserOrders(orders){
     await fetch(`${apiData.updateUsersUrl}${userObj.id}` , {
         method : 'PATCH',
@@ -569,6 +618,7 @@ async function addOrderToPurchases(newOrder){
     .then(res => {
         console.log(res)
         if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
+            changeProductsOrderNumbers(newOrder.products)
             Swal.fire({
                 icon: "success",
                 title: `Order Was Added`,
@@ -775,7 +825,6 @@ function getProductObject(productId){
 }
 
 async function getProductsHandler(){
-    let allProducts = null
     await fetch(apiData.getProductsUrl , {
         headers : {
             'apikey' : apiData.getProductsApiKey , 
