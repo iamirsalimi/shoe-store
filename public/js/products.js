@@ -164,15 +164,15 @@ async function addProductToWishListHandler(productObj){
 }
 
 
-function isProductExistInWishList(productObj){
-    let productIndex = newWishListObj.wishlist.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
+function isProductExistInWishList(productId){
+    let productIndex = newWishListObj.wishlist.findIndex(product => product.id == productId)
     return productIndex  
 } 
 
 async function addProductToWishList(productObj){
     newWishListObj.wishlist = wishList || {...productObj}
 
-    let productIndex = isProductExistInWishList(productObj) 
+    let productIndex = isProductExistInWishList(productObj.id)
 
     if(productIndex != -1){
         newWishListObj.wishlist.splice(productIndex, 1)
@@ -242,7 +242,7 @@ async function getProductsHandler(productType){
     .then(products => {
         products.sort((a , b) => a.id - b.id)
 
-        allProducts = productType == 'all' ? products : products.filter(product => product.productCategory.toLowerCase() == productType)
+        allProducts = productType == 'all' ? [...products] : products.filter(product => product.productCategory.toLowerCase() == productType)
         filteredProducts = allProducts
 
         createProductsHandler(allProducts)
@@ -292,7 +292,6 @@ async function getUserAndProductDetailsHandler(){
         wishList = userObj?.wishlist || []
         userBasket = userObj?.basket || []
         showUserBasket(userBasket)
-
     }
     
     await getProductsHandler(productType)

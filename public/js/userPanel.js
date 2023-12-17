@@ -471,6 +471,7 @@ function showOrderDetailsHandler(orderObj){
 
 
 function showUserOrdersHandler(orders){
+    console.log(orders , orders.length , !orders.length)
     let ordersTable = document.querySelector('#ordersTable')
     let userTableMessage = ordersTable.parentNode.nextElementSibling 
     if(!orders.length){
@@ -576,6 +577,7 @@ async function addOrderToUserOrders(orders){
             updateUserBasket(newUserBasket)
             showUserBasket()
             showUserInfos(userObj)
+            showUserOrdersHandler(orders)
             
             Swal.fire({
                 icon: "success",
@@ -645,13 +647,22 @@ async function addOrderToPurchases(newOrder){
     })
 }
 
-function payOrderHandler(){
-    addOrderToUserOrders(newOrder)
-    let newOrderObject = {...newOrderObj}
-    newOrderObject.customerId = userObj.id
-    newOrderObject.customerUsername  = userObj.userName
-    addOrderToPurchases(newOrderObject)
-    showUserOrdersHandler(newOrder)
+async function payOrderHandler(){
+    try{
+        await addOrderToUserOrders(newOrder)
+        let newOrderObject = {...newOrderObj}
+        newOrderObject.customerId = userObj.id
+        newOrderObject.customerUsername  = userObj.userName
+        await addOrderToPurchases(newOrderObject)
+        showUserOrdersHandler(newOrder.orders)
+    } catch(err){
+        Swal.fire({
+            icon: "error",
+            title: `${err} Error`,
+            text: "Something went wrong! please try again later",
+            timer: 3000
+        })
+    }
 }
 
 // progress 1 shopping cart
@@ -772,6 +783,7 @@ function showUserInfos(userObj){
     let usernameDetail = userInfo.querySelector('.usernameDetail')
     usernameDetail.innerHTML = userObj.userName
 
+    purchasesShortCutTable.innerHTML = ''
     if(!userObj.orders){
         purchasesShortCutTable.nextElementSibling.classList.remove('hidden')
         purchasesShortCutTable.nextElementSibling.classList.add('flex')
@@ -913,8 +925,8 @@ function changeProductSize(e , targetId){
 }
 
 // wishList
-function isProductExistInWishList(productObj){
-    let productIndex = filteredWishList.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
+function isProductExistInWishList(productId){
+    let productIndex = filteredWishList.findIndex(product => product.id == productId)
     return productIndex  
 } 
 
@@ -935,6 +947,7 @@ async function addProductToWishListHandler(productObj){
         console.log(res)
         if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
             wishList = productObj.wishlist
+            console.log(wishList , filteredWishList);
             showUserBasket()
             showWishListProducts()
             searchProductHandler(searchInputs[1].value.trim())
@@ -967,7 +980,7 @@ async function addProductToWishListHandler(productObj){
 async function addProductToWishList(productObj){
     newWishListObj.wishlist = wishList || {...productObj}
 
-    let productIndex = isProductExistInWishList(productObj)
+    let productIndex = isProductExistInWishList(productObj.id)
 
     if(productIndex != -1){
         newWishListObj.wishlist.splice(productIndex, 1)
@@ -980,7 +993,7 @@ async function addProductToWishList(productObj){
 }
 
 function isProductInUserWishList(productId){
-    let isProductInWishList = wishList?.some(product => product.id === productId)
+    let isProductInWishList = wishList?.some(product => product.id == productId)
     return isProductInWishList
 }
 

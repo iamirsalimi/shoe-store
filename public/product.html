@@ -180,8 +180,9 @@
         </svg> Back</button>
         <div class="flex flex-col items-center text-cneter gap-7 p-4 bg-gray-100 dark:bg-slate-700 rounded-md select-none md:rounded-lg md:px-2 md:py-2 lg:items-start">
             <div class="flex flex-col items-center text-cneter gap-7 md:flex-row lg:items-start">
-                <div class="w-full rounded-md overflow-hidden h-[35rem] lg:max-w-[50%]">
+                <div class="relative w-full rounded-md overflow-hidden h-[35rem] lg:max-w-[50%]">
                     <img id="productImg" src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" class="object-cover object-center" alt="Product Image">
+                    <span class="absolute top-0 left-0 bg-sky-500 rounded-br-md text-white dark:text-slate-800 font-bold py-1 px-2 text-lg md:text-xl">-%<span id="productDiscount">30</span> off</span>
                 </div>
                 <div class="space-y-4 w-full">
                     <h2 id="productName" class="font-bold text-3xl text-gray-700 dark:text-white">Nike Dunk Low</h2>
@@ -189,7 +190,12 @@
                         <h3 class="text-gray-600 dark:text-gray-200 font-bold">Description</h3>
                         <p id="productDesc" class="text-base text-gray-500 dark:text-gray-300">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate explicabo eaque fugiat ut non! Laboriosam repellendus a quod et ullam dicta vel. Odit quam earum accusantium illo sint fugiat nobis?</p>
                     </div>
-                    <p class="text-3xl text-gray-800 dark:text-white font-bold">$<span id="productPrice">100</span>/<span class="text-gray-500 dark:text-gray-300 text-xl">USD</span></p>
+                    <p class="text-3xl text-gray-800 dark:text-white font-bold">
+                        <span class="line-through decoration-gray-400 text-gray-400"></span>
+                        <span>
+                            <span id="productPrice">$100</span>/<span class="text-gray-500 dark:text-gray-300 text-xl">USD</span>
+                        </span>
+                    </p>
                     <div class="flex flex-col gap-4 sm:flex-row">
                         <div class="flex items-center gap-2">
                             <span class="text-gray-500 dark:text-gray-200">SelectSize :</span>

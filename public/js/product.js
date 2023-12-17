@@ -27,6 +27,7 @@ let userBasket = null
 let newBasketObj = {basket : []}
 let newCommentObj = {reviews : []}
 let newWishListObj = {wishlist : []}
+let likeFlag = true
 let wishList = []
 let productObj = null
 let productReviews = null
@@ -194,17 +195,18 @@ async function isProductInProducts(productId){
 async function likeOrUnlikeReview(reviewObj){
     if(!reviewObj.likes.length){
         reviewObj.likes.push(userObj.id)
+        likeFlag = true 
     } else {
         let userLikedId = reviewObj.likes.indexOf(userObj.id)
         
         if(userLikedId != -1){
             reviewObj.likes.splice(userLikedId , 1)
+            likeFlag = false 
         } else {
             reviewObj.likes.push(userObj.id)
+            likeFlag = true 
         }
     }
-
-    console.log(reviewObj.likes);
 }
 
 function isUserLikedComment(likes){
@@ -212,18 +214,29 @@ function isUserLikedComment(likes){
     return isUserLikedComment
 }
 
+function isProductInUserWishList(productId){
+    let isProductInWishList = wishList.some(product => product.id == productId)
+    return isProductInWishList
+} 
+
 function showProductDetails(productObj){
     let productImageElem = document.querySelector('#productImg')
     productImageElem.src = `./images/${productObj.imagePath}`
+
+    let productDiscount = document.querySelector('#productDiscount')
+    productDiscount.innerHTML = productObj.discount
+    productDiscount.classList.add(productObj.discount ? 'inline-block' : 'hidden')
 
     let productName = document.querySelector('#productName')
     productName.innerHTML = productObj.productName
 
     let productDesc = document.querySelector('#productDesc')
     productDesc.innerHTML = productObj.productDesc
-    
+
     let productPrice = document.querySelector('#productPrice')
-    productPrice.innerHTML = productObj.finalPrice
+    productPrice.parentNode.previousElementSibling.innerHTML = `$${productObj.price}`
+    productPrice.parentNode.previousElementSibling.classList.add(productObj.discount ? 'inline-block' : 'hidden')
+    productPrice.innerHTML = `$${productObj.finalPrice}`
     
     // We must select the first seize as default
     let productSizes = document.querySelector('#productSizes')
@@ -243,6 +256,8 @@ function showProductDetails(productObj){
             <label for="${color}" class="inline-block w-3 h-3 rounded-full bg-${['black' , 'white'].includes(color) ? color : `${color}-500`} ring-0 ring-${['black' , 'white'].includes(color) ? color : `${color}-500`} ${color == 'white' ? ' border border-gray-400' : '' } ring-offset-2 ring-offset-gray-100 dark:ring-offset-slate-700 hover:scale-110 transition-all cursor-pointer border-none"></label>
         </div>`
     }).join('')
+
+    addToWishListBtn.firstElementChild.innerHTML = isProductInUserWishList(productObj.id) ? 'Remove From WishList' : 'Add To WishList' 
 
     productReviews = productObj?.reviews || []
 
@@ -331,7 +346,10 @@ function showProductDetails(productObj){
         reviewsEmptyMessage.classList.remove('hidden')
     }
 
+    showRatingHandler()
+}
 
+function showRatingHandler(){
     let ratingWrapper = document.querySelector('#review').lastElementChild
 
     let averageRatingElem = ratingWrapper.querySelector('#averageRating')
@@ -343,8 +361,11 @@ function showProductDetails(productObj){
     let averageRating = productReviews.length ? Math.round(productReviews.reduce((sum , current) => sum + current.starNumbers , 0) / productReviews.length) : 0
     averageRatingElem.innerHTML = `${averageRating}/5`
 
-    for(let i = 0 ; i < averageRating ; i++){
-        averageRatingStars[i].classList.add(`fill-yellow-400`)
+    for(let i = 5 ; i > averageRating ; i--){
+        averageRatingStars[i - 1].classList.remove(`fill-yellow-400`)
+    }
+    for(let i = 1 ; i <= averageRating ; i++){
+        averageRatingStars[i - 1].classList.add(`fill-yellow-400`)
     }
 }
 
@@ -365,8 +386,6 @@ async function addProductToWishListHandler(productObj){
         console.log(res)
         if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
             wishList = productObj.wishlist
-            createProductsHandler(filteredProducts)
-            setupPagination(filteredProducts , rows , btnsWrapper , currentPage)
             Swal.fire({
                 icon: "success",
                 title: `Your Wish List Was Updated You Can Get Access To Your WishList in Your Panel in Wishlist Tab`,
@@ -393,21 +412,25 @@ async function addProductToWishListHandler(productObj){
     })
 }
 
-function isProductExistInWishList(productObj){
-    let productIndex = newWishListObj.wishlist.findIndex(product => JSON.stringify(product) == JSON.stringify(productObj))
+function isProductExistInWishList(productId){
+    let productIndex = newWishListObj.wishlist.findIndex(product => product.id == productId)
     return productIndex  
-} 
+}
 
 async function addProductToWishList(productObj){
     newWishListObj.wishlist = wishList || {...productObj}
 
-    let productIndex = isProductExistInWishList(productObj) 
+    let productIndex = isProductExistInWishList(productObj.id)
 
+    let btnText = null
     if(productIndex != -1){
         newWishListObj.wishlist.splice(productIndex, 1)
+        btnText = 'Add To'
     } else {
         wishList && newWishListObj.wishlist.push({...productObj})
+        btnText = 'Remove From'
     }
+    addToWishListBtn.firstElementChild.innerHTML = `${btnText} WishList`
     
     await addProductToWishListHandler(newWishListObj)
 }
@@ -568,9 +591,13 @@ async function addNewCommentHandler(commentObj , targetFlag){
         console.log(res)
         if([205 , 204 , 203 , 202 , 201 ,200].includes(res.status)){
             getUserAndProductDetailsHandler()
+            showRatingHandler(productReviews)
             Swal.fire({
                 icon: "success",
-                title: `${targetFlag == 'like' ? 'Comment Was Liked' : 'Comment Was Added'}`,
+                
+                title: `${targetFlag != 'like' ? 'Comment Was Added' : 
+                likeFlag ? 'Comment Was Liked' : 'comment Was unLiked'}`,
+                
                 showConfirmButton: false,
                 timer: targetFlag == 'like' ? 1500 : 3000
             })

@@ -3132,10 +3132,6 @@ nav ul .active::after {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-:is(.dark .dark\:ring-offset-slate-100) {
-  --tw-ring-offset-color: #f1f5f9;
-}
-
 :is(.dark .dark\:ring-offset-slate-700) {
   --tw-ring-offset-color: #334155;
 }
