@@ -169,7 +169,7 @@ function getProgressTwoDetails(){
         productsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-2">
         <div class="flex gap-2 w-2/3">
             <div class="w-[30%] h-28 overflow-hidden rounded md:w-[25%]">
-                <img src="./images/${targetProduct.imagePath}" class="object-cover object-center" alt="Product Image">
+                <img src="./images/${targetProduct.imagePath}" class="object-cover object-center h-full w-full" alt="Product Image">
             </div>
             <div class="flex flex-col gap-1">
                 <h3 class="text-gray-800 font-bold">${product.productName}</h3>
@@ -210,7 +210,7 @@ function showReceiptDetails(orders){
         productsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-2">
         <div class="flex gap-2 w-2/3">
             <div class="w-[30%] h-28 overflow-hidden rounded md:w-[25%]">
-                <img src="./images/${targetProduct.imagePath}" class="object-cover object-center" alt="Product Image">
+                <img src="./images/${targetProduct.imagePath}" class="object-cover object-center h-full w-full" alt="Product Image">
             </div>
             <div class="flex flex-col gap-1">
                 <h3 class="text-gray-800 font-bold">${product.productName}</h3>
@@ -427,7 +427,7 @@ function showOrderDetailsHandler(orderObj){
         orderProductsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-1">
         <div class="flex gap-2 w-2/3">
             <div class="relative w-[30%] h-20 overflow-hidden rounded-md md:w-[25%] md:h-28">
-                <img src="./images/${product.productImagePath}" class="object-cover object-center" alt="Product Image">
+                <img src="./images/${product.productImagePath}" class="object-cover object-center h-full w-full" alt="Product Image">
                 <span class="${product.productDiscount? '' : 'hidden'} absolute top-0 left-0 bg-blue-500 text-white font-bold rounded-br-md py-0.5 px-1 text-xs sm:text-sm">-%<span>${product.productDiscount}</span> Off</span>
             </div>
             <div class="flex flex-col gap-1">
@@ -819,7 +819,7 @@ function showUserInfos(userObj){
             targetProduct = getProductObject(product.productId)
             basketShortCutTable.insertAdjacentHTML('beforeend' , `<div class="bg-gray-100 flex items-center gap-2 p-[2px] rounded-md max-h-12 overflow-hidden">
             <div class="w-[15%] rounded-md overflow-hidden xs:w-[10%]">
-                <img src="./images/${targetProduct.imagePath}" alt="Purchased product image" class="object-cover object-center">
+                <img src="./images/${targetProduct.imagePath}" alt="Purchased product image" class="object-cover object-center h-full w-full">
             </div>
             <div class="w-[65%] flex flex-col justify-center gap-[2px] xs:w-[70%]">
                 <h3 class="font-bold text-gray-800 text-sm line-clamp-1 xs:text-base">${targetProduct.productName}</h3>
@@ -861,7 +861,7 @@ function showWishListProducts(){
         filteredWishList.forEach(product => {
             wishListWrapper.insertAdjacentHTML('beforeend' , `<div class="product relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-white flex flex-col gap-1 select-none overflow-hidden group">
                 <div class="relative w-full !h-72 overflow-hidden rounded-md">
-                    <img src="./images/${product.imagePath}" class="object-cover group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
+                    <img src="./images/${product.imagePath}" class="object-cover object-center h-full w-full group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
             
                     <button data-targetId="${product.id}" class="p-1 absolute top-1 right-1 bg-white rounded-full hover:scale-110 transition-transform group">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 hover:scale-110 stroke-white fill-red-600 group-hover:fill-white group-hover:stroke-red-600 transition-all">
@@ -1020,7 +1020,7 @@ function showUserBasket(){
             imageWrapper.className = 'w-[30%] h-32 rounded overflow-hidden'
     
             let productImg = document.createElement('img')
-            productImg.className = 'object-cover object-center'
+            productImg.className = 'object-cover object-center h-full w-full'
             productImg.alt = 'Product Image'
             productImg.src = `./images/${product.imagePath}`
     

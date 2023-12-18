@@ -225,7 +225,7 @@ function showProductDetails(productObj){
 
     let productDiscount = document.querySelector('#productDiscount')
     productDiscount.innerHTML = productObj.discount
-    productDiscount.classList.add(productObj.discount ? 'inline-block' : 'hidden')
+    productDiscount.parentNode.classList.add(productObj.discount ? 'inline-block' : 'hidden')
 
     let productName = document.querySelector('#productName')
     productName.innerHTML = productObj.productName
@@ -465,7 +465,7 @@ function showUserBasket(userBasket){
         imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden max-h-[8rem]'
 
         let imgElem = document.createElement('img')
-        imgElem.className = 'object-cover'
+        imgElem.className = 'object-cover object-center h-full w-full'
         imgElem.src = `./images/${product.productImagePath}`
         imgElem.alt = 'Product Image'        
         

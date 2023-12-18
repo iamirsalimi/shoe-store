@@ -950,7 +950,7 @@ function showOrderDetailsHandler(orderObj){
         orderProductsWrapper.insertAdjacentHTML('beforeend' , `<div class="flex items-start justify-between gap-1">
         <div class="flex gap-2 w-2/3">
             <div class="relative w-[30%] h-20 overflow-hidden rounded-md md:w-[25%] md:h-28">
-                <img src="./images/${product.productImagePath}" class="object-cover object-center" alt="Product Image">
+                <img src="./images/${product.productImagePath}" class="object-cover object-center w-full h-full" alt="Product Image">
                 <span class="${product.productDiscount? '' : 'hidden'} absolute top-0 left-0 bg-blue-500 text-white font-bold rounded-br-md py-0.5 px-1 text-xs sm:text-sm">-%<span>${product.productDiscount}</span> Off</span>
             </div>
             <div class="flex flex-col gap-1">

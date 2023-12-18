@@ -193,7 +193,7 @@ function createProductsCardsHandler(products){
     products.forEach(product => {
         productsWrapper.insertAdjacentHTML('beforeend' , `<div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 dark:bg-slate-700 flex flex-col gap-7 select-none overflow-hidden group">
         <div class="relative w-full !h-72 overflow-hidden rounded-md">
-            <img src="./images/${product.imagePath}" class="object-cover group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
+            <img src="./images/${product.imagePath}" class="object-cover object-center h-full w-full group-hover:scale-150 group-hover:rotate-12 transition-transform duration-200" alt="Product Image">
 
             <button data-targetId="${product.id}" class="p-1 absolute top-1 right-1 bg-white dark:bg-slate-800 rounded-full hover:scale-110 transition-transform group">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-6 h-6 hover:scale-110 ${isProductInUserWishList(product.id) ? 'stroke-white dark:stroke-red-500 fill-red-600 dark:fill-red-500 group-hover:fill-white group-hover:stroke-red-600  dark:group-hover:stroke-white' : 'fill-white stroke-red-600 dark:stroke-white group-hover:stroke-white group-hover:fill-red-600 dark:group-hover:stroke-red-500'}  transition-all">
@@ -366,7 +366,7 @@ function showUserBasket(userBasket){
         imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden max-h-[8rem]'
 
         let imgElem = document.createElement('img')
-        imgElem.className = 'object-cover'
+        imgElem.className = 'object-cover object-center h-full w-full'
         imgElem.src = `./images/${product.productImagePath}`
         imgElem.alt = 'Product Image'        
         
@@ -442,7 +442,7 @@ function filterProductsCategory(filterValue){
 const showMenu = () => {
     let menuClass = menu.className
     menu.parentNode.className = menu.parentNode.className.replace('invisible' , 'visible')
-    menu.parentNode.className = menu.parentNode.className.replace('z-0' , 'z-20')
+    menu.parentNode.className = menu.parentNode.className.replace('-z-10' , 'z-50')
     menu.className = menuClass.replace('-translate-x-full' , 'translate-x-0')
     menu.parentNode.className = menu.parentNode.className.replace('bg-black/0' , 'bg-black/50') 
 }
@@ -453,14 +453,14 @@ const closeMenu =  () => {
     menu.parentNode.className = menu.parentNode.className.replace('bg-black/50' , 'bg-black/0') 
     setTimeout(() => {
         menu.parentNode.className = menu.parentNode.className.replace('visible' , 'invisible')
-        menu.parentNode.className = menu.parentNode.className.replace('z-20' , 'z-0')
+        menu.parentNode.className = menu.parentNode.className.replace('z-50' , '-z-10')
     } , 500)
 }
 
 const showBasket = () => {
     let basketClass = basket.className
     basket.parentNode.className = basket.parentNode.className.replace('invisible' , 'visible')
-    basket.parentNode.className = basket.parentNode.className.replace('-z-10' , 'z-20')
+    basket.parentNode.className = basket.parentNode.className.replace('-z-10' , 'z-50')
     basket.className = basketClass.replace('-translate-x-full' , 'translate-x-0')
     basket.parentNode.className = basket.parentNode.className.replace('bg-black/0' , 'bg-black/50') 
 }
@@ -473,7 +473,7 @@ const closeBasket =  () => {
         if(!basket.parentNode.className.includes('invisible')){
             basket.parentNode.className = basket.parentNode.className.replace('visible' , 'invisible')
         }
-        basket.parentNode.className = basket.parentNode.className.replace('z-20' , '-z-10')
+        basket.parentNode.className = basket.parentNode.className.replace('z-50' , '-z-10')
     } , 500)
 }
 
