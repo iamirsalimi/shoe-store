@@ -3841,9 +3841,9 @@ video {
     width: 100%;
   }
 
-  .lg\:min-w-max {
-    min-width: -moz-max-content;
-    min-width: max-content;
+  .lg\:min-w-fit {
+    min-width: -moz-fit-content;
+    min-width: fit-content;
   }
 
   .lg\:max-w-\[50\%\] {
