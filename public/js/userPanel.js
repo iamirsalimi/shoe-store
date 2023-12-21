@@ -1165,10 +1165,10 @@ async function getUsersAndProductsDetailsHandler(){
             showUserOrdersHandler(orders)
             showWishListProducts(userObj.wishlist)
         } else {
-            location.href = 'http://127.0.0.1:5500/public/adminPanel.html'
+            location.href = 'https://iamirsalimi.github.io/shoe-store/public/adminPanel.html'
         }
     } else {
-        location.href = 'http://127.0.0.1:5500/public/index.html'
+        location.href = 'https://iamirsalimi.github.io/shoe-store/public/index.html'
     }
 
     loader.classList.add('fadeOut')

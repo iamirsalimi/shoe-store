@@ -1091,7 +1091,7 @@ async function getInfosHandler(){
             loader.classList.add('hidden')
         },1000)
     } else {
-        location.href = 'http://127.0.0.1:5500/public/index.html'
+        location.href = 'https://iamirsalimi.github.io/shoe-store/public/index.html'
     }
 }
 

@@ -548,10 +548,10 @@ async function getUserAndProductDetailsHandler(){
             showProductDetails(productObj)
             addToWishListBtn.addEventListener('click' , () => addProductToWishList(productObj))
         } else {
-            location.href = 'http://127.0.0.1:5500/public/index.html'
+            location.href = 'https://iamirsalimi.github.io/shoe-store/public/index.html'
         }
     } else {
-        location.href = 'http://127.0.0.1:5500/public/index.html'
+        location.href = 'https://iamirsalimi.github.io/shoe-store/public/index.html'
     }
     
 
