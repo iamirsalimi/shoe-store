@@ -264,7 +264,7 @@ async function loginUserHandler(e){
             setCookie(cookieValue , expires)
 
             // redirect user to home page
-            location.href = 'http://127.0.0.1:5500/public/index.html'
+            location.href = 'https://iamirsalimi.github.io/shoe-store/public/index.html'
         } else {
             errWrapper.classList.remove('hidden')
             errWrapper.innerHTML = 'Password Is incorrect'
