@@ -165,7 +165,7 @@ nav ul .active::after {
 
 @layer components {
     .title-text{
-        @apply text-primary font-bold dark:shadow-gray-300;
+        @apply text-primary font-bold dark:shadow-gray-300 dark:text-sky-500;
         text-shadow: -3px 1px 0 #000;
     }
 }

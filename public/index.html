@@ -124,7 +124,7 @@
     </div>
 
     <div id="basket-wrapper" class="bg-black/0 fixed top-0 right-0 botton-0 -z-10 w-full h-full transition-colors duration-500 invisible">
-        <section id="basket" class="w-3/4 md:w-2/4 xl:w-2/5 h-full bg-white dark:bg-slate-800 p-4 transition-all duration-200 space-y-7 -translate-x-full">
+        <section id="basket" class="w-4/5 md:w-2/4 xs:w-3/4 xl:w-2/5 h-full bg-white dark:bg-slate-800 p-4 transition-all duration-200 space-y-7 -translate-x-full">
             <div class="w-full flex justify-between items-center">
                 <button id="closeBasketBtn" class="p-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="stroke-secondary dark:stroke-white w-7 h-7">
@@ -136,7 +136,7 @@
 
             <div class="space-y-7 mt-5">
                 <h3 class="text-gray-900 dark:text-white font-bold text-center text-2xl xs:text-3xl">Shopping Cart</h3>
-                <ul id="basketProductsWrapper" class="flex flex-col gap-4 items-center overflow-y-scroll h-80">
+                <ul id="basketProductsWrapper" class="flex flex-col gap-4 items-center overflow-y-auto h-[22rem] divide-y divide-y-gray-200">
                     <!-- <li class="flex gap-2 py-3 border-b border-gray-200">
                         <div class="w-1/5 rounded-lg overflow-hidden">
                             <img src="./images/erik-mclean-SSb8DT51hX8-unsplash.jpg" alt="Product Image">
@@ -163,12 +163,13 @@
                         </div>
                         <div class="text-gray-900 font-bold text-center">$100</div>
                     </li> -->
+                    <span class="hidden py-7 text-sky-500 font-bold text-center w-full text-xl">Basket is Empty!</span>
                 </ul>
             </div>
 
             <div class="flex flex-col gap-4">
                 <div class="text-gray-900 dark:text-white inline-flex font-bold text-center items-start">
-                    <h3>Total Price :</h3>
+                    <h3>Total Price : </h3>
                     <p id="totalPrice">$190</p>
                 </div>
                 <a href="./userPanel.html?t=Basket" class="bg-secondary hover:bg-secondary/90 transition-all w-fit py-2 px-3 rounded-md text-white font-bold">Continue to pay</a>
@@ -278,7 +279,7 @@
 
     <section class="container mt-32 space-y-10 sm:space-y-20">
         <div id="newProducts-heaader">
-            <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 dark:text-white mx-auto w-fit relative md:w-full md:mx-0">New Arrival <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
+            <h3 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-800 dark:text-white mx-auto w-fit relative md:w-full md:mx-0">New Arrival <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 dark:bg-sky-500 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
         </div>
         
         <div class="swiper my-5">
@@ -419,7 +420,7 @@
     </section>
 
     <section class="container mt-28">
-        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-white mx-auto w-fit relative md:w-full md:mx-0">Provide Best Shoe <span class="title-text">Collection</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
+        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-white mx-auto w-fit relative md:w-full md:mx-0">Provide Best Shoe <span class="title-text">Collection</span><span class="inline-block bg-blueLight-200 dark:bg-sky-500 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
 
         <div class="flex flex-col items-center gap-2 my-5 md:flex-row-reverse md:items-start">
             <div class="w-full overflow-hidden xl:w-2/5">
@@ -436,7 +437,7 @@
 
 
     <section class="container space-y-12 my-28">
-        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-white mx-auto w-fit relative md:w-full md:mx-0">Our Best Selling <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
+        <h3 class="font-bold text-3xl md:text-4xl lg:text-5xl text-gray-800 dark:text-white mx-auto w-fit relative md:w-full md:mx-0">Our Best Selling <span class="title-text">2023</span><span class="inline-block bg-blueLight-200 dark:bg-sky-500 w-4 h-4 rounded-full absolute -left-2 top-1 -z-10"></span></h3>
 
         <div id="productsWrapper" class="grid grid-cols-1 gap-x-4 gap-y-9 xs:grid-cols-2 md:grid-cols-3">
             <!-- <div class="relative p-1 hover:-translate-y-5 transition-transform ease-in-out duration-200 rounded-lg bg-gray-200 flex flex-col gap-7 select-none group">
@@ -606,22 +607,22 @@
     <footer class="mt-5 py-2 pt-7 bg-secondary dark:bg-slate-900 relative">
         <div class="container flex flex-col items-start gap-4 pb-4 md:flex-row">
             <div class="space-y-2 text-white w-full md:w-1/4">
-                <h3 class="text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary">Trends</span></h3>
+                <h3 class="text-2xl font-bold text-center md:text-left">Shoe <span class="text-primary dark:text-sky-500">Trends</span></h3>
                 <p class="text-lg text-center md:text-left">Shoe trends is the best nike ,adidas and reebok shoes provider and people trust on us more then 30 years.</p>
             </div>
             <div class="space-y-4 text-white text-center ml-0 w-full md:w-1/4 md:text-left md:ml-auto">
                 <h3 class="text-2xl font-bold">Shoes</h3>
                 <ul class="space-y-2">
-                    <li class="text-base text-white  hover:text-primary transition">
+                    <li class="text-base text-white  hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="products.html?t=all">All Shoes</a>
                     </li>
-                    <li class="text-base text-white  hover:text-primary transition">
+                    <li class="text-base text-white  hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="products.html?t=men">Men Shoes</a>
                     </li>
-                    <li class="text-base text-white  hover:text-primary transition">
+                    <li class="text-base text-white  hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="products.html?t=women">Women Shoes</a>
                     </li>
-                    <li class="text-base text-white  hover:text-primary transition">
+                    <li class="text-base text-white  hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="products.html?t=kids">Kid's Shoes</a>
                     </li>
                 </ul>    
@@ -630,13 +631,13 @@
             <div class="space-y-4 text-white text-center w-full md:w-1/4 md:text-left">
                 <h3 class="text-2xl font-bold">Contact</h3>
                 <ul class="space-y-2 z-10">
-                    <li class="text-base text-white hover:text-primary transition">
+                    <li class="text-base text-white hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="#">Phone : 031111111</a>
                     </li>
-                    <li class="text-base text-white hover:text-primary transition">
+                    <li class="text-base text-white hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="#">Gmail : test@gmail.com</a>
                     </li>
-                    <li class="text-base text-white hover:text-primary transition">
+                    <li class="text-base text-white hover:text-primary dark:hover:text-sky-500 transition">
                         <a href="#">Address : US , Los Angeles </a>
                     </li>
                 </ul>    
@@ -644,7 +645,7 @@
             
         </div>
         <div class="text-white border-t border-white py-2 text-center">
-            © Designed By <a class="text-primary hover:underline" href="https://dribbble.com/malikhaider">UI_Haider</a> and Developed By <a class="text-primary hover:underline" href="https://github.com/iamirsalimi">Amir Salimi</a>
+            © Designed By <a class="text-primary dark:text-sky-500 hover:underline" href="https://dribbble.com/malikhaider">UI_Haider</a> and Developed By <a class="text-primary dark:text-sky-500 hover:underline" href="https://github.com/iamirsalimi">Amir Salimi</a>
         </div>
 
         <button id="gotoupBtn" class="bg-white dark:bg-slate-800 rounded-full p-2 absolute -top-5 left-1/2 -translate-x-1/2">

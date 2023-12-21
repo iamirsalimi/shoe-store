@@ -79,65 +79,74 @@ function showUserBasket(userBasket){
     let totalPriceElem = document.querySelector('#totalPrice')
     let basketFragment = document.createDocumentFragment()
 
-    basketProductWrapper.innerHTML = ''
-    userBasket.forEach(product => {
-        let liElem = document.createElement('li')
-        liElem.className = 'flex items-center justify-between gap-2 py-2 border-b border-gray-200 max-h-[9rem]'
-
-        let imageWrapper = document.createElement('div')
-        imageWrapper.className = 'w-1/5 rounded-lg overflow-hidden max-h-[8rem]'
-
-        let imgElem = document.createElement('img')
-        imgElem.className = 'object-cover object-center h-full w-full'
-        imgElem.src = `./images/${product.productImagePath}`
-        imgElem.alt = 'Product Image'        
-        
-        let detailsWrapper = document.createElement('div')
-        detailsWrapper.className = 'w-2/5 flex flex-col items-start gap-2'
-
-        let productNameElem = document.createElement('h4')
-        productNameElem.className = 'font-bold dark:text-white'
-        productNameElem.innerHTML = product.productName
-        
-        let productDetailsElem = document.createElement('div')
-        productDetailsElem.className = 'flex flex-col items-start gap-1 md:flex-row md:items-center'
-        
-        let sizeDetail = document.createElement('span')
-        sizeDetail.className = 'text-gray-700 dark:text-white dark:text-white font-semibold text-sm'
-        sizeDetail.innerHTML = `Size : ${product.size}`
-
-        let colorDetail = document.createElement('span')
-        colorDetail.className = 'text-gray-700 dark:text-white font-semibold text-sm'
-        colorDetail.innerHTML = `Color : <span class="inline-block w-2 h-2 rounded-full bg-${product.color}-500"></span>`
-
-        let productPriceWrapper = document.createElement('div')
-        productPriceWrapper.className = 'w-1/5 flex flex-col justify-between gap-2 ml-auto'
-        
-        let priceElem = document.createElement('span')
-        priceElem.className = 'text-gray-900 dark:text-white font-bold text-center'
-        priceElem.innerHTML = `$${product.finalPrice}`
-
-        let quantityDetail = document.createElement('span')
-        quantityDetail.className = 'text-gray-700 dark:text-white font-semibold text-sm text-center'
-        quantityDetail.innerHTML = `Quantity : ${product.quantity}`
-        
-        let productRemoveBtn = document.createElement('button')
-        productRemoveBtn.className = 'bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold'
-        productRemoveBtn.innerHTML = 'Remove'
-        
-        productRemoveBtn.addEventListener('click' , e => {
-            removeProductFromBasket(product.id)
+    if(!userBasket.length){
+        basketProductWrapper.innerHTML = '<span class="py-7 text-sky-500 font-bold text-center w-full text-xl">Basket is Empty!</span>'
+        totalPriceElem.innerHTML = `$0`
+    } else {
+        basketProductWrapper.innerHTML = ''
+        userBasket.forEach(product => {
+            let liElem = document.createElement('li')
+            liElem.className = 'w-full flex flex-col items-start gap-2 py-2 max-h-[14rem] xs:max-h-[9rem] xs:flex-row xs:items-center'
+    
+            let imageWrapper = document.createElement('div')
+            imageWrapper.className = 'w-full min-w-[20%] xs:w-1/5 rounded-lg overflow-hidden max-h-[14rem] xs:max-h-[8rem]'
+    
+            let imgElem = document.createElement('img')
+            imgElem.className = 'object-cover object-center h-full w-full'
+            imgElem.src = `./images/${product.productImagePath}`
+            imgElem.alt = 'Product Image'        
+            
+            let productInfosWrapper = document.createElement('div')
+            productInfosWrapper.className = 'w-full flex items-start justify-between xs:items-center'
+    
+            let detailsWrapper = document.createElement('div')
+            detailsWrapper.className = 'w-3/5 flex flex-col items-start gap-2'
+    
+            let productNameElem = document.createElement('h4')
+            productNameElem.className = 'font-bold dark:text-white text-sm line-clamp-1 xs:text-base'
+            productNameElem.innerHTML = product.productName
+            
+            let productDetailsElem = document.createElement('div')
+            productDetailsElem.className = 'flex flex-col items-start gap-1 md:flex-row md:items-center'
+            
+            let sizeDetail = document.createElement('span')
+            sizeDetail.className = 'text-gray-700 dark:text-white  font-semibold text-xs xs:text-sm'
+            sizeDetail.innerHTML = `Size : ${product.size}`
+    
+            let colorDetail = document.createElement('span')
+            colorDetail.className = 'text-gray-700 dark:text-white font-semibold text-xs xs:text-sm'
+            colorDetail.innerHTML = `Color : <span class="inline-block w-2 h-2 rounded-full bg-${product.color}-500"></span>`
+    
+            let productPriceWrapper = document.createElement('div')
+            productPriceWrapper.className = 'w-2/5 flex flex-col justify-between gap-2 ml-auto'
+            
+            let priceElem = document.createElement('span')
+            priceElem.className = 'text-gray-700 dark:text-white font-semibold text-xs text-center sm:text-sm'
+            priceElem.innerHTML = `$${product.finalPrice}`
+    
+            let quantityDetail = document.createElement('span')
+            quantityDetail.className = 'text-gray-900 dark:text-white font-bold text-sm text-center'
+            quantityDetail.innerHTML = `Quantity : ${product.quantity}`
+            
+            let productRemoveBtn = document.createElement('button')
+            productRemoveBtn.className = 'bg-red-500 hover:bg-red-600 transition py-px px-[2px] rounded-md text-white font-semibold'
+            productRemoveBtn.innerHTML = 'Remove'
+            
+            productRemoveBtn.addEventListener('click' , e => {
+                removeProductFromBasket(product.id)
+            })
+    
+            imageWrapper.append(imgElem)
+            productDetailsElem.append(sizeDetail , colorDetail)
+            detailsWrapper.append(productNameElem , productDetailsElem)
+            productPriceWrapper.append(quantityDetail , priceElem , productRemoveBtn)
+            productInfosWrapper.append( detailsWrapper , productPriceWrapper)
+            liElem.append(imageWrapper , productInfosWrapper )
+            basketFragment.append(liElem)
         })
-
-        imageWrapper.append(imgElem)
-        productDetailsElem.append(sizeDetail , colorDetail)
-        detailsWrapper.append(productNameElem , productDetailsElem)
-        productPriceWrapper.append(quantityDetail , priceElem , productRemoveBtn)
-        liElem.append(imageWrapper , detailsWrapper , productPriceWrapper)
-        basketFragment.append(liElem)
-    })
-    basketProductWrapper.append(basketFragment)
-    totalPriceElem.innerHTML = `$${userBasket.reduce((sum , current) => sum + (current.quantity * current.finalPrice) , 0)}`
+        basketProductWrapper.append(basketFragment)
+        totalPriceElem.innerHTML = `$${userBasket.reduce((sum , current) => sum + (current.quantity * current.finalPrice) , 0)}`
+    }
 }
 
 
@@ -245,7 +254,7 @@ function createHeaderProducts(products){
             </div>
             <div class="w-full  flex items-center justify-between pb-1">
                 <span class="font-bold text-gray-700 dark:text-white"><span class="line-through decoration-gray-400 text-gray-400">$${product.price}</span> $${product.finalPrice}</span>
-                <a href="./product.html?p=${product.id}" class="inline-block bg-secondary hover:scale-110 transition-transform p-[2px] rounded-full">
+                <a href="./product.html?p=${product.id}" class="inline-block bg-secondary dark:bg-sky-700 hover:scale-110 transition-transform p-[2px] rounded-full">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 stroke-white">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
