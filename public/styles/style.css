@@ -3132,6 +3132,11 @@ nav ul .active::after {
   color: rgb(56 189 248 / var(--tw-text-opacity));
 }
 
+:is(.dark .dark\:text-sky-500) {
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity));
+}
+
 :is(.dark .dark\:text-slate-800) {
   --tw-text-opacity: 1;
   color: rgb(30 41 59 / var(--tw-text-opacity));
@@ -3140,11 +3145,6 @@ nav ul .active::after {
 :is(.dark .dark\:text-white) {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:text-sky-500) {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:ring-offset-slate-700) {
@@ -3193,19 +3193,14 @@ nav ul .active::after {
   color: rgb(96 165 250 / var(--tw-text-opacity)) !important;
 }
 
-:is(.dark .dark\:hover\:text-white:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-:is(.dark :is(.dark .dark\:hover\:dark\:text-sky-500):hover) {
-  --tw-text-opacity: 1;
-  color: rgb(14 165 233 / var(--tw-text-opacity));
-}
-
 :is(.dark .dark\:hover\:text-sky-500:hover) {
   --tw-text-opacity: 1;
   color: rgb(14 165 233 / var(--tw-text-opacity));
+}
+
+:is(.dark .dark\:hover\:text-white:hover) {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:focus\:outline-slate-500:focus) {
@@ -3726,10 +3721,6 @@ nav ul .active::after {
 
   .lg\:w-1\/3 {
     width: 33.333333%;
-  }
-
-  .lg\:w-\[10\%\] {
-    width: 10%;
   }
 
   .lg\:w-\[90\%\] {

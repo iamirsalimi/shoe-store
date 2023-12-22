@@ -471,7 +471,6 @@ function showOrderDetailsHandler(orderObj){
 
 
 function showUserOrdersHandler(orders){
-    console.log(orders , orders.length , !orders.length)
     let ordersTable = document.querySelector('#ordersTable')
     let userTableMessage = ordersTable.parentNode.nextElementSibling 
     if(!orders.length){
@@ -575,6 +574,8 @@ async function addOrderToUserOrders(orders){
             userBasket = []
             let newUserBasket = {basket : [...userBasket]}
             updateUserBasket(newUserBasket)
+            userObj.basket = [...userBasket]
+            userObj.orders = [...orders]
             showUserBasket()
             showUserInfos(userObj)
             showUserOrdersHandler(orders)

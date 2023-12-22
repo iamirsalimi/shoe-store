@@ -247,7 +247,7 @@ async function loginUserHandler(e){
     
     let errWrapper = e.target.querySelector('#err-wrapper')
     
-    let userObject = await isUserInUsers(userNameInput.value.toLowerCase())
+    let userObject = await isUserInUsers(userNameInput.value.trim().toLowerCase())
     
     if(userObject){
         if(passwordInput.value.toLowerCase() === userObject.password){
@@ -282,11 +282,11 @@ async function registerUserHandler(e){
 
     let targetForm = e.target
 
-    let firstName = targetForm.querySelector('#firstname').value.toLowerCase()
-    let lastName = targetForm.querySelector('#lastname').value.toLowerCase()
-    let email = targetForm.querySelector('#email').value.toLowerCase()
-    let userName = targetForm.querySelector('#username').value.toLowerCase()
-    let password = passInput.value.toLowerCase()
+    let firstName = targetForm.querySelector('#firstname').value.trim().toLowerCase()
+    let lastName = targetForm.querySelector('#lastname').value.trim().toLowerCase()
+    let email = targetForm.querySelector('#email').value.trim().toLowerCase()
+    let userName = targetForm.querySelector('#username').value.trim().toLowerCase()
+    let password = passInput.value.trim().toLowerCase()
 
     let newUserObj = new User(firstName , lastName , userName , password , email)
 

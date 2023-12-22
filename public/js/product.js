@@ -257,7 +257,7 @@ function showProductDetails(productObj){
         </div>`
     }).join('')
 
-    addToWishListBtn.firstElementChild.innerHTML = isProductInUserWishList(productObj.id) ? 'Remove From WishList' : 'Add To WishList' 
+    addToWishListBtn.firstElementChild.innerHTML = isProductInUserWishList(productObj.id) ? 'Remove From Wish List' : 'Add To Wish List' 
 
     productReviews = productObj?.reviews || []
 
@@ -335,7 +335,7 @@ function showProductDetails(productObj){
             } else {
                 Swal.fire({
                     icon: "info",
-                    title: `You Can't Add Comment ${!userObj ? ', Please Login First' : 'You Are Not a Customer'}`,
+                    title: `You Can't Like This Comment ${!userObj ? ', Please Login First' : 'You Are Not a Customer'}`,
                     showConfirmButton: false,
                     timer: 3000
                 })
@@ -539,6 +539,7 @@ async function getUserAndProductDetailsHandler(){
     }
 
     userObj = await getUsersAndProductsHandler()
+    wishList = userObj?.wishlist || []
 
     let productId = new URLSearchParams(location.search).get('p')
     
@@ -558,7 +559,6 @@ async function getUserAndProductDetailsHandler(){
     // If there is a user is users, it will return true and we don't need to disable the comments button
     if(userObj){
         addCommentBtn.removeAttribute('disabled')
-        wishList = userObj?.wishlist || []
         userBasket = userObj?.basket || []
         showUserBasket(userBasket)
         if(userObj.role === 'admin'){
