@@ -3,25 +3,25 @@
 @tailwind utilities;
 
 #tabs .notactive{
-    @apply  text-white bg-purple-800 hover:bg-purple-900 transition-colors;
+    @apply  text-white bg-sky-800 hover:bg-sky-900 transition-colors;
 }
 
 #login-form input:focus ~ label,
 #register-form input:focus ~ label{
-    @apply text-purple-700;
+    @apply text-sky-700;
 }
 
 #login-form input:focus ~ #showAndHidePass svg,
 #register-form input:focus ~ #showAndHidePass svg{
-    @apply stroke-purple-700 stroke-2;
+    @apply stroke-sky-700 stroke-2;
 }
 
 #login-form #rememberMe:checked ~ p{
-    @apply text-purple-700;
+    @apply text-sky-700;
 }
 
 #login-form #rememberMe:checked ~ label{
-    @apply bg-purple-700 border-none;
+    @apply bg-sky-700 border-none;
 }
 
 #form-wrapper .active{
@@ -29,5 +29,5 @@
 }
 
 .swal-button {
-    @apply bg-purple-700 transition-colors text-white font-bold py-2 px-5 rounded-lg text-xl text-center;
+    @apply bg-sky-700 transition-colors text-white font-bold py-2 px-5 rounded-lg text-xl text-center;
 }
