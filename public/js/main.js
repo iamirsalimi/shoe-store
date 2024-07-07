@@ -384,7 +384,7 @@ function createProductsHandler(products){
     let filteredByOrderNumbers = products.slice().sort((a , b) => b.orderNumbers - a.orderNumbers)
     // We need two of our most discounted products to be displayed in the header, which are provided by two EL indexes
     createHeaderProducts(filteredByDiscountProducts.slice(0,2))
-    createSliderProducts([...products.reverse().slice(0, 7)])
+    createSliderProducts([...products.filter(product => product.isInSlider)])
     createProducts(filteredByOrderNumbers.slice(0,6))
 }
 

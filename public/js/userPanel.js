@@ -650,7 +650,8 @@ async function addOrderToPurchases(newOrder){
 
 async function payOrderHandler(){
     try{
-        await addOrderToUserOrders(newOrder)
+        console.log(newOrder)
+        await addOrderToUserOrders({...newOrder}.numberOfOrders = userObj.numberOfOrders + newOrder.orders[newOrder.orders.length-1].products.length)
         let newOrderObject = {...newOrderObj}
         newOrderObject.customerId = userObj.id
         newOrderObject.customerUsername  = userObj.userName
@@ -1166,10 +1167,12 @@ async function getUsersAndProductsDetailsHandler(){
             showUserOrdersHandler(orders)
             showWishListProducts(userObj.wishlist)
         } else {
-            location.href = 'https://iamirsalimi.github.io/shoe-store/public/adminPanel.html'
+            location.href = '127.0.0.1:5500/public/adminPanel.html'
+            // location.href = '127.0.0.1:5500/public/adminPanel.html'
         }
     } else {
         location.href = 'https://iamirsalimi.github.io/shoe-store/public/index.html'
+        // location.href = '127.0.0.1:5500/public/index.html'
     }
 
     loader.classList.add('fadeOut')
